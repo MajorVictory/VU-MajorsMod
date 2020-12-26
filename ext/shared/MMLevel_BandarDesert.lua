@@ -8,7 +8,7 @@ function MMLevel_BandarDesert:__init()
     self.loaded = false
 
     --Events:Subscribe('Level:RegisterEntityResources', self.onRegisterEntityResources)
-    Events:Subscribe('Partition:Loaded', self, self.OnPartitionLoaded)
+    --Events:Subscribe('Partition:Loaded', self, self.OnPartitionLoaded)
     Events:Subscribe('Level:LoadResources', self, self.OnLoadResources)
 end
 
@@ -115,21 +115,21 @@ end
 
 function MMLevel_BandarDesert:OnLoadResources( levelName, gameMode, isDedicated )
     print("Mounting Bundles...")
-    --ResourceManager:MountSuperBundle('Levels/XP3_Desert/XP3_Desert')
+    ResourceManager:MountSuperBundle('Levels/MP_007/MP_007')
+    ResourceManager:MountSuperBundle('XP3Chunks')
+    ResourceManager:MountSuperBundle('Levels/XP3_Desert/XP3_Desert')
 end
 
 Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bundles, compartment)
-    
     if #bundles == 1 and bundles[1] == SharedUtils:GetLevelName() then
         print('Injecting Bundles...')
-
         bundles = {
-            'Levels/XP3_Desert/RushLarge0',
+            'Levels/MP_007/MP_007',
+            'Levels/MP_007/Rush',
             bundles[1],
+            'Levels/XP3_Desert/RushLarge0',
         }
-
         hook:Pass(bundles, compartment)
-
         print('Bundles injected: '..dump(bundles))
     end
 end)
