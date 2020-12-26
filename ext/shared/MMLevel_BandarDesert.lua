@@ -103,7 +103,6 @@ end
 
 function MMLevel_BandarDesert:OnLoadResources( levelName, gameMode, isDedicated )
     print("Mounting Bundles...")
-    ResourceManager:MountSuperBundle('Levels/MP_007/MP_007')
 end
 
 Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bundles, compartment)
@@ -112,13 +111,13 @@ Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bundles, compar
         print('Injecting Bundles...')
 
         bundles = {
+            'Levels/XP3_Desert/RushLarge0',
             bundles[1],
-            'Levels/MP_007/MP_007',
         }
 
         hook:Pass(bundles, compartment)
 
-        print('Bundles injected: '..tabledump(bundles))
+        print('Bundles injected: '..dump(bundles))
     end
 end)
 
