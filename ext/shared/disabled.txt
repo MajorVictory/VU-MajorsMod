@@ -1,0 +1,40 @@
+
+Events:Subscribe('Partition:Loaded', function(partition)
+
+    if partition.guid ~= Guid(MMResources.bullet338.Partition) then
+        return
+    end
+
+    local bullet338Instance = getInstance('bullet338')
+    local bullet338NewData = BulletEntityData(bullet338Instance:Clone(Guid(MMResources.bullet338.Instance)))
+
+	bullet338NewData.initialSpeed = 5000
+	bullet338NewData.timeToLive = 1.0
+	bullet338NewData.startDamage = 966969
+	bullet338NewData.endDamage = 966969
+	bullet338NewData.damageFalloffStartDistance = 9000
+	bullet338NewData.damageFalloffEndDistance = 9001
+	MMResources.bullet338clone.Instance = bullet338NewData.instanceGuid:ToString('D')
+
+    partition:AddInstance(bullet338NewData)
+    print("bullet338 cloned: "..MMResources.bullet338clone.Instance)
+end)
+
+Events:Subscribe('Level:RegisterEntityResources', function(levelData)
+ 
+    local partition = ResourceManager:FindDatabasePartition(Guid(MMResources.bullet338clone.Partition))
+
+    local bullet338NewData = BulletEntityData(getInstance('bullet338clone'))
+
+    local registry = RegistryContainer()
+    registry.entityRegistry:add(bullet338NewData)
+    ResourceManager:AddRegistry(registry, ResourceCompartment.ResourceCompartment_Game)
+    print("bullet338 added")
+
+    MMResources.m98.Loaded = false
+	MMResources.bullet338.Loaded = false
+	-- set new projectile for m98 using cloned 338 original
+	ChangeWeaponProjectile('m98', MMResources.bullet338clone.Instance, 25)
+	print('Changed M98 Projectile...')
+
+end)

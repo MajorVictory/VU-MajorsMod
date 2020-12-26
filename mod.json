@@ -1,0 +1,11 @@
+{
+    "Name": "Major's Mod",
+    "Description": "Stunts mod for Battlefield 3: Venice Unleashed",
+    "Version": "1.0.0",
+    "Authors": [ "MajorVictory87" ],
+    "HasVeniceEXT": true,
+    "Dependencies": {
+        "veniceext": "^1.0.0"
+    },
+    "Tags": [ "stunts", "fun", "crazy", "explosions" ]
+}
