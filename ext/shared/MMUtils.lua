@@ -20,7 +20,7 @@ end
 
 function dump(o)
     if(o == nil) then
-        print("tried to load jack shit")
+        print("nil")
     end
    if type(o) == 'table' then
       local s = '{ '

@@ -246,16 +246,6 @@ function MMVehicles:Write(mmResources)
 		rotorData.horisontalMinEffectVelocity = 100
 		print('Changed AH6-J Rotors...')
 	end
-
-	if (mmResources:IsLoaded('civcar03engine') and mmResources:IsLoaded('simplecarenginesound') and false) then
-		mmResources:SetLoaded('civcar03engine', false)
-		mmResources:SetLoaded('simplecarenginesound', false)
-
-		local engineData = EngineComponentData(mmResources:GetInstance('civcar03engine'))
-		engineData:MakeWritable()
-		engineData.soundEffect = SoundPatchAsset(mmResources:GetInstance('simplecarenginesound'))
-		print('Changed CivCar03 Engine...')
-	end
 end
 
 return MMVehicles()

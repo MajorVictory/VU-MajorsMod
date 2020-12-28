@@ -10,7 +10,7 @@ function MMWeapons:Write(mmResources)
 		supplySphereData.receivesExplosionDamage = false
 
 		supplySphereData.supplyData.healing.radius = 9000
-		supplySphereData.supplyData.healing.supplyIncSpeed = 1
+		supplySphereData.supplyData.healing.supplyIncSpeed = 69
 		supplySphereData.supplyData.healing.infiniteCapacity = true
 		supplySphereData.supplyData.healing.supplyPointsRefillSpeed = 1
 		supplySphereData.supplyData.healing.supplyPointsCapacity = 1
@@ -56,6 +56,16 @@ function MMWeapons:Write(mmResources)
 		print('Changed M98 FireData...')
 	end
 
+	if (mmResources:IsLoaded('aek971')) then
+		mmResources:SetLoaded('aek971', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('aek971'))
+		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 5
+		fireData.ammo.numberOfMagazines = 20
+		print('Changed AEK971 FireData...')
+	end
+
 	if (mmResources:IsLoaded('bullet338')) then
 		mmResources:SetLoaded('bullet338', false)
 
@@ -87,8 +97,9 @@ function MMWeapons:Write(mmResources)
 
 		local expEntityData = ExplosionPackEntityData(mmResources:GetInstance('c4expentity'))
 		expEntityData:MakeWritable()
+		expEntityData.health = 1
 		expEntityData.maxCount = 25
-		print('Changed C4 Explosion Entity...')
+		print('Changed C4 Entity...')
 	end
 
 	if (mmResources:IsLoaded('c4exp')) then
@@ -97,15 +108,56 @@ function MMWeapons:Write(mmResources)
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('c4exp'))
 		expData:MakeWritable()
 		expData.blastDamage = 0
-		expData.blastRadius = 15
+		expData.blastRadius = 4
 		expData.blastImpulse = 90001
 		expData.shockwaveDamage = 0.1
-		expData.shockwaveRadius = 15
+		expData.shockwaveRadius = 4
 		expData.shockwaveImpulse = 90001
 		expData.shockwaveTime = 0
 		expData.triggerImpairedHearing = false
 		expData.isCausingSuppression = false
 		print('Changed C4 Explosion...')
+	end
+
+	if (mmResources:IsLoaded('m15')) then
+		mmResources:SetLoaded('m15', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('m15'))
+		fireData:MakeWritable()
+		fireData.ammo.numberOfMagazines = 4
+		fireData.ammo.autoReplenishDelay = 0.1
+		fireData.ammo.ammoBagPickupDelayMultiplier = 0.1
+
+		fireData.fireLogic.rateOfFire = 250.0
+		print('Changed M15 AT Mine...')
+	end
+
+	if (mmResources:IsLoaded('m15expentity')) then
+		mmResources:SetLoaded('m15expentity', false)
+
+		local expEntityData = ExplosionPackEntityData(mmResources:GetInstance('m15expentity'))
+		expEntityData:MakeWritable()
+		expEntityData.maxAttachableInclination = 180
+		expEntityData.health = 1
+		expEntityData.maxCount = 1
+		print('Changed M15 AT Mine Entity...')
+	end
+
+	if (mmResources:IsLoaded('m15exp')) then
+		mmResources:SetLoaded('m15exp', false)
+
+		local expData = VeniceExplosionEntityData(mmResources:GetInstance('m15exp'))
+		expData:MakeWritable()
+		expData.blastDamage = 0
+		expData.blastRadius = 4
+		expData.blastImpulse = 150000
+		expData.shockwaveDamage = 0.1
+		expData.shockwaveRadius = 4
+		expData.shockwaveImpulse = 150000
+		expData.shockwaveTime = 0
+		expData.triggerImpairedHearing = false
+		expData.isCausingSuppression = false
+		print('Changed M15 AT Mine Explosion...')
 	end
 end
 
