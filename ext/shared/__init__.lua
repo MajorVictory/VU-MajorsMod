@@ -8,9 +8,9 @@ mmResources = require('__shared/MMResources')
 mmPlayers = require('__shared/MMPlayers')
 mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
+--require('__shared/MMBundles')
 
 -- load level specific changes
---require('__shared/MMBundles')
 MMLevel_BandarDesert = require('__shared/MMLevel_BandarDesert')
 
 
@@ -30,8 +30,9 @@ end
 -- global vehicle "Sturdification"
 Events:Subscribe('Partition:Loaded', function(partition)
 	for _, instance in pairs(partition.instances) do
-		if (instance:Is('VehicleEntityData')) then
-	  		local vehicleData = VehicleEntityData(instance)
+		if (instance:Is('VehicleEntityData') and not mmResources:IsSturdifyBlacklisted(instance)) then
+		  	local vehicleData = VehicleEntityData(instance)
+
 			vehicleData:MakeWritable()
 			vehicleData.upsideDownDamage = 0
 			vehicleData.waterDamage = 0

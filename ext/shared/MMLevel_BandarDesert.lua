@@ -7,8 +7,7 @@ function MMLevel_BandarDesert:__init()
     self.replaced = true
     self.loaded = false
 
-    --Events:Subscribe('Level:RegisterEntityResources', self.onRegisterEntityResources)
-    --Events:Subscribe('Partition:Loaded', self, self.OnPartitionLoaded)
+    Events:Subscribe('Level:RegisterEntityResources', self.onRegisterEntityResources)
     Events:Subscribe('Level:LoadResources', self, self.OnLoadResources)
 end
 
@@ -60,62 +59,12 @@ function MMLevel_BandarDesert:onRegisterEntityResources(levelData)
     ResourceManager:AddRegistry(BandarResourceContainer, ResourceCompartment.ResourceCompartment_Game)
 end
 
-function MMLevel_BandarDesert:OnPartitionLoaded(partition)
-    if partition == nil then
-        return
-    end
-
-   if (partition.guid == Guid(mmResources:Get('a10').Partition)) then
-        if (self.loaded == false) then
-            self.loaded = true
-
-            print('Adding instances to partition')
-
-            for resourceName, resourceData in pairs(mmResources:Get()) do
-                if (resourceData.Entities) then
-                    print("Adding Entities ["..resourceName.."]...")
-                    for i = 1, #resourceData.Entities do
-                        local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Entities[i]))
-                        if (res) then
-                            print("["..i.."] Added: "..res.typeInfo.name)
-                            partition:AddInstance(res)
-                        else
-                            print("["..i.."] Failed: "..resourceData.LogicReferrence[i])
-                        end
-                    end
-                end
-                if (resourceData.Blueprints) then
-                    print("Adding Blueprints ["..resourceName.."]...")
-                    for i = 1, #resourceData.Blueprints do
-                        local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Blueprints[i]))
-                        if (res) then
-                            print("["..i.."] Added: "..res.typeInfo.name)
-                            partition:AddInstance(res)
-                        else
-                            print("["..i.."] Failed: "..resourceData.LogicReferrence[i])
-                        end
-                    end
-                end
-                if (resourceData.LogicReferrence) then
-                    print("Adding Logic Referrences ["..resourceName.."]...")
-                    for i = 1, #resourceData.LogicReferrence do
-                        local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.LogicReferrence[i]))
-                        if (res) then
-                            print("["..i.."] Added: "..res.typeInfo.name)
-                            partition:AddInstance(res)
-                        else
-                            print("["..i.."] Failed: "..resourceData.LogicReferrence[i])
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-
 function MMLevel_BandarDesert:OnLoadResources( levelName, gameMode, isDedicated )
     print("Mounting Bundles...")
+    ResourceManager:MountSuperBundle('SPChunks')
+    ResourceManager:MountSuperBundle('MPChunks')
     ResourceManager:MountSuperBundle('Levels/MP_007/MP_007')
+    ResourceManager:MountSuperBundle('Levels/SP_Tank/SP_Tank')
     ResourceManager:MountSuperBundle('XP3Chunks')
     ResourceManager:MountSuperBundle('Levels/XP3_Desert/XP3_Desert')
 end
@@ -126,6 +75,8 @@ Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bundles, compar
         bundles = {
             'Levels/MP_007/MP_007',
             'Levels/MP_007/Rush',
+            'Levels/SP_Tank/SP_Tank',
+            'Levels/SP_Tank/HighwayToTeheran_01',
             bundles[1],
             'Levels/XP3_Desert/RushLarge0',
         }

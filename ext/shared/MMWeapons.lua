@@ -9,17 +9,14 @@ function MMWeapons:Write(mmResources)
 		supplySphereData:MakeWritable()
 		supplySphereData.receivesExplosionDamage = false
 
-		supplySphereData.supplyData.supplySoldiers = true
-		supplySphereData.supplyData.supplyVehicles = true
-
-		supplySphereData.supplyData.healing.radius = 100
-		supplySphereData.supplyData.healing.supplyIncSpeed = 2
+		supplySphereData.supplyData.healing.radius = 9000
+		supplySphereData.supplyData.healing.supplyIncSpeed = 1
 		supplySphereData.supplyData.healing.infiniteCapacity = true
 		supplySphereData.supplyData.healing.supplyPointsRefillSpeed = 1
 		supplySphereData.supplyData.healing.supplyPointsCapacity = 1
 
-		supplySphereData.supplyData.ammo.radius = 100
-		supplySphereData.supplyData.ammo.supplyIncSpeed = 2
+		supplySphereData.supplyData.ammo.radius = 9000
+		supplySphereData.supplyData.ammo.supplyIncSpeed = 1
 		supplySphereData.supplyData.ammo.infiniteCapacity = true
 		supplySphereData.supplyData.ammo.supplyPointsRefillSpeed = 1
 		supplySphereData.supplyData.ammo.supplyPointsCapacity = 1

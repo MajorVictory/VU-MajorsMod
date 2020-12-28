@@ -61,13 +61,28 @@ self.MMResources["yump"]["Loaded"] = false
 
 self.MMResources["m1abrams"] = {}
 self.MMResources["m1abrams"]["Partition"] = 'B069BA89-EECF-11DD-8117-9421284A74E5'
-self.MMResources["m1abrams"]["Instance"] = 'B06A08AC-EECF-11DD-8117-9421284A74E5'
+self.MMResources["m1abrams"]["Instance"] = 'BE4ECA89-2682-4F0B-BA0A-5CECD4D25722'
 self.MMResources["m1abrams"]["Loaded"] = false
+
+self.MMResources["m1abramsshot"] = {}
+self.MMResources["m1abramsshot"]["Partition"] = 'D684EC68-0FE9-4DF1-A732-9279BBA202F8'
+self.MMResources["m1abramsshot"]["Instance"] = 'AB939926-0BAF-6C4F-22D8-6074F0D78EF9'
+self.MMResources["m1abramsshot"]["Loaded"] = false
+
+self.MMResources["m1abramsshell"] = {}
+self.MMResources["m1abramsshell"]["Partition"] = 'D684EC68-0FE9-4DF1-A732-9279BBA202F8'
+self.MMResources["m1abramsshell"]["Instance"] = 'F8903680-77AE-4D0C-88B7-88E5407CE897'
+self.MMResources["m1abramsshell"]["Loaded"] = false
 
 self.MMResources["m1abramsengine"] = {}
 self.MMResources["m1abramsengine"]["Partition"] = 'B069BA89-EECF-11DD-8117-9421284A74E5'
 self.MMResources["m1abramsengine"]["Instance"] = 'B06A08CE-EECF-11DD-8117-9421284A74E5'
 self.MMResources["m1abramsengine"]["Loaded"] = false
+
+self.MMResources["m1abramswheel"] = {}
+self.MMResources["m1abramswheel"]["Partition"] = 'B069BA89-EECF-11DD-8117-9421284A74E5'
+self.MMResources["m1abramswheel"]["Instance"] = 'B06A08B3-EECF-11DD-8117-9421284A74E5'
+self.MMResources["m1abramswheel"]["Loaded"] = false
 
 self.MMResources["mbtcannon"] = {}
 self.MMResources["mbtcannon"]["Partition"] = 'B069BA89-EECF-11DD-8117-9421284A74E5'
@@ -110,6 +125,42 @@ self.MMResources["humveehorn"]["Partition"] = '611F48A3-0919-11E0-985D-C512734E4
 self.MMResources["humveehorn"]["Instance"] = 'EEC68041-9AF5-497B-94C4-B576D8A033C0'
 self.MMResources["humveehorn"]["Loaded"] = false
 
+
+self.MMResources["growlerengine"] = {}
+self.MMResources["growlerengine"]["Partition"] = 'CF5166FD-6B60-11E0-8ACE-C75FA07B1C42'
+self.MMResources["growlerengine"]["Instance"] = 'FCE0343A-4366-4C12-A139-381585552777'
+self.MMResources["growlerengine"]["Loaded"] = false
+
+self.MMResources["growlerhorn"] = {}
+self.MMResources["growlerhorn"]["Partition"] = 'CF5166FD-6B60-11E0-8ACE-C75FA07B1C42'
+self.MMResources["growlerhorn"]["Instance"] = '4C6B9387-C2FC-40BA-BDC0-E79B70A817BB'
+self.MMResources["growlerhorn"]["Loaded"] = false
+
+self.MMResources["growlerwheelsfront"] = {}
+self.MMResources["growlerwheelsfront"]["Partition"] = 'CF5166FD-6B60-11E0-8ACE-C75FA07B1C42'
+self.MMResources["growlerwheelsfront"]["Instance"] = '1564DF08-243A-488A-8C01-8D63CA647FED'
+self.MMResources["growlerwheelsfront"]["Loaded"] = false
+
+self.MMResources["growlerwheelsback"] = {}
+self.MMResources["growlerwheelsback"]["Partition"] = 'CF5166FD-6B60-11E0-8ACE-C75FA07B1C42'
+self.MMResources["growlerwheelsback"]["Instance"] = '1460C730-CB73-4BD4-B558-C1F1D4FE5C01'
+self.MMResources["growlerwheelsback"]["Loaded"] = false
+
+self.MMResources["m1128engine"] = {}
+self.MMResources["m1128engine"]["Partition"] = '3EE37540-9833-11E1-A26B-A2AC6EC60B20'
+self.MMResources["m1128engine"]["Instance"] = 'FD6D9474-0F4E-483A-943D-16C6FF949545'
+self.MMResources["m1128engine"]["Loaded"] = false
+
+
+self.MMResources["ah6engine"] = {}
+self.MMResources["ah6engine"]["Partition"] = 'FD8AB747-FF4D-11DD-A7B1-F7C6DEEC9D32'
+self.MMResources["ah6engine"]["Instance"] = '15AB2B27-FF4E-11DD-A7B1-F7C6DEEC9D32'
+self.MMResources["ah6engine"]["Loaded"] = false
+
+self.MMResources["ah6rotors"] = {}
+self.MMResources["ah6rotors"]["Partition"] = 'FD8AB747-FF4D-11DD-A7B1-F7C6DEEC9D32'
+self.MMResources["ah6rotors"]["Instance"] = '15AB2B28-FF4E-11DD-A7B1-F7C6DEEC9D32'
+self.MMResources["ah6rotors"]["Loaded"] = false
 
 
 self.MMResources["pose_stand"] = {}
@@ -181,9 +232,53 @@ a10logic[#a10logic+1] = '8FBCD462-B87C-465F-91D4-658D992CC8FD' -- A10_THUNDERBOL
 a10logic[#a10logic+1] = '74311DF0-1047-47DD-9920-DF09857ADD2E' -- A10_THUNDERBOLT
 self.MMResources["a10"]["LogicReferrence"] = a10logic
 
+self.MMResources["civcar03"] = {}
+self.MMResources["civcar03"]["Partition"] = '1A52E780-FEF6-11DF-B32D-B2D8A97C362D'
+self.MMResources["civcar03"]["Instance"] = '4547A158-030C-B7B4-9043-4ADB726FAF8C'
+self.MMResources["civcar03"]["Loaded"] = false
+self.MMResources["civcar03"]["Blueprints"] = {'4547A158-030C-B7B4-9043-4ADB726FAF8C', '9A02F5D2-33F2-11DE-99D3-98DCCAF38B4D'}
+self.MMResources["civcar03"]["Entities"] = {'8C7B446F-8BBC-780F-F25B-4328A7BC2303'}
+
+self.MMResources["civcar03engine"] = {}
+self.MMResources["civcar03engine"]["Partition"] = '1A52E780-FEF6-11DF-B32D-B2D8A97C362D'
+self.MMResources["civcar03engine"]["Instance"] = '12F45D91-4D34-49C6-897F-2EB8ECA9F070'
+self.MMResources["civcar03engine"]["Loaded"] = false
+
+self.MMResources["simplecarenginesound"] = {}
+self.MMResources["simplecarenginesound"]["Partition"] = '3203023E-4A22-4B10-9698-E994174BF557'
+self.MMResources["simplecarenginesound"]["Instance"] = '509CCE6F-7363-441E-A062-71419DCFD50E'
+self.MMResources["simplecarenginesound"]["Loaded"] = false
+
+self.MMResources["deliveryvan"] = {}
+self.MMResources["deliveryvan"]["Partition"] = 'FF60B55F-7BEA-11E0-B9A5-818EB3538184'
+self.MMResources["deliveryvan"]["Instance"] = '74D984EC-29FD-365A-5052-41E81AFB6DEC'
+self.MMResources["deliveryvan"]["Loaded"] = false
+self.MMResources["deliveryvan"]["Blueprints"] = {'74D984EC-29FD-365A-5052-41E81AFB6DEC'}
+self.MMResources["deliveryvan"]["Entities"] = {'2CB916D5-51C6-18BC-7685-3E417DE1C48F'}
+
+
+self.SturdifyBlacklist = {}
+self.SturdifyBlacklist["18178664-DDBD-55C8-8D69-3E05030CA399"] = true -- T-UGS_Vehicle
+self.SturdifyBlacklist["3F6D23B3-9520-F810-1F95-1CE64C22B30C"] = true -- SOFLAM
+self.SturdifyBlacklist["C6248092-D0A7-EB93-F1E4-B5405F370180"] = true -- MAV
+self.SturdifyBlacklist["DBE1A4B1-EF7B-4F22-7737-848A88968D7F"] = true -- RadioBeacon_Projectile
+self.SturdifyBlacklist["D9183C94-D7DC-9809-30CA-721793BB2E04"] = true -- AGM-144_Hellfire_TV
+self.SturdifyBlacklist["CRAM"] = true
+self.SturdifyBlacklist["Kornet"] = true
+self.SturdifyBlacklist["TOW"] = true
+self.SturdifyBlacklist["GUNSHIP"] = true
 
 end
 
+
+
+function MMResources:IsLoaded(resourceName)
+	return self.MMResources[resourceName].Loaded
+end
+
+function MMResources:SetLoaded(resourceName, value)
+	self.MMResources[resourceName].Loaded = value
+end
 
 function MMResources:Get(resourceName)
 	if (resourceName ~= nil) then
@@ -193,19 +288,23 @@ function MMResources:Get(resourceName)
 	end
 end
 
-function MMResources:IsLoaded(resourceName)
-	return self.MMResources[resourceName].Loaded
-end
-function MMResources:SetLoaded(resourceName, value)
-	self.MMResources[resourceName].Loaded = value
-end
-
 function MMResources:GetPartition(resourceName)
 	return ResourceManager:FindDatabasePartition(Guid(self.MMResources[resourceName].Partition))
 end
 
 function MMResources:GetInstance(resourceName)
 	return ResourceManager:FindInstanceByGuid(Guid(self.MMResources[resourceName].Partition), Guid(self.MMResources[resourceName].Instance))
+end
+
+
+function MMResources:IsSturdifyBlacklisted(instance)
+	if (instance:Is('VehicleEntityData')) then
+		local vehicleData = VehicleEntityData(instance)
+
+		return (self.SturdifyBlacklist[instance.instanceGuid:ToString('D')] == true or vehicleData.nameSid == '' or self.SturdifyBlacklist[vehicleData.nameSid] == true)
+	else
+		return self.SturdifyBlacklist[instance.instanceGuid:ToString('D')] == true
+	end
 end
 
 return MMResources()
