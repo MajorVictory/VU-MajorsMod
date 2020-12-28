@@ -246,6 +246,29 @@ function MMVehicles:Write(mmResources)
 		rotorData.horisontalMinEffectVelocity = 100
 		print('Changed AH6-J Rotors...')
 	end
+
+	if (mmResources:IsLoaded('venomengine')) then
+		mmResources:SetLoaded('venomengine', false)
+
+		local engineData = PropellerEngineConfigData(mmResources:GetInstance('venomengine'))
+		engineData:MakeWritable()
+		engineData.enginePowerMultiplier = 5
+		engineData.forceMagnitudeMultiplier = 10
+		engineData.spForwardStrength = 75.0
+		engineData.spSidewaysStrength = 20.0
+		engineData.spVerticalStrength = 50.0
+		print('Changed Venom Engine...')
+	end
+
+	if (mmResources:IsLoaded('venomrotors')) then
+		mmResources:SetLoaded('venomrotors', false)
+
+		local rotorData = RotorParameters(mmResources:GetInstance('venomrotors'))
+		rotorData:MakeWritable()
+		rotorData.horizontalForceModifier = 10
+		rotorData.horisontalMinEffectVelocity = 100
+		print('Changed Venom Rotors...')
+	end
 end
 
 return MMVehicles()

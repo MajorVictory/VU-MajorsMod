@@ -8,11 +8,7 @@ mmResources = require('__shared/MMResources')
 mmPlayers = require('__shared/MMPlayers')
 mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
---require('__shared/MMBundles')
-
--- load level specific changes
-MMLevel_BandarDesert = require('__shared/MMLevel_BandarDesert')
-
+mmLevelManager = require('__shared/MMLevelManager')
 
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do

@@ -145,6 +145,15 @@ function MMResources:__init()
 	self.MMResources["ah6rotors"]["Instance"] = '15AB2B28-FF4E-11DD-A7B1-F7C6DEEC9D32'
 
 
+	self.MMResources["venomengine"] = {}
+	self.MMResources["venomengine"]["Partition"] = '97945D87-011D-11E0-B97C-FC495C335A52'
+	self.MMResources["venomengine"]["Instance"] = '2B590EC0-F63D-482F-B210-0C707C9B71DB'
+
+	self.MMResources["venomrotors"] = {}
+	self.MMResources["venomrotors"]["Partition"] = '97945D87-011D-11E0-B97C-FC495C335A52'
+	self.MMResources["venomrotors"]["Instance"] = 'CBA6B1C2-5690-4F23-9F2B-C24FB9C4958B'
+
+
 	self.MMResources["pose_stand"] = {}
 	self.MMResources["pose_stand"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
 	self.MMResources["pose_stand"]["Instance"] = '69A866A2-DF7C-4BAD-B55F-99536F2551F6'
@@ -171,6 +180,7 @@ function MMResources:__init()
 	self.MMResources["ammobag"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
 	self.MMResources["ammobag"]["Instance"] = '4AE515CE-846D-6070-5F56-1285B7E8E187'
 
+	-- vehicles can be imported by supplying blueprints, entities, and logic referrences required
 	self.MMResources["a10"] = {}
 	self.MMResources["a10"]["Partition"] = 'D07E3830-85FD-4C0E-819E-23640D2B2ECB'
 	self.MMResources["a10"]["Instance"] = '46B31051-405C-40E0-A7F0-62283823CC7C'
@@ -230,23 +240,62 @@ function MMResources:__init()
 	self.MMResources["deliveryvan"]["Blueprints"] = {'74D984EC-29FD-365A-5052-41E81AFB6DEC'}
 	self.MMResources["deliveryvan"]["Entities"] = {'2CB916D5-51C6-18BC-7685-3E417DE1C48F'}
 
-
-	self.SturdifyBlacklist = {}
-	self.SturdifyBlacklist["18178664-DDBD-55C8-8D69-3E05030CA399"] = true -- T-UGS_Vehicle
-	self.SturdifyBlacklist["3F6D23B3-9520-F810-1F95-1CE64C22B30C"] = true -- SOFLAM
-	self.SturdifyBlacklist["C6248092-D0A7-EB93-F1E4-B5405F370180"] = true -- MAV
-	self.SturdifyBlacklist["DBE1A4B1-EF7B-4F22-7737-848A88968D7F"] = true -- RadioBeacon_Projectile
-	self.SturdifyBlacklist["D9183C94-D7DC-9809-30CA-721793BB2E04"] = true -- AGM-144_Hellfire_TV
-	self.SturdifyBlacklist["CRAM"] = true
-	self.SturdifyBlacklist["Kornet"] = true
-	self.SturdifyBlacklist["TOW"] = true
-	self.SturdifyBlacklist["GUNSHIP"] = true
+	-- can be guid or instance.nameSid
+	-- prevents this 'vehicle' from having its properties changed
+	self.SturdifyBlacklist = {
+		["18178664-DDBD-55C8-8D69-3E05030CA399"] = true, -- T-UGS_Vehicle
+		["3F6D23B3-9520-F810-1F95-1CE64C22B30C"] = true, -- SOFLAM
+		["C6248092-D0A7-EB93-F1E4-B5405F370180"] = true, -- MAV
+		["DBE1A4B1-EF7B-4F22-7737-848A88968D7F"] = true, -- RadioBeacon_Projectile
+		["D9183C94-D7DC-9809-30CA-721793BB2E04"] = true, -- AGM-144_Hellfire_TV
+		["CRAM"] = true,
+		["Kornet"] = true,
+		["TOW"] = true,
+		["GUNSHIP"] = true,
+	}
 
 	for resourceName, resourceData in pairs(self.MMResources) do
 		self.MMResources[resourceName].Loaded = false
 	end
-end
 
+	-- level resources can specify what to mount and what order
+	self.MMResources["Levels/MP_007/MP_007"] = {
+		["Partition"] = 'CC4B754F-DC2D-11DF-B4FF-DE2D36FBFBF4',
+		["Registry"] = '958A27B8-F6B4-AE8C-4AE8-1FC8E2AB60BF',
+		["SuperBundles"] = {},
+		["Bundles"] = {'CURRENTLEVEL'},
+		["Vehicles"] = {} -- vehicles listed should be resources already registered
+	}
+
+	self.MMResources["Levels/XP3_Desert/XP3_Desert"] = {
+		["Partition"] = '4CA1C116-7FA3-4163-A17E-325ACD02FD4F',
+		["Registry"] = '273AC4A3-21D1-3D7E-B740-9387A30E1AF7',
+		["SuperBundles"] = {
+			'SPChunks',
+			'Levels/MP_007/MP_007',
+			'Levels/SP_Tank/SP_Tank',
+			'XP3Chunks',
+			'Levels/XP3_Desert/XP3_Desert'
+		},
+		["Bundles"] = {
+			'Levels/MP_007/MP_007',
+			'Levels/SP_Tank/SP_Tank',
+            'Levels/SP_Tank/HighwayToTeheran_01',
+            'Levels/XP3_Desert/RushLarge0',
+            'CURRENTLEVEL',
+		},
+		["Vehicles"] = {
+			'a10', 'civcar03', 'deliveryvan'
+		}
+	}
+
+	-- only insert supported maps
+	-- quick guid to name lookup table
+	self.MapLookup = {
+		['CC4B754F-DC2D-11DF-B4FF-DE2D36FBFBF4'] = 'Levels/MP_007/MP_007',
+		['4CA1C116-7FA3-4163-A17E-325ACD02FD4F'] = 'Levels/XP3_Desert/XP3_Desert'
+	}
+end
 
 
 function MMResources:IsLoaded(resourceName)
@@ -254,7 +303,7 @@ function MMResources:IsLoaded(resourceName)
 		print("Tried to check unregistered resource: "..tostring(resourceName))
 		return false
 	else
-		return self.MMResources[resourceName]["Loaded"]
+		return self.MMResources[resourceName].Loaded
 	end
 end
 
@@ -262,7 +311,7 @@ function MMResources:SetLoaded(resourceName, value)
 	if not self.MMResources[resourceName] then
 		print("Tried to set unregistered resource: "..tostring(resourceName))
 	else
-		self.MMResources[resourceName]["Loaded"] = value
+		self.MMResources[resourceName].Loaded = value
 	end
 end
 
@@ -271,6 +320,14 @@ function MMResources:Get(resourceName)
 		return self.MMResources[resourceName]
 	else
 		return self.MMResources
+	end
+end
+
+function MMResources:GetMap(guid)
+	if (guid ~= nil) then
+		return self.MapLookup[guid:ToString('D')]
+	else
+		return self.MapLookup
 	end
 end
 
@@ -289,6 +346,7 @@ function MMResources:AddToPartition(resourceName, partition)
 	end
 
     print('Adding '..resourceName..' instances to partition...')
+    self.MMResources[resourceName].Register = true
 	local resourceData = self.MMResources[resourceName]
 
 	if (resourceData.Entities) then
@@ -332,47 +390,57 @@ end
 function MMResources:CreateRegistryContainer()
 	local resourceContainer = RegistryContainer()
     
-    print('Adding instances to registry')
+    print('Creating instance registry...')
+    local registrySize = 0
 
     for resourceName, resourceData in pairs(self.MMResources) do
-        if (resourceData.Entities) then
-            print("Adding Entities ["..resourceName.."]...")
-            for i = 1, #resourceData.Entities do
-                local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Entities[i]))
-                if (res) then
-                    print("["..i.."] Added: "..res.typeInfo.name)
-                    resourceContainer.entityRegistry:add(res)
-                else
-                    print("["..i.."] Failed: "..resourceData.Entities[i])
-                end
-            end
-        end
-        if (resourceData.Blueprints) then
-            print("Adding Blueprints ["..resourceName.."]...")
-            for i = 1, #resourceData.Blueprints do
-                local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Blueprints[i]))
-                if (res) then
-                    print("["..i.."] Added: "..res.typeInfo.name)
-                    resourceContainer.blueprintRegistry:add(res)
-                else
-                    print("["..i.."] Failed: "..resourceData.Blueprints[i])
-                end
-            end
-        end
-        if (resourceData.LogicReferrence) then
-            print("Adding Logic Referrences ["..resourceName.."]...")
-            for i = 1, #resourceData.LogicReferrence do
-                local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.LogicReferrence[i]))
-                if (res) then
-                    print("["..i.."] Added: "..res.typeInfo.name)
-                    resourceContainer.referenceObjectRegistry:add(res)
-                else
-                    print("["..i.."] Failed: "..resourceData.LogicReferrence[i])
-                end
-            end
-        end
+    	if (resourceData.Register) then 
+	        if (resourceData.Entities) then
+	            print("Adding Entities ["..resourceName.."]...")
+	            for i = 1, #resourceData.Entities do
+	                local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Entities[i]))
+	                if (res) then
+	                    print("["..i.."] Added: "..res.typeInfo.name)
+	                    resourceContainer.entityRegistry:add(res)
+	                    registrySize = registrySize+1
+	                else
+	                    print("["..i.."] Failed: "..resourceData.Entities[i])
+	                end
+	            end
+	        end
+	        if (resourceData.Blueprints) then
+	            print("Adding Blueprints ["..resourceName.."]...")
+	            for i = 1, #resourceData.Blueprints do
+	                local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Blueprints[i]))
+	                if (res) then
+	                    print("["..i.."] Added: "..res.typeInfo.name)
+	                    resourceContainer.blueprintRegistry:add(res)
+	                    registrySize = registrySize+1
+	                else
+	                    print("["..i.."] Failed: "..resourceData.Blueprints[i])
+	                end
+	            end
+	        end
+	        if (resourceData.LogicReferrence) then
+	            print("Adding Logic Referrences ["..resourceName.."]...")
+	            for i = 1, #resourceData.LogicReferrence do
+	                local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.LogicReferrence[i]))
+	                if (res) then
+	                    print("["..i.."] Added: "..res.typeInfo.name)
+	                    resourceContainer.referenceObjectRegistry:add(res)
+	                    registrySize = registrySize+1
+	                else
+	                    print("["..i.."] Failed: "..resourceData.LogicReferrence[i])
+	                end
+	            end
+	        end
+	    end
     end
-    return resourceContainer
+    if (registrySize > 0) then
+    	return resourceContainer
+    else
+    	return
+    end
 end
 
 
