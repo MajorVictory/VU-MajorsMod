@@ -14,6 +14,18 @@ function MMLevelManager:__init()
 
 end
 
+function MMLevelManager:Write(mmResources)
+
+    if (mmResources:IsLoaded('xp3_desert_water')) then
+        mmResources:SetLoaded('xp3_desert_water', false)
+
+        local waterData = WaterEntityData(mmResources:GetInstance('xp3_desert_water'))
+        waterData:MakeWritable()
+        waterData.enabled = false
+        print('Changed XP3_Desert Water...')
+    end
+end
+
 function MMLevelManager:OnLoadResources( levelName, gameMode, isDedicated )
     if self.superBundlesDone then
         return
@@ -62,7 +74,7 @@ function MMLevelManager:OnPartitionLoaded(partition)
     end
 
     local mapName = mmResources:GetMap(partition.guid)
-    if mapName == nil then
+    if mapName == nil or mapName ~= SharedUtils:GetLevelName() then
         return
     end
 

@@ -31,7 +31,7 @@ function MMVehicles:Write(mmResources)
 		bulletData.impactImpulse = 900000
 		bulletData.startDamage = 0
 		bulletData.endDamage = 0
-		bulletData.initialSpeed = 0
+		bulletData.initialSpeed = -450
 		bulletData.timeToLive = 10
 		print('Changed M1Abrams Shell...')
 	end
@@ -80,7 +80,7 @@ function MMVehicles:Write(mmResources)
 
 		local weaponData = WeaponComponentData(mmResources:GetInstance('mbtcannon'))
 		weaponData:MakeWritable()
-		weaponData.impulseStrength = 250000
+		weaponData.impulseStrength = 25000
 		weaponData.transform.forward.z = -1.0
 		print('Changed MBT Cannon...')
 	end
@@ -169,7 +169,7 @@ function MMVehicles:Write(mmResources)
 		local weaponData = WeaponComponentData(mmResources:GetInstance('humveehorn'))
 		weaponData:MakeWritable()
 		weaponData.impulseStrength = 20000
-		weaponData.transform.forward.z = -1.0
+		weaponData.transform.forward.z = -0.5
 		-- adjusts for position of driver entry point and center of mass position
 		weaponData.transform.trans.x = -0.6888
 		weaponData.transform.trans.y = -0.8669 + 0.6
@@ -252,11 +252,11 @@ function MMVehicles:Write(mmResources)
 
 		local engineData = PropellerEngineConfigData(mmResources:GetInstance('venomengine'))
 		engineData:MakeWritable()
-		engineData.enginePowerMultiplier = 5
-		engineData.forceMagnitudeMultiplier = 10
-		engineData.spForwardStrength = 75.0
-		engineData.spSidewaysStrength = 20.0
-		engineData.spVerticalStrength = 50.0
+		engineData.enginePowerMultiplier = 3
+		engineData.forceMagnitudeMultiplier = 5
+		engineData.spForwardStrength = 50.0
+		engineData.spSidewaysStrength = 15.0
+		engineData.spVerticalStrength = 25.0
 		print('Changed Venom Engine...')
 	end
 
@@ -265,10 +265,105 @@ function MMVehicles:Write(mmResources)
 
 		local rotorData = RotorParameters(mmResources:GetInstance('venomrotors'))
 		rotorData:MakeWritable()
-		rotorData.horizontalForceModifier = 10
+		rotorData.horizontalForceModifier = 5
 		rotorData.horisontalMinEffectVelocity = 100
 		print('Changed Venom Rotors...')
 	end
+
+	if (mmResources:IsLoaded('tunguskacannon')) then
+		mmResources:SetLoaded('tunguskacannon', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('tunguskacannon'))
+		fireData:MakeWritable()
+		fireData.dispersion[1].minAngle = 0.05
+		fireData.dispersion[1].maxAngle = 0.08
+		fireData.dispersion[1].increasePerShot = 0.0005
+		fireData.dispersion[1].decreasePerSecond = 0.025
+
+		fireData.shot.initialSpeed.z = 1400
+
+		fireData.fireLogic.rateOfFire = 4000
+
+		fireData.fireLogic.recoil.maxRecoilAngleX = 0
+		fireData.fireLogic.recoil.minRecoilAngleX = 0
+		fireData.fireLogic.recoil.maxRecoilAngleY = 0
+		fireData.fireLogic.recoil.minRecoilAngleY = 0
+		fireData.fireLogic.recoil.maxRecoilAngleZ = 0
+		fireData.fireLogic.recoil.minRecoilAngleZ = 0
+
+		fireData.overHeat.heatPerBullet = 0.011
+
+		print('Changed Tunguska Cannon...')
+	end
+
+	if (mmResources:IsLoaded('tunguskabullets')) then
+		mmResources:SetLoaded('tunguskabullets', false)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('tunguskabullets'))
+		bulletData:MakeWritable()
+		bulletData.impactImpulse = 5000
+		bulletData.startDamage = 0
+		bulletData.endDamage = 0
+		bulletData.initialSpeed = 1400
+		bulletData.timeToLive = 0.5
+		print('Changed Tunguska Bullets...')
+	end
+
+	if (mmResources:IsLoaded('vdvturret')) then
+		mmResources:SetLoaded('vdvturret', false)
+
+		local turretData = AnimationTurretRotationComponentData(mmResources:GetInstance('vdvturret'))
+		turretData:MakeWritable()
+		turretData.rotations[2].maxRotation = 180
+		turretData.rotations[2].minRotation = -180
+
+		print('Changed VDV Turret...')
+	end
+
+	if (mmResources:IsLoaded('vdvturretrotate')) then
+		mmResources:SetLoaded('vdvturretrotate', false)
+
+		local rotateData = ChildRotationBodyData(mmResources:GetInstance('vdvturretrotate'))
+		rotateData:MakeWritable()
+		rotateData.angularConstraintMin = -90
+		rotateData.angularConstraintMax = 90
+
+		print('Changed VDV Turret 2...')
+	end
+
+	if (mmResources:IsLoaded('vdvmg')) then
+		mmResources:SetLoaded('vdvmg', false)
+
+		local weaponData = WeaponComponentData(mmResources:GetInstance('vdvmg'))
+		weaponData:MakeWritable()
+		weaponData.impulseStrength = 20000
+
+		print('Changed VDV MG...')
+	end
+
+	if (mmResources:IsLoaded('fxhealthhightank')) then
+		mmResources:SetLoaded('fxhealthhightank', false)
+
+		local enityData = EffectEntityData(mmResources:GetInstance('fxhealthhightank'))
+		enityData:MakeWritable()
+		enityData.maxInstanceCount = 10
+
+		for i = 1, #enityData.components do
+			self:DisableEffect(enityData.components[i])
+		end
+	
+		print('Changed fxhealthhightank...')
+	end
+end
+
+function MMVehicles:DisableEffect(instance)
+	local emitterData = EmitterEntityData(instance)
+	emitterData:MakeWritable()
+	emitterData.transform.trans.x = 10
+	emitterData.transform.trans.y = 10
+	emitterData.transform.trans.z = 0
+	emitterData.maxInstanceCount = 1
+	emitterData.spawnProbability = 1
 end
 
 return MMVehicles()

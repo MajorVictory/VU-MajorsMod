@@ -7,10 +7,6 @@ function MMResources:__init()
 	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
 	self.MMResources["magnum44"]["Instance"] = 'B6CD5488-67E6-4063-8594-A09DAA2640F3'
 
-	self.MMResources["smaw"] = {}
-	self.MMResources["smaw"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
-	self.MMResources["smaw"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
-
 	self.MMResources["p90"] = {}
 	self.MMResources["p90"]["Partition"] = 'C75DBA86-F326-11DF-ABE6-A89858BEBE43'
 	self.MMResources["p90"]["Instance"] = '9629652F-135E-4EE6-A9FB-343D947A4861'
@@ -38,6 +34,22 @@ function MMResources:__init()
 	self.MMResources["m15expentity"] = {}
 	self.MMResources["m15expentity"]["Partition"] = '49F4451D-D64E-45E5-BC96-B39CE8BC4D10'
 	self.MMResources["m15expentity"]["Instance"] = 'D936971A-354B-49B7-BCCA-4FE01B68D395'
+
+	self.MMResources["smaw"] = {}
+	self.MMResources["smaw"]["Partition"] = 'BCE98CA0-17EC-11E0-8CD8-85483A75A7C5'
+	self.MMResources["smaw"]["Instance"] = 'AB8577C5-D5F9-4A17-BEB2-2E153E171630'
+
+	self.MMResources["smawmissile"] = {}
+	self.MMResources["smawmissile"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
+	self.MMResources["smawmissile"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
+
+	self.MMResources["smawmissile2"] = {}
+	self.MMResources["smawmissile2"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
+	self.MMResources["smawmissile2"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
+
+	self.MMResources["smawhavok"] = {}
+	self.MMResources["smawhavok"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
+	self.MMResources["smawhavok"]["Instance"] = '99578AFB-A37E-4AB7-8CB1-DC37B10D045E'
 
 
 	self.MMResources["bullet338"] = {}
@@ -153,6 +165,36 @@ function MMResources:__init()
 	self.MMResources["venomrotors"]["Partition"] = '97945D87-011D-11E0-B97C-FC495C335A52'
 	self.MMResources["venomrotors"]["Instance"] = 'CBA6B1C2-5690-4F23-9F2B-C24FB9C4958B'
 
+
+	self.MMResources["tunguskacannon"] = {}
+	self.MMResources["tunguskacannon"]["Partition"] = '22D80A30-0A76-176C-C559-6E71C4F17915'
+	self.MMResources["tunguskacannon"]["Instance"] = '5ED03B20-CEE4-52F7-6C9B-DDE56DE6F800'
+
+	self.MMResources["tunguskabullets"] = {}
+	self.MMResources["tunguskabullets"]["Partition"] = '22D80A30-0A76-176C-C559-6E71C4F17915'
+	self.MMResources["tunguskabullets"]["Instance"] = '78DE0889-A11A-7660-A607-BB57A2995BA3'
+
+	self.MMResources["vdvmg"] = {}
+	self.MMResources["vdvmg"]["Partition"] = '2EA804A7-8232-11E0-823A-BD52CA6DC6B3'
+	self.MMResources["vdvmg"]["Instance"] = '1E362E5E-3605-4A49-9207-BA3F403BE506'
+
+	self.MMResources["vdvturret"] = {}
+	self.MMResources["vdvturret"]["Partition"] = '2EA804A7-8232-11E0-823A-BD52CA6DC6B3'
+	self.MMResources["vdvturret"]["Instance"] = 'DDBE49E9-86EC-471C-A53A-CE81929E0A51'
+
+	self.MMResources["vdvturretrotate"] = {}
+	self.MMResources["vdvturretrotate"]["Partition"] = '2EA804A7-8232-11E0-823A-BD52CA6DC6B3'
+	self.MMResources["vdvturretrotate"]["Instance"] = '94FAA227-20B6-40B1-B0F7-28ADDCF45297'
+
+
+	self.MMResources["fxhealthhightank"] = {}
+	self.MMResources["fxhealthhightank"]["Partition"] = '26439229-A624-4BF1-B848-93BE5716616E'
+	self.MMResources["fxhealthhightank"]["Instance"] = 'A854170C-32D4-496A-AD40-479667AE95A3'
+
+
+	self.MMResources["xp3_desert_water"] = {}
+	self.MMResources["xp3_desert_water"]["Partition"] = '4CA1C116-7FA3-4163-A17E-325ACD02FD4F'
+	self.MMResources["xp3_desert_water"]["Instance"] = '83BFF9CC-EC31-856E-1BB4-085CECDB1DBA'
 
 	self.MMResources["pose_stand"] = {}
 	self.MMResources["pose_stand"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
@@ -281,8 +323,8 @@ function MMResources:__init()
 			'Levels/MP_007/MP_007',
 			'Levels/SP_Tank/SP_Tank',
             'Levels/SP_Tank/HighwayToTeheran_01',
-            'Levels/XP3_Desert/RushLarge0',
             'CURRENTLEVEL',
+            'Levels/XP3_Desert/RushLarge0',
 		},
 		["Vehicles"] = {
 			'a10', 'civcar03', 'deliveryvan'
@@ -350,7 +392,7 @@ function MMResources:AddToPartition(resourceName, partition)
 	local resourceData = self.MMResources[resourceName]
 
 	if (resourceData.Entities) then
-        print("Adding Entities...")
+        print("Adding Entities ["..resourceName.."]...")
         for i = 1, #resourceData.Entities do
             local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Entities[i]))
             if (res) then
@@ -362,7 +404,7 @@ function MMResources:AddToPartition(resourceName, partition)
         end
     end
     if (resourceData.Blueprints) then
-        print("Adding Blueprints...")
+        print("Adding Blueprints ["..resourceName.."]...")
         for i = 1, #resourceData.Blueprints do
             local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.Blueprints[i]))
             if (res) then
@@ -374,7 +416,7 @@ function MMResources:AddToPartition(resourceName, partition)
         end
     end
     if (resourceData.LogicReferrence) then
-        print("Adding Logic Referrences...")
+        print("Adding Logic Referrences ["..resourceName.."]...")
         for i = 1, #resourceData.LogicReferrence do
             local res = ResourceManager:SearchForInstanceByGuid(Guid(resourceData.LogicReferrence[i]))
             if (res) then

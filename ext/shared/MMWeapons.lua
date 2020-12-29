@@ -24,14 +24,42 @@ function MMWeapons:Write(mmResources)
 		print('Changed Ammobag...')
 	end
 
-	if (mmResources:IsLoaded('smaw') and mmResources:IsLoaded('magnum44')) then
+	if (mmResources:IsLoaded('smaw')) then
 		mmResources:SetLoaded('smaw', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('smaw'))
+		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 250
+		print('Changed SMAW...')
+	end
+
+	if (mmResources:IsLoaded('smawhavok')) then
+		mmResources:SetLoaded('smawhavok', false)
+
+		local havokData = HavokAsset(mmResources:GetInstance('smawhavok'))
+		havokData:MakeWritable()
+		havokData.scale = 10
+		print('Changed SMAW Havok Object...')
+	end
+
+	if (mmResources:IsLoaded('smawmissile')) then
+		mmResources:SetLoaded('smawmissile', false)
+
+		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
+		missileData:MakeWritable()
+		missileData.maxSpeed = 750
+		missileData.gravity = -9.8
+		print('Changed SMAW Missile...')
+	end
+
+	if (mmResources:IsLoaded('smawmissile2') and mmResources:IsLoaded('magnum44')) then
+		mmResources:SetLoaded('smawmissile2', false)
 		mmResources:SetLoaded('magnum44', false)
 		-- swap magnum for smaw rocket
 		local fireData = FiringFunctionData(mmResources:GetInstance('magnum44'))
 		fireData:MakeWritable()
 		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('smaw'))
+		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('smawmissile2'))
 		print('Changed Magnum .44 Projectile...')
 	end
 

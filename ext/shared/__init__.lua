@@ -16,6 +16,7 @@ for resourceName, resourceData in pairs(mmResources:Get()) do
 		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
 		  mmResources:SetLoaded(resourceName, true)
 		  print("Resource Loaded: "..tostring(resourceName))
+		  mmLevelManager:Write(mmResources)
 		  mmPlayers:Write(mmResources)
 		  mmWeapons:Write(mmResources)
 		  mmVehicles:Write(mmResources)
@@ -37,6 +38,21 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			vehicleData.velocityDamageThreshold = 0
 			vehicleData.velocityDamageMagnifier = 0
 			print('Sturdified Vehicle ['..dump(vehicleData.nameSid)..': '..instance.instanceGuid:ToString('D')..']...')
+		end
+
+		if (instance:Is('EffectBlueprint')) then
+			local effectData = EffectBlueprint(instance)
+
+			if (effectData.name ~= nill and string.find(effectData.name, 'FX/Vehicles/Materials/WheelTracks/FX_')) then
+
+				local effectEntity = EffectEntityData(effectData.object)
+				effectEntity:MakeWritable()
+				effectEntity.transform.trans.x = 20
+				effectEntity.transform.trans.y = 20
+				effectEntity.transform.trans.z = 0
+				effectEntity.maxInstanceCount = 1
+				print('Changed Effect: '..tostring(effectData.name))
+			end
 		end
 	end
 end)
