@@ -28,7 +28,7 @@ function MMVehicles:Write(mmResources)
 		local bulletData = BulletEntityData(mmResources:GetInstance('m1abramsshell'))
 		bulletData:MakeWritable()
 		bulletData.gravity = -2
-		bulletData.impactImpulse = 900000
+		bulletData.impactImpulse = 69000
 		bulletData.startDamage = 0
 		bulletData.endDamage = 0
 		bulletData.initialSpeed = -450
@@ -80,7 +80,7 @@ function MMVehicles:Write(mmResources)
 
 		local weaponData = WeaponComponentData(mmResources:GetInstance('mbtcannon'))
 		weaponData:MakeWritable()
-		weaponData.impulseStrength = 25000
+		weaponData.impulseStrength = 69000
 		weaponData.transform.forward.z = -1.0
 		print('Changed MBT Cannon...')
 	end
@@ -99,7 +99,7 @@ function MMVehicles:Write(mmResources)
 
 		local bulletData = BulletEntityData(mmResources:GetInstance('t90shell'))
 		bulletData:MakeWritable()
-		bulletData.gravity = 4.5
+		bulletData.gravity = 9.8
 		bulletData.impactImpulse = 90000
 		bulletData.startDamage = 0
 		bulletData.endDamage = 0
@@ -247,6 +247,29 @@ function MMVehicles:Write(mmResources)
 		print('Changed AH6-J Rotors...')
 	end
 
+	if (mmResources:IsLoaded('z11wengine')) then
+		mmResources:SetLoaded('z11wengine', false)
+
+		local engineData = PropellerEngineConfigData(mmResources:GetInstance('z11wengine'))
+		engineData:MakeWritable()
+		engineData.enginePowerMultiplier = 6
+		engineData.forceMagnitudeMultiplier = 8
+		engineData.spForwardStrength = 80.0
+		engineData.spSidewaysStrength = 16.0
+		engineData.spVerticalStrength = 45.0
+		print('Changed Z11W Engine...')
+	end
+
+	if (mmResources:IsLoaded('z11wrotors')) then
+		mmResources:SetLoaded('z11wrotors', false)
+
+		local rotorData = RotorParameters(mmResources:GetInstance('z11wrotors'))
+		rotorData:MakeWritable()
+		rotorData.horizontalForceModifier = 9
+		rotorData.horisontalMinEffectVelocity = 90
+		print('Changed Z11W Rotors...')
+	end
+
 	if (mmResources:IsLoaded('venomengine')) then
 		mmResources:SetLoaded('venomengine', false)
 
@@ -341,29 +364,15 @@ function MMVehicles:Write(mmResources)
 		print('Changed VDV MG...')
 	end
 
-	if (mmResources:IsLoaded('fxhealthhightank')) then
-		mmResources:SetLoaded('fxhealthhightank', false)
+	if (mmResources:IsLoaded('quadbike')) then
+		mmResources:SetLoaded('quadbike', false)
 
-		local enityData = EffectEntityData(mmResources:GetInstance('fxhealthhightank'))
-		enityData:MakeWritable()
-		enityData.maxInstanceCount = 10
-
-		for i = 1, #enityData.components do
-			self:DisableEffect(enityData.components[i])
-		end
-	
-		print('Changed fxhealthhightank...')
+		local engineData = CombustionEngineConfigData(mmResources:GetInstance('quadbike'))
+		engineData:MakeWritable()
+		engineData.enginePowerMultiplier = 8
+		engineData.boost.forwardStrength = 2
+		print('Changed Quad Bike Engine...')
 	end
-end
-
-function MMVehicles:DisableEffect(instance)
-	local emitterData = EmitterEntityData(instance)
-	emitterData:MakeWritable()
-	emitterData.transform.trans.x = 10
-	emitterData.transform.trans.y = 10
-	emitterData.transform.trans.z = 0
-	emitterData.maxInstanceCount = 1
-	emitterData.spawnProbability = 1
 end
 
 return MMVehicles()

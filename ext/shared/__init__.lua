@@ -26,6 +26,10 @@ end
 
 -- global vehicle "Sturdification"
 Events:Subscribe('Partition:Loaded', function(partition)
+	if partition == nil then
+		return
+	end
+
 	for _, instance in pairs(partition.instances) do
 		if (instance:Is('VehicleEntityData') and not mmResources:IsSturdifyBlacklisted(instance)) then
 		  	local vehicleData = VehicleEntityData(instance)
@@ -40,18 +44,23 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			print('Sturdified Vehicle ['..dump(vehicleData.nameSid)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
 
-		if (instance:Is('EffectBlueprint')) then
-			local effectData = EffectBlueprint(instance)
+		if (instance:Is('EmitterTemplateData')) then
+			local effectEmitter = EmitterTemplateData(instance)
 
-			if (effectData.name ~= nill and string.find(effectData.name, 'FX/Vehicles/Materials/WheelTracks/FX_')) then
+			if (effectEmitter.name ~= nill and (
+				string.find(effectEmitter.name, 'FX/Vehicles/Materials/WheelTracks/Emitter_Wheels/Em_Wheel') or
+				string.find(effectEmitter.name, 'FX/Vehicles/Materials/WheelTracks/Emitter_Tracks/Em_Track'))) then
 
-				local effectEntity = EffectEntityData(effectData.object)
-				effectEntity:MakeWritable()
-				effectEntity.transform.trans.x = 20
-				effectEntity.transform.trans.y = 20
-				effectEntity.transform.trans.z = 0
-				effectEntity.maxInstanceCount = 1
-				print('Changed Effect: '..tostring(effectData.name))
+				local processor = effectEmitter.rootProcessor
+
+				while processor ~= nill and not processor:Is('UpdateAgeData') do
+					processor = processor.nextProcessor
+				end
+
+				processorData = UpdateAgeData(processor)
+				processorData:MakeWritable()
+				processorData.lifetime = 0
+				print('Changed Emitter: '..tostring(effectEmitter.name))
 			end
 		end
 	end

@@ -16,14 +16,7 @@ end
 
 function MMLevelManager:Write(mmResources)
 
-    if (mmResources:IsLoaded('xp3_desert_water')) then
-        mmResources:SetLoaded('xp3_desert_water', false)
-
-        local waterData = WaterEntityData(mmResources:GetInstance('xp3_desert_water'))
-        waterData:MakeWritable()
-        waterData.enabled = false
-        print('Changed XP3_Desert Water...')
-    end
+    
 end
 
 function MMLevelManager:OnLoadResources( levelName, gameMode, isDedicated )

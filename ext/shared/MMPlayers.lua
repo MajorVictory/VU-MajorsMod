@@ -21,21 +21,45 @@ function MMPlayers:Write(mmResources)
 		print('Changed Player Jump...')
 	end
 
-	if (mmResources:IsLoaded('pose_stand') and mmResources:IsLoaded('pose_standair')) then
+	if (mmResources:IsLoaded('pose_stand') and
+		mmResources:IsLoaded('pose_standair') and
+		mmResources:IsLoaded('pose_swimming') and
+		mmResources:IsLoaded('pose_climbing') and
+		mmResources:IsLoaded('pose_chute')) then
+
 		mmResources:SetLoaded('pose_stand', false)
 		mmResources:SetLoaded('pose_standair', false)
+		mmResources:SetLoaded('pose_swimming', false)
+		mmResources:SetLoaded('pose_climbing', false)
+		mmResources:SetLoaded('pose_chute', false)
 
-		local poseInfo = CharacterStatePoseInfo(mmResources:GetInstance('pose_stand'))
-		poseInfo:MakeWritable()
-		poseInfo.velocity = 10
-		poseInfo.sprintMultiplier = 4
+		local poseStand = CharacterStatePoseInfo(mmResources:GetInstance('pose_stand'))
+		poseStand:MakeWritable()
+		poseStand.velocity = 8
+		poseStand.sprintMultiplier = 5
 		print('Changed Player Stand Pose...')
 
-		local poseInfoAir = CharacterStatePoseInfo(mmResources:GetInstance('pose_standair'))
-		poseInfoAir:MakeWritable()
-		poseInfoAir.velocity = 8
-		poseInfoAir.sprintMultiplier = 5
+		local poseStandAir = CharacterStatePoseInfo(mmResources:GetInstance('pose_standair'))
+		poseStandAir:MakeWritable()
+		poseStandAir.velocity = 10
+		poseStandAir.sprintMultiplier = 5
 		print('Changed Player Stand Air Pose...')
+
+		local poseSwim = CharacterStatePoseInfo(mmResources:GetInstance('pose_swimming'))
+		poseSwim:MakeWritable()
+		poseSwim.velocity = 40
+		print('Changed Player Swim Pose...')
+
+		local poseClimb = CharacterStatePoseInfo(mmResources:GetInstance('pose_climbing'))
+		poseClimb:MakeWritable()
+		poseClimb.velocity = 15
+		poseClimb.sprintMultiplier = 2
+		print('Changed Player Climb Pose...')
+
+		local poseClimb = CharacterStatePoseInfo(mmResources:GetInstance('pose_chute'))
+		poseClimb:MakeWritable()
+		poseClimb.velocity = 40
+		print('Changed Player Parachute Pose...')
 	end
 end
 

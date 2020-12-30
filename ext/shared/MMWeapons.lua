@@ -33,15 +33,6 @@ function MMWeapons:Write(mmResources)
 		print('Changed SMAW...')
 	end
 
-	if (mmResources:IsLoaded('smawhavok')) then
-		mmResources:SetLoaded('smawhavok', false)
-
-		local havokData = HavokAsset(mmResources:GetInstance('smawhavok'))
-		havokData:MakeWritable()
-		havokData.scale = 10
-		print('Changed SMAW Havok Object...')
-	end
-
 	if (mmResources:IsLoaded('smawmissile')) then
 		mmResources:SetLoaded('smawmissile', false)
 
@@ -84,14 +75,16 @@ function MMWeapons:Write(mmResources)
 		print('Changed M98 FireData...')
 	end
 
-	if (mmResources:IsLoaded('aek971')) then
+	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('aek971')) then
+		mmResources:SetLoaded('rpgprojectile', false)
 		mmResources:SetLoaded('aek971', false)
-
+		-- swap aek bullet for rpg rocket
 		local fireData = FiringFunctionData(mmResources:GetInstance('aek971'))
 		fireData:MakeWritable()
-		fireData.shot.initialSpeed.z = 5
 		fireData.ammo.numberOfMagazines = 20
-		print('Changed AEK971 FireData...')
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
+		print('Changed AEK Projectile...')
 	end
 
 	if (mmResources:IsLoaded('bullet338')) then
@@ -178,14 +171,47 @@ function MMWeapons:Write(mmResources)
 		expData:MakeWritable()
 		expData.blastDamage = 0
 		expData.blastRadius = 4
-		expData.blastImpulse = 150000
+		expData.blastImpulse = 900000
 		expData.shockwaveDamage = 0.1
 		expData.shockwaveRadius = 4
-		expData.shockwaveImpulse = 150000
+		expData.shockwaveImpulse = 900000
 		expData.shockwaveTime = 0
 		expData.triggerImpairedHearing = false
 		expData.isCausingSuppression = false
 		print('Changed M15 AT Mine Explosion...')
+	end
+
+	if (mmResources:IsLoaded('jackhammer')) then
+		mmResources:SetLoaded('jackhammer', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('jackhammer'))
+		fireData:MakeWritable()
+		fireData.shot.numberOfBulletsPerShell = 45
+
+		fireData.fireLogic.recoil.maxRecoilAngleX = 90
+        fireData.fireLogic.recoil.minRecoilAngleX = -90
+        fireData.fireLogic.recoil.maxRecoilAngleY = 90
+        fireData.fireLogic.recoil.minRecoilAngleY = -90
+        fireData.fireLogic.recoil.maxRecoilAngleZ = 90
+        fireData.fireLogic.recoil.minRecoilAngleZ = -90
+		fireData.fireLogic.rateOfFire = 500
+
+		fireData.ammo.magazineCapacity = 45
+		fireData.ammo.numberOfMagazines = 8
+
+		print('Changed Jackhammer...')
+	end
+
+	if (mmResources:IsLoaded('knoife')) then
+		mmResources:SetLoaded('knoife', false)
+
+		local meleeData = MeleeEntityCommonData(mmResources:GetInstance('knoife'))
+		meleeData:MakeWritable()
+		meleeData.meleeAttackDistance = 10.0
+		meleeData.maxAttackHeightDifference = 10.0
+		meleeData.invalidMeleeAttackZone = 1.0
+
+		print('Changed Knoife (Knife)...')
 	end
 end
 

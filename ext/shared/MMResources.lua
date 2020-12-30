@@ -47,11 +47,6 @@ function MMResources:__init()
 	self.MMResources["smawmissile2"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
 	self.MMResources["smawmissile2"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
 
-	self.MMResources["smawhavok"] = {}
-	self.MMResources["smawhavok"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
-	self.MMResources["smawhavok"]["Instance"] = '99578AFB-A37E-4AB7-8CB1-DC37B10D045E'
-
-
 	self.MMResources["bullet338"] = {}
 	self.MMResources["bullet338"]["Partition"] = '2056BCC7-3769-458C-8C0E-BB6280DF360C'
 	self.MMResources["bullet338"]["Instance"] = '1BF6EA67-2EFE-4B93-9558-0B3B38862E1F'
@@ -64,14 +59,19 @@ function MMResources:__init()
 	self.MMResources["aek971"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
 	self.MMResources["aek971"]["Instance"] = 'CE3372DA-991B-41C1-95BC-19B5D26AAE5B'
 
+	self.MMResources["rpgprojectile"] = {}
+	self.MMResources["rpgprojectile"]["Partition"] = '6C857FD9-6FB3-11DE-B35E-864CF572E1C4'
+	self.MMResources["rpgprojectile"]["Instance"] = 'CDD3A384-8243-A258-E23D-239CC0D52698'
 
-	self.MMResources["playerphys"] = {}
-	self.MMResources["playerphys"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
-	self.MMResources["playerphys"]["Instance"] = 'A10FF2AA-F3CF-416B-A79B-E8C5416A9EBC'
+	self.MMResources["jackhammer"] = {}
+	self.MMResources["jackhammer"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
+	self.MMResources["jackhammer"]["Instance"] = '3D4D9FCA-FD1A-4F7D-B278-C4676ACD15DF'
 
-	self.MMResources["yump"] = {}
-	self.MMResources["yump"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
-	self.MMResources["yump"]["Instance"] = '3129BCFE-000E-4001-9F8F-316E5835C9FC'
+	self.MMResources["knoife"] = {}
+	self.MMResources["knoife"]["Partition"] = 'B6CDC48A-3A8C-11E0-843A-AC0656909BCB'
+	self.MMResources["knoife"]["Instance"] = 'F21FB5EA-D7A6-EE7E-DDA2-C776D604CD2E'
+
+
 
 	self.MMResources["m1abrams"] = {}
 	self.MMResources["m1abrams"]["Partition"] = 'B069BA89-EECF-11DD-8117-9421284A74E5'
@@ -113,7 +113,6 @@ function MMResources:__init()
 	self.MMResources["t90impactsplash"]["Partition"] = 'E25400E3-4E66-31A4-D991-6E56084F10FF'
 	self.MMResources["t90impactsplash"]["Instance"] = 'CE7AC4AB-83B2-188B-3BAB-3F035BA5857A'
 
-
 	self.MMResources["humvee"] = {}
 	self.MMResources["humvee"]["Partition"] = '611F48A3-0919-11E0-985D-C512734E48AF'
 	self.MMResources["humvee"]["Instance"] = '34ADD228-7E03-C4A4-665F-E0F0955098EE'
@@ -125,7 +124,6 @@ function MMResources:__init()
 	self.MMResources["humveehorn"] = {}
 	self.MMResources["humveehorn"]["Partition"] = '611F48A3-0919-11E0-985D-C512734E48AF'
 	self.MMResources["humveehorn"]["Instance"] = 'EEC68041-9AF5-497B-94C4-B576D8A033C0'
-
 
 	self.MMResources["growlerengine"] = {}
 	self.MMResources["growlerengine"]["Partition"] = 'CF5166FD-6B60-11E0-8ACE-C75FA07B1C42'
@@ -147,7 +145,6 @@ function MMResources:__init()
 	self.MMResources["m1128engine"]["Partition"] = '3EE37540-9833-11E1-A26B-A2AC6EC60B20'
 	self.MMResources["m1128engine"]["Instance"] = 'FD6D9474-0F4E-483A-943D-16C6FF949545'
 
-
 	self.MMResources["ah6engine"] = {}
 	self.MMResources["ah6engine"]["Partition"] = 'FD8AB747-FF4D-11DD-A7B1-F7C6DEEC9D32'
 	self.MMResources["ah6engine"]["Instance"] = '15AB2B27-FF4E-11DD-A7B1-F7C6DEEC9D32'
@@ -156,6 +153,13 @@ function MMResources:__init()
 	self.MMResources["ah6rotors"]["Partition"] = 'FD8AB747-FF4D-11DD-A7B1-F7C6DEEC9D32'
 	self.MMResources["ah6rotors"]["Instance"] = '15AB2B28-FF4E-11DD-A7B1-F7C6DEEC9D32'
 
+	self.MMResources["z11wengine"] = {}
+	self.MMResources["z11wengine"]["Partition"] = 'D78088E5-38B7-11DE-BF1C-984D9AEE762C'
+	self.MMResources["z11wengine"]["Instance"] = 'D780B01D-38B7-11DE-BF1C-984D9AEE762C'
+
+	self.MMResources["z11wrotors"] = {}
+	self.MMResources["z11wrotors"]["Partition"] = 'D78088E5-38B7-11DE-BF1C-984D9AEE762C'
+	self.MMResources["z11wrotors"]["Instance"] = 'D780B01E-38B7-11DE-BF1C-984D9AEE762C'
 
 	self.MMResources["venomengine"] = {}
 	self.MMResources["venomengine"]["Partition"] = '97945D87-011D-11E0-B97C-FC495C335A52'
@@ -164,7 +168,6 @@ function MMResources:__init()
 	self.MMResources["venomrotors"] = {}
 	self.MMResources["venomrotors"]["Partition"] = '97945D87-011D-11E0-B97C-FC495C335A52'
 	self.MMResources["venomrotors"]["Instance"] = 'CBA6B1C2-5690-4F23-9F2B-C24FB9C4958B'
-
 
 	self.MMResources["tunguskacannon"] = {}
 	self.MMResources["tunguskacannon"]["Partition"] = '22D80A30-0A76-176C-C559-6E71C4F17915'
@@ -186,15 +189,19 @@ function MMResources:__init()
 	self.MMResources["vdvturretrotate"]["Partition"] = '2EA804A7-8232-11E0-823A-BD52CA6DC6B3'
 	self.MMResources["vdvturretrotate"]["Instance"] = '94FAA227-20B6-40B1-B0F7-28ADDCF45297'
 
+	self.MMResources["quadbike"] = {}
+	self.MMResources["quadbike"]["Partition"] = '08D3686F-A96A-11E1-9047-F3806E4ECBA6'
+	self.MMResources["quadbike"]["Instance"] = 'ED159859-02F5-47C5-82D2-74D5381C9919'
 
-	self.MMResources["fxhealthhightank"] = {}
-	self.MMResources["fxhealthhightank"]["Partition"] = '26439229-A624-4BF1-B848-93BE5716616E'
-	self.MMResources["fxhealthhightank"]["Instance"] = 'A854170C-32D4-496A-AD40-479667AE95A3'
 
 
-	self.MMResources["xp3_desert_water"] = {}
-	self.MMResources["xp3_desert_water"]["Partition"] = '4CA1C116-7FA3-4163-A17E-325ACD02FD4F'
-	self.MMResources["xp3_desert_water"]["Instance"] = '83BFF9CC-EC31-856E-1BB4-085CECDB1DBA'
+	self.MMResources["playerphys"] = {}
+	self.MMResources["playerphys"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
+	self.MMResources["playerphys"]["Instance"] = 'A10FF2AA-F3CF-416B-A79B-E8C5416A9EBC'
+
+	self.MMResources["yump"] = {}
+	self.MMResources["yump"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
+	self.MMResources["yump"]["Instance"] = '3129BCFE-000E-4001-9F8F-316E5835C9FC'
 
 	self.MMResources["pose_stand"] = {}
 	self.MMResources["pose_stand"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
@@ -216,6 +223,19 @@ function MMResources:__init()
 	--self.MMResources["pose_proneair"] = {}
 	--self.MMResources["pose_proneair"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
 	--self.MMResources["pose_proneair"]["Instance"] = '0CD1E94C-7E21-42EF-816E-0B5657FE1676'
+
+
+	self.MMResources["pose_swimming"] = {}
+	self.MMResources["pose_swimming"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
+	self.MMResources["pose_swimming"]["Instance"] = 'C3755191-6B9F-4B88-8677-59488AFC7530'
+
+	self.MMResources["pose_climbing"] = {}
+	self.MMResources["pose_climbing"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
+	self.MMResources["pose_climbing"]["Instance"] = 'AF7A12E9-D79A-4856-8C03-3C88DF1ED8A6'
+
+	self.MMResources["pose_chute"] = {}
+	self.MMResources["pose_chute"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
+	self.MMResources["pose_chute"]["Instance"] = 'F39A8591-BA69-4BE9-B289-B2A0B336A7EE'
 
 
 	self.MMResources["ammobag"] = {}
