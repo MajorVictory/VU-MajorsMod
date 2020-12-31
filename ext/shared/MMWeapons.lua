@@ -75,18 +75,6 @@ function MMWeapons:Write(mmResources)
 		print('Changed M98 FireData...')
 	end
 
-	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('aek971')) then
-		mmResources:SetLoaded('rpgprojectile', false)
-		mmResources:SetLoaded('aek971', false)
-		-- swap aek bullet for rpg rocket
-		local fireData = FiringFunctionData(mmResources:GetInstance('aek971'))
-		fireData:MakeWritable()
-		fireData.ammo.numberOfMagazines = 20
-		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
-		print('Changed AEK Projectile...')
-	end
-
 	if (mmResources:IsLoaded('bullet338')) then
 		mmResources:SetLoaded('bullet338', false)
 
@@ -98,6 +86,18 @@ function MMWeapons:Write(mmResources)
 		bulletData.damageFalloffStartDistance = 9000
 		bulletData.damageFalloffEndDistance = 9001
 		print('Changed M98 Bullet...')
+	end
+
+	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('aek971')) then
+		mmResources:SetLoaded('rpgprojectile', false)
+		mmResources:SetLoaded('aek971', false)
+		-- swap aek bullet for rpg rocket
+		local fireData = FiringFunctionData(mmResources:GetInstance('aek971'))
+		fireData:MakeWritable()
+		fireData.ammo.numberOfMagazines = 20
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
+		print('Changed AEK Projectile...')
 	end
 
 	if (mmResources:IsLoaded('c4')) then
