@@ -367,11 +367,13 @@ function MMVehicles:Write(mmResources)
 	if (mmResources:IsLoaded('quadbike')) then
 		mmResources:SetLoaded('quadbike', false)
 
-		local engineData = CombustionEngineConfigData(mmResources:GetInstance('quadbike'))
-		engineData:MakeWritable()
-		engineData.enginePowerMultiplier = 8
-		engineData.boost.forwardStrength = 2
-		print('Changed Quad Bike Engine...')
+		local chassisData = ChassisComponentData(mmResources:GetInstance('quadbike'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 2
+		chassisData.transform.up.y = 2
+		chassisData.transform.forward.z = 2
+
+		print('Changed Quad Bike Chassis...')
 	end
 end
 

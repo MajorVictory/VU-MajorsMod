@@ -16,9 +16,18 @@ function MMPlayers:Write(mmResources)
 
 		local playerYump = JumpStateData(mmResources:GetInstance('yump'))
 		playerYump:MakeWritable()
-		playerYump.jumpHeight = 5
-		playerYump.jumpEffectSize = 1.5
+		playerYump.jumpHeight = 8
+		playerYump.jumpEffectSize = 4
 		print('Changed Player Jump...')
+	end
+
+	if (mmResources:IsLoaded('mpsoldier')) then
+		mmResources:SetLoaded('mpsoldier', false)
+
+		local soldierData = SoldierEntityData(mmResources:GetInstance('mpsoldier'))
+		soldierData:MakeWritable()
+		soldierData.isPushable = true
+		print('Changed MP Soldier...')
 	end
 
 	if (mmResources:IsLoaded('pose_stand') and

@@ -191,13 +191,17 @@ function MMResources:__init()
 
 	self.MMResources["quadbike"] = {}
 	self.MMResources["quadbike"]["Partition"] = '08D3686F-A96A-11E1-9047-F3806E4ECBA6'
-	self.MMResources["quadbike"]["Instance"] = 'ED159859-02F5-47C5-82D2-74D5381C9919'
+	self.MMResources["quadbike"]["Instance"] = '5BA1F26D-894A-BBAC-7E32-587645354615'
 
 
 
 	self.MMResources["playerphys"] = {}
 	self.MMResources["playerphys"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
 	self.MMResources["playerphys"]["Instance"] = 'A10FF2AA-F3CF-416B-A79B-E8C5416A9EBC'
+
+	self.MMResources["mpsoldier"] = {}
+	self.MMResources["mpsoldier"]["Partition"] = 'F256E142-C9D8-4BFE-985B-3960B9E9D189'
+	self.MMResources["mpsoldier"]["Instance"] = 'A9FFE6B4-257F-4FE8-A950-B323B50D2112'
 
 	self.MMResources["yump"] = {}
 	self.MMResources["yump"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
