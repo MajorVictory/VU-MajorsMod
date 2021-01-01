@@ -62,9 +62,6 @@ function MMLevelManager:onLoadBundles(hook, bundles, compartment)
 end
 
 function MMLevelManager:OnPartitionLoaded(partition)
-    if partition == nil then
-        return
-    end
 
     local mapName = mmResources:GetMap(partition.guid)
     if mapName == nil or mapName ~= SharedUtils:GetLevelName() then

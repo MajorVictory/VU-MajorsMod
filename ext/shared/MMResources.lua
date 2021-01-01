@@ -7,9 +7,17 @@ function MMResources:__init()
 	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
 	self.MMResources["magnum44"]["Instance"] = 'B6CD5488-67E6-4063-8594-A09DAA2640F3'
 
+	self.MMResources["magnum44zoom"] = {}
+	self.MMResources["magnum44zoom"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
+	self.MMResources["magnum44zoom"]["Instance"] = '4F9AE8E4-7F90-4059-A3AC-6D511F77E8E3'
+
 	self.MMResources["p90"] = {}
 	self.MMResources["p90"]["Partition"] = 'C75DBA86-F326-11DF-ABE6-A89858BEBE43'
 	self.MMResources["p90"]["Instance"] = '9629652F-135E-4EE6-A9FB-343D947A4861'
+
+	self.MMResources["12gfrag"] = {}
+	self.MMResources["12gfrag"]["Partition"] = '2A6FCD72-5842-41B4-AC48-56BAACA506A3'
+	self.MMResources["12gfrag"]["Instance"] = 'EF265029-3291-4544-8081-ABFFA09D3D96'
 
 	self.MMResources["c4"] = {}
 	self.MMResources["c4"]["Partition"] = '90D317AC-2554-11E0-9BE1-9E3A551FF0D1'
@@ -43,10 +51,6 @@ function MMResources:__init()
 	self.MMResources["smawmissile"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
 	self.MMResources["smawmissile"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
 
-	self.MMResources["smawmissile2"] = {}
-	self.MMResources["smawmissile2"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
-	self.MMResources["smawmissile2"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
-
 	self.MMResources["bullet338"] = {}
 	self.MMResources["bullet338"]["Partition"] = '2056BCC7-3769-458C-8C0E-BB6280DF360C'
 	self.MMResources["bullet338"]["Instance"] = '1BF6EA67-2EFE-4B93-9558-0B3B38862E1F'
@@ -71,10 +75,37 @@ function MMResources:__init()
 	self.MMResources["jackhammer"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
 	self.MMResources["jackhammer"]["Instance"] = '3D4D9FCA-FD1A-4F7D-B278-C4676ACD15DF'
 
+	self.MMResources["jackhammer2"] = {}
+	self.MMResources["jackhammer2"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
+	self.MMResources["jackhammer2"]["Instance"] = '607CF93E-0510-460C-917B-C056A8CADBBC'
+
+	self.MMResources["jackhammer3"] = {}
+	self.MMResources["jackhammer3"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
+	self.MMResources["jackhammer3"]["Instance"] = '91D7B0A3-AB80-4B91-96AC-94014C925478'
+
+	self.MMResources["jackhammer4"] = {}
+	self.MMResources["jackhammer4"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
+	self.MMResources["jackhammer4"]["Instance"] = '20B53027-2589-465A-A1DF-DA737A940DAE'
+
 	self.MMResources["knoife"] = {}
 	self.MMResources["knoife"]["Partition"] = 'B6CDC48A-3A8C-11E0-843A-AC0656909BCB'
 	self.MMResources["knoife"]["Instance"] = 'F21FB5EA-D7A6-EE7E-DDA2-C776D604CD2E'
 
+	self.MMResources["crossbolt"] = {}
+	self.MMResources["crossbolt"]["Partition"] = '26076E01-A015-44A8-BFBF-695187E25FFB'
+	self.MMResources["crossbolt"]["Instance"] = '391BB7D5-C4AE-4952-B103-189DC1700030'
+
+	self.MMResources["crossboltsound"] = {}
+	self.MMResources["crossboltsound"]["Partition"] = '591449E1-A47A-4768-A7A8-29DE293517E8'
+	self.MMResources["crossboltsound"]["Instance"] = '3C39A1D9-F161-4A4B-A065-9C70D13DBB81'
+
+	self.MMResources["crossbolt_he"] = {}
+	self.MMResources["crossbolt_he"]["Partition"] = '07E407B3-A4FE-4CD1-BABA-D8F6EB59FAEA'
+	self.MMResources["crossbolt_he"]["Instance"] = 'D09E04C4-4B06-4967-A7F5-1DE6D0912676'
+
+	self.MMResources["m60"] = {}
+	self.MMResources["m60"]["Partition"] = '99BD41C7-EDB0-11DF-A0C6-D95650B9E286'
+	self.MMResources["m60"]["Instance"] = '1D44B441-7F16-46F3-9EFF-D0647D554EFE'
 
 
 	self.MMResources["m1abrams"] = {}
@@ -371,22 +402,13 @@ function MMResources:__init()
 		["Partition"] = '69AFE35D-259F-11E1-98E7-C42BEF8FFB67',
 		["Registry"] = '4396E861-4042-A682-5CD8-B00184DFECA1',
 		["SuperBundles"] = {
-			'SPChunks',
-			'Levels/MP_007/MP_007',
-			'Levels/SP_Tank/SP_Tank',
-			'XP3Chunks',
-			'Levels/XP3_Desert/XP3_Desert',
-			'Levels/XP3_Shield/XP3_Shield'
+			
 		},
 		["Bundles"] = {
-			'Levels/MP_007/MP_007',
-			'Levels/SP_Tank/SP_Tank',
-            'Levels/SP_Tank/HighwayToTeheran_01',
-            'Levels/XP3_Desert/RushLarge0',
-            'CURRENTLEVEL',
+            'CURRENTLEVEL'
 		},
 		["Vehicles"] = {
-			'a10', 'civcar03', 'deliveryvan'
+			
 		},
 		["OOB"] = {
 			{["Partition"] = '877F24E5-828F-4A52-874F-939839E9EE60', ["Volume"] = 'E9ABBA54-C1EA-4D14-AC66-762DE7E846A5'},

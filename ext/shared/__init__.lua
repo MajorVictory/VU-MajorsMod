@@ -8,7 +8,7 @@ mmResources = require('__shared/MMResources')
 mmPlayers = require('__shared/MMPlayers')
 mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
---mmLevelManager = require('__shared/MMLevelManager')
+mmLevelManager = require('__shared/MMLevelManager')
 
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do
@@ -16,7 +16,7 @@ for resourceName, resourceData in pairs(mmResources:Get()) do
 		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
 		  mmResources:SetLoaded(resourceName, true)
 		  print("Resource Loaded: "..tostring(resourceName))
-		  --mmLevelManager:Write(mmResources)
+		  mmLevelManager:Write(mmResources)
 		  mmPlayers:Write(mmResources)
 		  mmWeapons:Write(mmResources)
 		  mmVehicles:Write(mmResources)
@@ -25,6 +25,7 @@ for resourceName, resourceData in pairs(mmResources:Get()) do
 end
 
 -- Thanks to Powback's bundle mounter: https://github.com/BF3RM/BundleMounter
+--[[
 Events:Subscribe('BundleMounter:GetBundles', function(bundles)
 	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/MP_007/MP_007', {
 		'Levels/MP_007/MP_007',
@@ -51,14 +52,13 @@ Events:Subscribe('BundleMounter:GetBundles', function(bundles)
     --Events:Dispatch('BundleMounter:LoadBundles', 'Xp4Chunks', {})
     --Events:Dispatch('BundleMounter:LoadBundles', 'Xp5Chunks', {})
 end)
+]]
 
--- global vehicle "Sturdification"
 Events:Subscribe('Partition:Loaded', function(partition)
-	if partition == nil then
-		return
-	end
 
 	for _, instance in pairs(partition.instances) do
+
+		-- global vehicle "Sturdification"
 		if (instance:Is('VehicleEntityData') and not mmResources:IsSturdifyBlacklisted(instance)) then
 		  	local vehicleData = VehicleEntityData(instance)
 
@@ -72,6 +72,7 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			print('Sturdified Vehicle ['..dump(vehicleData.nameSid)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
 
+		-- remove scaled dust clouds behind vehicles for visibility while driving 3p
 		if (instance:Is('EmitterTemplateData')) then
 			local effectEmitter = EmitterTemplateData(instance)
 
@@ -92,12 +93,14 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			end
 		end
 
+		-- upside-down helos, a little more control
 		if (instance:Is('VehicleBlueprint') and mmResources:IsHelicopter(instance)) then
 
 			local vehicleBlueprint = VehicleBlueprint(instance)
 			local entityData = VehicleEntityData(vehicleBlueprint.object)
 			local chassisData = ChassisComponentData(entityData.components[1])
 			local vehicleConfig = VehicleConfigData(chassisData.vehicleConfig)
+			local motionDampingData = MotionDampingData(vehicleConfig.motionDamping)
 			vehicleConfig:MakeWritable()
 			vehicleConfig.motionDamping = nil
 			print('Removed Motion Damping ['..dump(vehicleBlueprint.name)..': '..instance.instanceGuid:ToString('D')..']...')

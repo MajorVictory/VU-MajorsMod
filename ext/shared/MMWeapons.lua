@@ -33,7 +33,8 @@ function MMWeapons:Write(mmResources)
 		print('Changed SMAW...')
 	end
 
-	if (mmResources:IsLoaded('smawmissile')) then
+	if (mmResources:IsLoaded('magnum44') and mmResources:IsLoaded('smawmissile')) then
+		mmResources:SetLoaded('magnum44', false)
 		mmResources:SetLoaded('smawmissile', false)
 
 		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
@@ -41,29 +42,70 @@ function MMWeapons:Write(mmResources)
 		missileData.maxSpeed = 750
 		missileData.gravity = -9.8
 		print('Changed SMAW Missile...')
-	end
 
-	if (mmResources:IsLoaded('smawmissile2') and mmResources:IsLoaded('magnum44')) then
-		mmResources:SetLoaded('smawmissile2', false)
-		mmResources:SetLoaded('magnum44', false)
 		-- swap magnum for smaw rocket
 		local fireData = FiringFunctionData(mmResources:GetInstance('magnum44'))
 		fireData:MakeWritable()
 		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('smawmissile2'))
-		print('Changed Magnum .44 Projectile...')
+		fireData.shot.projectileData = ProjectileEntityData(missileData)
+		print('Changed Magnum .44...')
 	end
 
-	if (mmResources:IsLoaded('p90') and mmResources:IsLoaded('a10_bullets')) then
+	if (mmResources:IsLoaded('magnum44zoom')) then
+		mmResources:SetLoaded('magnum44zoom', false)
+
+		local zoomData = WeaponZoomModifier(mmResources:GetInstance('magnum44zoom'))
+		zoomData:MakeWritable()
+		zoomData.zoomRenderFov = 1.5
+		print('Changed Magnum Zoom...')
+	end
+
+	if (mmResources:IsLoaded('p90') and mmResources:IsLoaded('12gfrag')) then
 		mmResources:SetLoaded('p90', false)
-		mmResources:SetLoaded('a10_bullets', false)
-		-- swap p90 for A10 bullets
+		mmResources:SetLoaded('12gfrag', false)
+		-- swap p90 for 12gfrag bullets
 		local fireData = FiringFunctionData(mmResources:GetInstance('p90'))
+		local bulletData = BulletEntityData(mmResources:GetInstance('12gfrag'))
+
+		bulletData:MakeWritable()
+		bulletData.gravity = 0
+		bulletData.startDamage = 6969
+		bulletData.endDamage = 6969
+		bulletData.timeToLive = 5
+		bulletData.impactImpulse = 69000
+		print('Changed 12G Frag Projectile...')
+
 		fireData:MakeWritable()
 		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('a10_bullets'))
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
 		fireData.ammo.magazineCapacity = 500
-		print('Changed P90 Projectile...')
+		print('Changed P90...')
+	end
+
+	if (mmResources:IsLoaded('m60') and mmResources:IsLoaded('crossbolt_he') and mmResources:IsLoaded('crossboltsound')) then
+		mmResources:SetLoaded('m60', false)
+		mmResources:SetLoaded('crossbolt_he', false)
+		mmResources:SetLoaded('crossboltsound', false)
+		-- swap m60 for crossbolt_he bullets
+		local fireData = FiringFunctionData(mmResources:GetInstance('m60'))
+		local bulletData = BulletEntityData(mmResources:GetInstance('crossbolt_he'))
+
+		bulletData:MakeWritable()
+		bulletData.gravity = -4.5
+		bulletData.startDamage = 6969
+		bulletData.endDamage = 6969
+		bulletData.timeToLive = 10
+		bulletData.impactImpulse = 69000
+		print('Changed Crossbow Bolt HE Projectile...')
+
+		fireData:MakeWritable()
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('crossboltsound'))
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+		fireData.shot.initialSpeed.z = 45
+		fireData.ammo.magazineCapacity = 20
+		fireData.fireLogic.reloadTime = 3.7
+		print('Changed M60...')
 	end
 
 	if (mmResources:IsLoaded('m98')) then
@@ -157,7 +199,7 @@ function MMWeapons:Write(mmResources)
 
 		local fireData = FiringFunctionData(mmResources:GetInstance('m15'))
 		fireData:MakeWritable()
-		fireData.ammo.numberOfMagazines = 4
+		fireData.ammo.numberOfMagazines = 8
 		fireData.ammo.autoReplenishDelay = 0.1
 		fireData.ammo.ammoBagPickupDelayMultiplier = 0.1
 
@@ -172,7 +214,7 @@ function MMWeapons:Write(mmResources)
 		expEntityData:MakeWritable()
 		expEntityData.maxAttachableInclination = 180
 		expEntityData.health = 1
-		expEntityData.maxCount = 1
+		expEntityData.maxCount = 4
 		print('Changed M15 AT Mine Entity...')
 	end
 
@@ -193,23 +235,35 @@ function MMWeapons:Write(mmResources)
 		print('Changed M15 AT Mine Explosion...')
 	end
 
-	if (mmResources:IsLoaded('jackhammer')) then
+	if (mmResources:IsLoaded('jackhammer') and mmResources:IsLoaded('jackhammer2') and 
+		mmResources:IsLoaded('jackhammer3') and mmResources:IsLoaded('jackhammer4')) then
 		mmResources:SetLoaded('jackhammer', false)
+		mmResources:SetLoaded('jackhammer2', false)
+		mmResources:SetLoaded('jackhammer3', false)
+		mmResources:SetLoaded('jackhammer4', false)
 
-		local fireData = FiringFunctionData(mmResources:GetInstance('jackhammer'))
-		fireData:MakeWritable()
-		fireData.shot.numberOfBulletsPerShell = 45
+		local fireData = {
+			FiringFunctionData(mmResources:GetInstance('jackhammer')),
+			FiringFunctionData(mmResources:GetInstance('jackhammer2')),
+			FiringFunctionData(mmResources:GetInstance('jackhammer3')),
+			FiringFunctionData(mmResources:GetInstance('jackhammer4'))
+		}
 
-		fireData.fireLogic.recoil.maxRecoilAngleX = 90
-        fireData.fireLogic.recoil.minRecoilAngleX = -90
-        fireData.fireLogic.recoil.maxRecoilAngleY = 90
-        fireData.fireLogic.recoil.minRecoilAngleY = -90
-        fireData.fireLogic.recoil.maxRecoilAngleZ = 90
-        fireData.fireLogic.recoil.minRecoilAngleZ = -90
-		fireData.fireLogic.rateOfFire = 500
+		for i=1, #fireData do
+			fireData[i]:MakeWritable()
+			fireData[i].shot.numberOfBulletsPerShell = 45
 
-		fireData.ammo.magazineCapacity = 45
-		fireData.ammo.numberOfMagazines = 8
+			fireData[i].fireLogic.recoil.maxRecoilAngleX = 90
+	        fireData[i].fireLogic.recoil.minRecoilAngleX = -90
+	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 90
+	        fireData[i].fireLogic.recoil.minRecoilAngleY = -90
+	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 90
+	        fireData[i].fireLogic.recoil.minRecoilAngleZ = -90
+			fireData[i].fireLogic.rateOfFire = 500
+
+			fireData[i].ammo.magazineCapacity = 45
+			fireData[i].ammo.numberOfMagazines = 8
+		end
 
 		print('Changed Jackhammer...')
 	end

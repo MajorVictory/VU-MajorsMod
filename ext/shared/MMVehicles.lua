@@ -229,11 +229,11 @@ function MMVehicles:Write(mmResources)
 
 		local engineData = PropellerEngineConfigData(mmResources:GetInstance('ah6engine'))
 		engineData:MakeWritable()
-		engineData.enginePowerMultiplier = 5
-		engineData.forceMagnitudeMultiplier = 10
-		engineData.spForwardStrength = 100.0
-		engineData.spSidewaysStrength = 20.0
-		engineData.spVerticalStrength = 50.0
+		engineData.enginePowerMultiplier = 2
+		engineData.forceMagnitudeMultiplier = 4
+		engineData.spForwardStrength = 40.0
+		--engineData.spSidewaysStrength = 20.0
+		--engineData.spVerticalStrength = 50.0
 		print('Changed AH6-J Engine...')
 	end
 
@@ -242,8 +242,7 @@ function MMVehicles:Write(mmResources)
 
 		local rotorData = RotorParameters(mmResources:GetInstance('ah6rotors'))
 		rotorData:MakeWritable()
-		rotorData.horizontalForceModifier = 10
-		rotorData.horisontalMinEffectVelocity = 100
+		rotorData.horizontalForceModifier = 2
 		print('Changed AH6-J Rotors...')
 	end
 
@@ -252,11 +251,11 @@ function MMVehicles:Write(mmResources)
 
 		local engineData = PropellerEngineConfigData(mmResources:GetInstance('z11wengine'))
 		engineData:MakeWritable()
-		engineData.enginePowerMultiplier = 6
-		engineData.forceMagnitudeMultiplier = 8
-		engineData.spForwardStrength = 80.0
-		engineData.spSidewaysStrength = 16.0
-		engineData.spVerticalStrength = 45.0
+		engineData.enginePowerMultiplier = 2
+		engineData.forceMagnitudeMultiplier = 4
+		engineData.spForwardStrength = 40.0
+		--engineData.spSidewaysStrength = 16.0
+		--engineData.spVerticalStrength = 45.0
 		print('Changed Z11W Engine...')
 	end
 
@@ -265,8 +264,7 @@ function MMVehicles:Write(mmResources)
 
 		local rotorData = RotorParameters(mmResources:GetInstance('z11wrotors'))
 		rotorData:MakeWritable()
-		rotorData.horizontalForceModifier = 9
-		rotorData.horisontalMinEffectVelocity = 90
+		rotorData.horizontalForceModifier = 2
 		print('Changed Z11W Rotors...')
 	end
 
@@ -276,10 +274,10 @@ function MMVehicles:Write(mmResources)
 		local engineData = PropellerEngineConfigData(mmResources:GetInstance('venomengine'))
 		engineData:MakeWritable()
 		engineData.enginePowerMultiplier = 3
-		engineData.forceMagnitudeMultiplier = 5
+		engineData.forceMagnitudeMultiplier = 4
 		engineData.spForwardStrength = 50.0
-		engineData.spSidewaysStrength = 15.0
-		engineData.spVerticalStrength = 25.0
+		--engineData.spSidewaysStrength = 15.0
+		--engineData.spVerticalStrength = 25.0
 		print('Changed Venom Engine...')
 	end
 
@@ -288,8 +286,7 @@ function MMVehicles:Write(mmResources)
 
 		local rotorData = RotorParameters(mmResources:GetInstance('venomrotors'))
 		rotorData:MakeWritable()
-		rotorData.horizontalForceModifier = 5
-		rotorData.horisontalMinEffectVelocity = 100
+		rotorData.horizontalForceModifier = 2
 		print('Changed Venom Rotors...')
 	end
 
@@ -381,9 +378,9 @@ function MMVehicles:Write(mmResources)
 
 		local chassisData = ChassisComponentData(mmResources:GetInstance('sprutsd'))
 		chassisData:MakeWritable()
-		chassisData.transform.left.x = 0.75
-		chassisData.transform.up.y = 0.75
-		chassisData.transform.forward.z = 0.75
+		chassisData.transform.left.x = 0.65
+		chassisData.transform.up.y = 0.65
+		chassisData.transform.forward.z = 0.65
 
 		print('Changed Sprut-SD Chassis...')
 	end
