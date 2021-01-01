@@ -75,6 +75,18 @@ function MMWeapons:Write(mmResources)
 		print('Changed M98 FireData...')
 	end
 
+	if (mmResources:IsLoaded('m98model')) then
+		mmResources:SetLoaded('m98model', false)
+
+		local chassisData = SoldierWeaponData(mmResources:GetInstance('m98model'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 2
+		chassisData.transform.up.y = 2
+		chassisData.transform.forward.z = 2
+
+		print('Changed M98 Model...')
+	end
+
 	if (mmResources:IsLoaded('bullet338')) then
 		mmResources:SetLoaded('bullet338', false)
 

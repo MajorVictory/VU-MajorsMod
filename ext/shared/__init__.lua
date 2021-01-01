@@ -8,7 +8,7 @@ mmResources = require('__shared/MMResources')
 mmPlayers = require('__shared/MMPlayers')
 mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
-mmLevelManager = require('__shared/MMLevelManager')
+--mmLevelManager = require('__shared/MMLevelManager')
 
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do
@@ -16,13 +16,41 @@ for resourceName, resourceData in pairs(mmResources:Get()) do
 		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
 		  mmResources:SetLoaded(resourceName, true)
 		  print("Resource Loaded: "..tostring(resourceName))
-		  mmLevelManager:Write(mmResources)
+		  --mmLevelManager:Write(mmResources)
 		  mmPlayers:Write(mmResources)
 		  mmWeapons:Write(mmResources)
 		  mmVehicles:Write(mmResources)
 		end)
 	end
 end
+
+-- Thanks to Powback's bundle mounter: https://github.com/BF3RM/BundleMounter
+Events:Subscribe('BundleMounter:GetBundles', function(bundles)
+	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/MP_007/MP_007', {
+		'Levels/MP_007/MP_007',
+		'Levels/MP_007/Rush'
+	})
+	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/SP_Tank/SP_Tank', {
+		'Levels/SP_Tank/SP_Tank',
+		'Levels/SP_Tank/HighwayToTeheran_01',
+	})
+    Events:Dispatch('BundleMounter:LoadBundles', 'Xp3Chunks', {
+    	'Xp3Chunks'
+    })
+	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/XP3_Desert/XP3_Desert', {
+		'Levels/XP3_Desert/XP3_Desert'
+	})
+	--Events:Dispatch('BundleMounter:LoadBundles', 'SpChunks', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'CoopChunks', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'MpChunks', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Chunks0', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Chunks1', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Chunks2', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp1Chunks', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp2Chunks', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp4Chunks', {})
+    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp5Chunks', {})
+end)
 
 -- global vehicle "Sturdification"
 Events:Subscribe('Partition:Loaded', function(partition)
@@ -62,6 +90,17 @@ Events:Subscribe('Partition:Loaded', function(partition)
 				processorData.lifetime = 0
 				print('Changed Emitter: '..tostring(effectEmitter.name))
 			end
+		end
+
+		if (instance:Is('VehicleBlueprint') and mmResources:IsHelicopter(instance)) then
+
+			local vehicleBlueprint = VehicleBlueprint(instance)
+			local entityData = VehicleEntityData(vehicleBlueprint.object)
+			local chassisData = ChassisComponentData(entityData.components[1])
+			local vehicleConfig = VehicleConfigData(chassisData.vehicleConfig)
+			vehicleConfig:MakeWritable()
+			vehicleConfig.motionDamping = nil
+			print('Removed Motion Damping ['..dump(vehicleBlueprint.name)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
 	end
 end)

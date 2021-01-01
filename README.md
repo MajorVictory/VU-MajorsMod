@@ -41,5 +41,5 @@ In general, more fun has been inserted
 
 ### General
 - All vehicles no longer take ground damage due to speed
-- All vehciles no longer take damage while underwater
+- All vehicles no longer take damage while underwater
 - Smoke trails behind fast moving tracked and wheeled vehicles have been removed for visibility

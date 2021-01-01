@@ -55,6 +55,10 @@ function MMResources:__init()
 	self.MMResources["m98"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
 	self.MMResources["m98"]["Instance"] = '7805C312-2B2B-49C6-B1A9-F6A99863BA3E'
 
+	self.MMResources["m98model"] = {}
+	self.MMResources["m98model"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
+	self.MMResources["m98model"]["Instance"] = '47BED55F-7963-A445-CD98-00043E0CFEC7'
+
 	self.MMResources["aek971"] = {}
 	self.MMResources["aek971"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
 	self.MMResources["aek971"]["Instance"] = 'CE3372DA-991B-41C1-95BC-19B5D26AAE5B'
@@ -192,6 +196,14 @@ function MMResources:__init()
 	self.MMResources["quadbike"] = {}
 	self.MMResources["quadbike"]["Partition"] = '08D3686F-A96A-11E1-9047-F3806E4ECBA6'
 	self.MMResources["quadbike"]["Instance"] = '5BA1F26D-894A-BBAC-7E32-587645354615'
+
+	self.MMResources["sprutsd"] = {}
+	self.MMResources["sprutsd"]["Partition"] = 'A069F34C-3AE9-4030-8808-29882A555FA1'
+	self.MMResources["sprutsd"]["Instance"] = '6ACD9A3B-FA8D-40F0-9F8A-F108EAF721F4'
+
+	self.MMResources["sprutsdengine"] = {}
+	self.MMResources["sprutsdengine"]["Partition"] = 'A069F34C-3AE9-4030-8808-29882A555FA1'
+	self.MMResources["sprutsdengine"]["Instance"] = '9132543A-DAD6-408B-80A7-B6469BCB505A'
 
 
 
@@ -355,11 +367,50 @@ function MMResources:__init()
 		}
 	}
 
+	self.MMResources["Levels/XP3_Shield/XP3_Shield"] = {
+		["Partition"] = '69AFE35D-259F-11E1-98E7-C42BEF8FFB67',
+		["Registry"] = '4396E861-4042-A682-5CD8-B00184DFECA1',
+		["SuperBundles"] = {
+			'SPChunks',
+			'Levels/MP_007/MP_007',
+			'Levels/SP_Tank/SP_Tank',
+			'XP3Chunks',
+			'Levels/XP3_Desert/XP3_Desert',
+			'Levels/XP3_Shield/XP3_Shield'
+		},
+		["Bundles"] = {
+			'Levels/MP_007/MP_007',
+			'Levels/SP_Tank/SP_Tank',
+            'Levels/SP_Tank/HighwayToTeheran_01',
+            'Levels/XP3_Desert/RushLarge0',
+            'CURRENTLEVEL',
+		},
+		["Vehicles"] = {
+			'a10', 'civcar03', 'deliveryvan'
+		},
+		["OOB"] = {
+			{["Partition"] = '877F24E5-828F-4A52-874F-939839E9EE60', ["Volume"] = 'E9ABBA54-C1EA-4D14-AC66-762DE7E846A5'},
+			{["Partition"] = '877F24E5-828F-4A52-874F-939839E9EE60', ["Volume"] = 'AFC13C53-D12C-440C-A887-1240F73BE4A4'},
+			{["Partition"] = '877F24E5-828F-4A52-874F-939839E9EE60', ["Volume"] = '1B360806-C46F-4786-A127-824994F6F9DF'},
+
+		}
+	}
+
 	-- only insert supported maps
 	-- quick guid to name lookup table
 	self.MapLookup = {
 		['CC4B754F-DC2D-11DF-B4FF-DE2D36FBFBF4'] = 'Levels/MP_007/MP_007',
-		['4CA1C116-7FA3-4163-A17E-325ACD02FD4F'] = 'Levels/XP3_Desert/XP3_Desert'
+		['4CA1C116-7FA3-4163-A17E-325ACD02FD4F'] = 'Levels/XP3_Desert/XP3_Desert',
+		['69AFE35D-259F-11E1-98E7-C42BEF8FFB67'] = 'Levels/XP3_Shield/XP3_Shield'
+	}
+
+	self.HeliLookup = { 
+		["Vehicles/AH1Z/AH1Z"] = true,
+		["Vehicles/AH6/AH6_Littlebird"] = true,
+		["Vehicles/KA-60_Kasatka/KA-60_Kasatka"] = true,
+		["Vehicles/Mi28/Mi28"] = true,
+		["Vehicles/Venom/Venom"] = true,
+		["Vehicles/Z11W/Z-11w"] = true,
 	}
 end
 
@@ -518,6 +569,11 @@ function MMResources:IsSturdifyBlacklisted(instance)
 	else
 		return self.SturdifyBlacklist[instance.instanceGuid:ToString('D')] == true
 	end
+end
+
+function MMResources:IsHelicopter(instance)
+	local vehicleBlueprint = VehicleBlueprint(instance)
+	return self.HeliLookup[vehicleBlueprint.name] == true
 end
 
 return MMResources()
