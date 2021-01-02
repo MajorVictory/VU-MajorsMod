@@ -18,7 +18,7 @@ In general, more fun has been inserted
 - M15 Mines do no damage, has a massive blast force, and can only have 4 placed at once
 - SMAW has realistic travel speed, but not lifetime (250 m/s initial, 750 m/s max)
 - .44 Magnum (scoped and regular) shoots SMAW rockets
-- .44 Magnum (scoped) has over 20x zoom
+- .44 Magnum (scoped) has 20x zoom
 - P90 (standard barrel) fires 12g Frag rounds
 - M98 (standard barrel) is near-hitscan and can reach across the map and does 966,969 damage
 - AEK is now a knockoff UltraAEK and shoots RPG-7 rockets
