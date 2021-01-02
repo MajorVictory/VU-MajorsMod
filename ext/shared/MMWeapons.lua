@@ -51,13 +51,23 @@ function MMWeapons:Write(mmResources)
 		print('Changed Magnum .44...')
 	end
 
-	if (mmResources:IsLoaded('magnum44zoom')) then
-		mmResources:SetLoaded('magnum44zoom', false)
+	if (mmResources:IsLoaded('magnum44scope')) then
+		mmResources:SetLoaded('magnum44scope', false)
 
-		local zoomData = WeaponZoomModifier(mmResources:GetInstance('magnum44zoom'))
+		local zoomData = WeaponZoomModifier(mmResources:GetInstance('magnum44scope'))
 		zoomData:MakeWritable()
-		zoomData.zoomRenderFov = 1.5
-		print('Changed Magnum Zoom...')
+		zoomData.zoomRenderFov = 3.5
+		print('Changed Magnum Scope Zoom...')
+	end
+
+	if (mmResources:IsLoaded('magnum44aim') and mmResources:IsLoaded('zoom20x')) then
+		mmResources:SetLoaded('magnum44aim', false)
+		mmResources:SetLoaded('zoom20x', false)
+
+		local aimData = SoldierAimingSimulationData(mmResources:GetInstance('magnum44aim'))
+		aimData:MakeWritable()
+		aimData.zoomLevels[2] = ZoomLevelData(mmResources:GetInstance('zoom20x'))
+		print('Changed Magnum Zoom Level...')
 	end
 
 	if (mmResources:IsLoaded('p90') and mmResources:IsLoaded('12gfrag')) then

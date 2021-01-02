@@ -7,9 +7,17 @@ function MMResources:__init()
 	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
 	self.MMResources["magnum44"]["Instance"] = 'B6CD5488-67E6-4063-8594-A09DAA2640F3'
 
-	self.MMResources["magnum44zoom"] = {}
-	self.MMResources["magnum44zoom"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
-	self.MMResources["magnum44zoom"]["Instance"] = '4F9AE8E4-7F90-4059-A3AC-6D511F77E8E3'
+	self.MMResources["magnum44aim"] = {}
+	self.MMResources["magnum44aim"]["Partition"] = '5DEFA236-40CF-48CF-8EA8-C1C0093F3013'
+	self.MMResources["magnum44aim"]["Instance"] = '8BDECEC7-453B-4A88-87B4-A23D20C4147E'
+
+	self.MMResources["magnum44scope"] = {}
+	self.MMResources["magnum44scope"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
+	self.MMResources["magnum44scope"]["Instance"] = '4F9AE8E4-7F90-4059-A3AC-6D511F77E8E3'
+
+	self.MMResources["zoom20x"] = {}
+	self.MMResources["zoom20x"]["Partition"] = '609CC1AC-4B36-4197-B1C1-2357E57CEBAF'
+	self.MMResources["zoom20x"]["Instance"] = '34C9BF53-1E0C-42D3-9EC1-696421E8A420'
 
 	self.MMResources["p90"] = {}
 	self.MMResources["p90"]["Partition"] = 'C75DBA86-F326-11DF-ABE6-A89858BEBE43'
