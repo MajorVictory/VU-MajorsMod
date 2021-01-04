@@ -127,18 +127,6 @@ function MMWeapons:Write(mmResources)
 		print('Changed M98 FireData...')
 	end
 
-	if (mmResources:IsLoaded('m98model')) then
-		mmResources:SetLoaded('m98model', false)
-
-		local chassisData = SoldierWeaponData(mmResources:GetInstance('m98model'))
-		chassisData:MakeWritable()
-		chassisData.transform.left.x = 2
-		chassisData.transform.up.y = 2
-		chassisData.transform.forward.z = 2
-
-		print('Changed M98 Model...')
-	end
-
 	if (mmResources:IsLoaded('bullet338')) then
 		mmResources:SetLoaded('bullet338', false)
 
@@ -288,6 +276,57 @@ function MMWeapons:Write(mmResources)
 		meleeData.invalidMeleeAttackZone = 1.0
 
 		print('Changed Knoife (Knife)...')
+	end
+
+	if (mmResources:IsLoaded('famas')) then
+		mmResources:SetLoaded('famas', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('famas'))
+		fireData:MakeWritable()
+		fireData.ammo.magazineCapacity = 1001
+		fireData.shot.numberOfBulletsPerBurst = 25
+
+		fireData.fireLogic.rateOfFire = 3500
+		fireData.fireLogic.rateOfFireForBurst = 7500
+
+		print('Changed Famas...')
+	end
+end
+
+function MMWeapons:onValidate_FamasRoF(args)
+	return mmConVars:ValidateArgs('FamasRoF', args)
+end
+
+function MMWeapons:onShared_FamasRoF( player, args )
+	local fireData = FiringFunctionData(mmResources:GetInstance('famas'))
+	if (fireData ~= nil) then
+
+		if (args[2] == nil) then
+			args[2] = args[1]
+		end
+
+		fireData:MakeWritable()
+		fireData.fireLogic.rateOfFire = tonumber(args[1])
+		fireData.fireLogic.rateOfFireForBurst = tonumber(args[2])
+		print('Changed Famas Rate of Fire, Regular: '..tostring(args[1])..' | Burst: '..tostring(args[2]))
+	else
+		print('Error: Famas not loaded')
+	end
+end
+
+function MMWeapons:onValidate_MinePower(args)
+	return mmConVars:ValidateArgs('MinePower', args)
+end
+
+function MMWeapons:onShared_MinePower( player, args )
+	local expData = VeniceExplosionEntityData(mmResources:GetInstance('m15exp'))
+	if (expData ~= nil) then
+		expData:MakeWritable()
+		expData.blastImpulse = tonumber(args[1])
+		expData.shockwaveImpulse = tonumber(args[1])
+		print('Changed M15 AT Mine Blast Power: '..tostring(args[1]))
+	else
+		print('Error: M15 AT Mine not loaded')
 	end
 end
 

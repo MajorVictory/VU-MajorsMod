@@ -15,7 +15,7 @@ In general, more fun has been inserted
 - Ammobag heals and has a radius of 9,001 Meters
 - The knife is now a Knoife and has a 10 Meter range
 - C4 does no damage, boosts vehicles, and you can have 25 placed at once
-- M15 Mines do no damage, has a massive blast force, and can only have 4 placed at once
+- M15 Mines do no damage, has a massive blast force, and can only have 4 placed at once (Blast power configurable via console `vu-majorsmod.MinePower`)
 - SMAW has realistic travel speed, but not lifetime (250 m/s initial, 750 m/s max)
 - .44 Magnum (scoped and regular) shoots SMAW rockets
 - .44 Magnum (scoped) has 20x zoom
@@ -24,6 +24,7 @@ In general, more fun has been inserted
 - AEK is now a knockoff UltraAEK and shoots RPG-7 rockets
 - MK3A1 Jackhammer. Stop. Jackhammer Time. (has a little extra recoil)
 - M60 (standard barrel) fires explosive crossbow bolts and has faster reload
+- Famas shoots faster (configurable via console `vu-majorsmod.FamasRoF`)
 
 ### Vehicles
 - Helicopters have had their motion dmapnig removed, allowing you to do flips and barrel rolls

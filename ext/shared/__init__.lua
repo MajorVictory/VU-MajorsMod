@@ -4,11 +4,15 @@ require('__shared/MMUtils')
 -- load resource list
 mmResources = require('__shared/MMResources')
 
---global changes
+-- modules
 mmPlayers = require('__shared/MMPlayers')
 mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
 mmLevelManager = require('__shared/MMLevelManager')
+
+-- register console variables
+mmConVars = require('__shared/MMConVars')
+mmConVars:RegisterEvents('Shared')
 
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do

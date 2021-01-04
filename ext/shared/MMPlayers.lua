@@ -21,14 +21,19 @@ function MMPlayers:Write(mmResources)
 		print('Changed Player Jump...')
 	end
 
+	--[[
 	if (mmResources:IsLoaded('mpsoldier')) then
 		mmResources:SetLoaded('mpsoldier', false)
 
-		local soldierData = SoldierEntityData(mmResources:GetInstance('mpsoldier'))
+		local soldierData = SoldierBodyComponentData(mmResources:GetInstance('mpsoldier'))
 		soldierData:MakeWritable()
-		soldierData.isPushable = true
+		soldierData.transform.left.x = 2
+		soldierData.transform.up.y = 2
+		soldierData.transform.forward.z = 2
+
 		print('Changed MP Soldier...')
 	end
+	]]
 
 	if (mmResources:IsLoaded('pose_stand') and
 		mmResources:IsLoaded('pose_standair') and

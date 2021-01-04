@@ -67,10 +67,6 @@ function MMResources:__init()
 	self.MMResources["m98"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
 	self.MMResources["m98"]["Instance"] = '7805C312-2B2B-49C6-B1A9-F6A99863BA3E'
 
-	self.MMResources["m98model"] = {}
-	self.MMResources["m98model"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
-	self.MMResources["m98model"]["Instance"] = '47BED55F-7963-A445-CD98-00043E0CFEC7'
-
 	self.MMResources["aek971"] = {}
 	self.MMResources["aek971"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
 	self.MMResources["aek971"]["Instance"] = 'CE3372DA-991B-41C1-95BC-19B5D26AAE5B'
@@ -114,6 +110,10 @@ function MMResources:__init()
 	self.MMResources["m60"] = {}
 	self.MMResources["m60"]["Partition"] = '99BD41C7-EDB0-11DF-A0C6-D95650B9E286'
 	self.MMResources["m60"]["Instance"] = '1D44B441-7F16-46F3-9EFF-D0647D554EFE'
+
+	self.MMResources["famas"] = {}
+	self.MMResources["famas"]["Partition"] = '706A1BD6-6DAB-4CEE-BFCA-82814251E2D8'
+	self.MMResources["famas"]["Instance"] = 'F91A9BA8-A08B-44EE-B6F3-9B181FAD71BA'
 
 
 	self.MMResources["m1abrams"] = {}
@@ -252,7 +252,7 @@ function MMResources:__init()
 
 	self.MMResources["mpsoldier"] = {}
 	self.MMResources["mpsoldier"]["Partition"] = 'F256E142-C9D8-4BFE-985B-3960B9E9D189'
-	self.MMResources["mpsoldier"]["Instance"] = 'A9FFE6B4-257F-4FE8-A950-B323B50D2112'
+	self.MMResources["mpsoldier"]["Instance"] = '1C721510-AD42-4AFD-B613-04DC37D0FC1F'
 
 	self.MMResources["yump"] = {}
 	self.MMResources["yump"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
@@ -604,6 +604,41 @@ end
 function MMResources:IsHelicopter(instance)
 	local vehicleBlueprint = VehicleBlueprint(instance)
 	return self.HeliLookup[vehicleBlueprint.name] == true
+end
+
+function MMResources:ScaleTransforms(transformList, scale)
+
+	if (transformList == nil or #transformList < 1) then 
+		return
+	end
+	if (scale == nil) then 
+		scale = 1
+	end
+
+	for i=1, #transformList do
+
+		local transform = nil
+
+		if (transformList[i].typeInfo.name ~= 'LinearTransform' and transformList[i].transform) then 
+			transform = transformList[i].transform
+		else 
+			transform = transformList[i]
+		end
+
+		if (transform.left == nil) then
+			transform.right = transform.right * scale
+		else
+			transform.left.x = scale
+		end
+
+		transform.up.y = scale
+		transform.forward.z = scale
+
+		transform.trans.x = transform.trans.x * scale
+		transform.trans.y = transform.trans.y * scale
+		transform.trans.z = transform.trans.z * scale
+	end
+
 end
 
 return MMResources()
