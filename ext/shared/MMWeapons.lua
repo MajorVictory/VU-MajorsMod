@@ -293,10 +293,6 @@ function MMWeapons:Write(mmResources)
 	end
 end
 
-function MMWeapons:onValidate_FamasRoF(args)
-	return mmConVars:ValidateArgs('FamasRoF', args)
-end
-
 function MMWeapons:onShared_FamasRoF( player, args )
 	local fireData = FiringFunctionData(mmResources:GetInstance('famas'))
 	if (fireData ~= nil) then
@@ -312,10 +308,6 @@ function MMWeapons:onShared_FamasRoF( player, args )
 	else
 		print('Error: Famas not loaded')
 	end
-end
-
-function MMWeapons:onValidate_MinePower(args)
-	return mmConVars:ValidateArgs('MinePower', args)
 end
 
 function MMWeapons:onShared_MinePower( player, args )
