@@ -12,7 +12,6 @@ mmLevelManager = require('__shared/MMLevelManager')
 
 -- register console variables
 mmConVars = require('__shared/MMConVars')
-mmConVars:RegisterEvents('Shared')
 
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do
@@ -110,4 +109,49 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			print('Removed Motion Damping ['..dump(vehicleBlueprint.name)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
 	end
+end)
+
+-- negate damage from hitting stuff because 2FAST
+Hooks:Install('Soldier:Damage', 1987, function(hook, soldier, info, giverInfo)
+
+	local debugDamage = false
+
+	if debugDamage then
+		SharedUtils:Print('Soldier:Damage --------------------------------')
+	end
+
+	if debugDamage and giverInfo ~= nil then
+		SharedUtils:Print('giverInfo.damageType: '..tostring(giverInfo.damageType))
+	end
+
+	if debugDamage and giverInfo ~= nil and giverInfo.giver ~= nil then
+		SharedUtils:Print('giverInfo.giver.name: '..tostring(giverInfo.giver.name))
+		SharedUtils:Print('giverInfo.giver.id: '..tostring(giverInfo.giver.id))
+		SharedUtils:Print('giverInfo.giver.onlineId: '..tostring(giverInfo.giver.onlineId))
+		SharedUtils:Print('giverInfo.giver.hasSoldier: '..tostring(giverInfo.giver.hasSoldier))
+		SharedUtils:Print('giverInfo.giver.alive: '..tostring(giverInfo.giver.alive))
+	end
+
+	if debugDamage and info ~= nil then
+		SharedUtils:Print('info.damage: '..tostring(info.damage))
+		SharedUtils:Print('info.collisionSpeed: '..tostring(info.collisionSpeed))
+		SharedUtils:Print('info.stamina: '..tostring(info.stamina))
+		SharedUtils:Print('info.isDemolitionDamage: '..tostring(info.isDemolitionDamage))
+		SharedUtils:Print('info.isExplosionDamage: '..tostring(info.isExplosionDamage))
+		SharedUtils:Print('info.isBulletDamage: '..tostring(info.isBulletDamage))
+		SharedUtils:Print('info.isClientDamage: '..tostring(info.isClientDamage))
+		SharedUtils:Print('info.shouldForceDamage: '..tostring(info.shouldForceDamage))
+	end
+
+	if debugDamage then
+		SharedUtils:Print('-----------------------------------------------')
+	end
+
+  	-- no collision damage or 'Count' damage
+	if giverInfo.damageType == 4 or giverInfo.damageType == 6 then
+		info.damage = 0
+		hook:Return()
+  	end
+
+  	hook:Pass(soldier, info, giverInfo)
 end)

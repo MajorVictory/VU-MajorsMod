@@ -24,6 +24,61 @@ function MMWeapons:Write(mmResources)
 		print('Changed Ammobag...')
 	end
 
+	if (mmResources:IsLoaded('grenade')) then
+		mmResources:SetLoaded('grenade', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('grenade'))
+		fireData:MakeWritable()
+		
+		fireData.weaponDispersion.standDispersion.minAngle = 0.25
+		fireData.weaponDispersion.standDispersion.maxAngle = 3
+		fireData.weaponDispersion.crouchDispersion.minAngle = 0.25
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 3
+		fireData.weaponDispersion.proneDispersion.minAngle = 0.25
+		fireData.weaponDispersion.proneDispersion.maxAngle = 3
+
+		fireData.shot.initialSpeed.z = 15
+		fireData.shot.numberOfBulletsPerShell = 10
+		fireData.shot.numberOfBulletsPerShot = 10
+
+		fireData.ammo.magazineCapacity = 1
+		fireData.ammo.numberOfMagazines = 10
+		fireData.ammo.ammoBagPickupDelayMultiplier = 10
+		print('Changed M67 Grenade...')
+	end
+
+	if (mmResources:IsLoaded('grenadeent')) then
+		mmResources:SetLoaded('grenadeent', false)
+
+		local grenadeData = GrenadeEntityData(mmResources:GetInstance('grenadeent'))
+		grenadeData:MakeWritable()
+
+		grenadeData.transform.left.x = 4
+		grenadeData.transform.up.y = 4
+		grenadeData.transform.forward.z = 4
+
+		grenadeData.timeToLive = 5
+		grenadeData.gravity = -30
+		print('Changed M67 Grenade Entity...')
+	end
+
+	if (mmResources:IsLoaded('grenadeexp')) then
+		mmResources:SetLoaded('grenadeexp', false)
+
+		local expData = VeniceExplosionEntityData(mmResources:GetInstance('grenadeexp'))
+		expData:MakeWritable()
+		expData.blastDamage = 0
+		expData.blastRadius = 10
+		expData.blastImpulse = -50000
+		expData.shockwaveDamage = 0.1
+		expData.shockwaveRadius = 10
+		expData.shockwaveImpulse = -50000
+		expData.shockwaveTime = 0
+		expData.triggerImpairedHearing = false
+		expData.isCausingSuppression = false
+		print('Changed M67 Grenade Explosion...')
+	end
+
 	if (mmResources:IsLoaded('smaw')) then
 		mmResources:SetLoaded('smaw', false)
 
@@ -78,11 +133,13 @@ function MMWeapons:Write(mmResources)
 		local bulletData = BulletEntityData(mmResources:GetInstance('12gfrag'))
 
 		bulletData:MakeWritable()
-		bulletData.gravity = 0
-		bulletData.startDamage = 6969
-		bulletData.endDamage = 6969
+		bulletData.gravity = -4.5
+		bulletData.startDamage = 100
+		bulletData.endDamage = 5000
+		bulletData.damageFalloffStartDistance = 25
+		bulletData.damageFalloffEndDistance = 500
 		bulletData.timeToLive = 5
-		bulletData.impactImpulse = 69000
+		bulletData.impactImpulse = 40000
 		print('Changed 12G Frag Projectile...')
 
 		fireData:MakeWritable()
@@ -102,10 +159,12 @@ function MMWeapons:Write(mmResources)
 
 		bulletData:MakeWritable()
 		bulletData.gravity = -4.5
-		bulletData.startDamage = 6969
-		bulletData.endDamage = 6969
-		bulletData.timeToLive = 10
-		bulletData.impactImpulse = 69000
+		bulletData.startDamage = 100
+		bulletData.endDamage = 9001
+		bulletData.damageFalloffStartDistance = 25
+		bulletData.damageFalloffEndDistance = 500
+		bulletData.timeToLive = 15
+		bulletData.impactImpulse = -50000
 		print('Changed Crossbow Bolt HE Projectile...')
 
 		fireData:MakeWritable()
@@ -133,8 +192,8 @@ function MMWeapons:Write(mmResources)
 		local bulletData = BulletEntityData(mmResources:GetInstance('bullet338'))
 		bulletData:MakeWritable()
 		bulletData.timeToLive = 1.5
-		bulletData.startDamage = 966969
-		bulletData.endDamage = 966969
+		bulletData.startDamage = 69420
+		bulletData.endDamage = 69420
 		bulletData.damageFalloffStartDistance = 9000
 		bulletData.damageFalloffEndDistance = 9001
 		print('Changed M98 Bullet...')
@@ -219,14 +278,16 @@ function MMWeapons:Write(mmResources)
 	if (mmResources:IsLoaded('m15exp')) then
 		mmResources:SetLoaded('m15exp', false)
 
+		local MinePower = mmConVars:GetValue('MinePower', {900000})
+
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('m15exp'))
 		expData:MakeWritable()
 		expData.blastDamage = 0
 		expData.blastRadius = 4
-		expData.blastImpulse = 900000
+		expData.blastImpulse = tonumber(MinePower[1])
 		expData.shockwaveDamage = 0.1
 		expData.shockwaveRadius = 4
-		expData.shockwaveImpulse = 900000
+		expData.shockwaveImpulse = tonumber(MinePower[1])
 		expData.shockwaveTime = 0
 		expData.triggerImpairedHearing = false
 		expData.isCausingSuppression = false
@@ -249,19 +310,22 @@ function MMWeapons:Write(mmResources)
 
 		for i=1, #fireData do
 			fireData[i]:MakeWritable()
-			fireData[i].shot.numberOfBulletsPerShell = 45
-
-			fireData[i].fireLogic.recoil.maxRecoilAngleX = 90
-	        fireData[i].fireLogic.recoil.minRecoilAngleX = -90
-	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 90
-	        fireData[i].fireLogic.recoil.minRecoilAngleY = -90
-	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 90
-	        fireData[i].fireLogic.recoil.minRecoilAngleZ = -90
-			fireData[i].fireLogic.rateOfFire = 500
+			fireData[i].fireLogic.recoil.maxRecoilAngleX = 180
+	        fireData[i].fireLogic.recoil.minRecoilAngleX = -180
+	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 180
+	        fireData[i].fireLogic.recoil.minRecoilAngleY = -180
+	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 180
+	        fireData[i].fireLogic.recoil.minRecoilAngleZ = -180
+			fireData[i].fireLogic.rateOfFire = 600
 
 			fireData[i].ammo.magazineCapacity = 45
 			fireData[i].ammo.numberOfMagazines = 8
 		end
+
+		fireData[1].shot.numberOfBulletsPerShell = 45 -- pellets
+		fireData[2].shot.numberOfBulletsPerShell = 45 -- flechets
+		fireData[3].shot.numberOfBulletsPerShell = 10 -- frags
+		fireData[4].shot.numberOfBulletsPerShell = 10 -- slugs
 
 		print('Changed Jackhammer...')
 	end
@@ -269,11 +333,13 @@ function MMWeapons:Write(mmResources)
 	if (mmResources:IsLoaded('knoife')) then
 		mmResources:SetLoaded('knoife', false)
 
+		local KnoifeRange = mmConVars:GetValue('KnoifeRange', {10})
+
 		local meleeData = MeleeEntityCommonData(mmResources:GetInstance('knoife'))
 		meleeData:MakeWritable()
-		meleeData.meleeAttackDistance = 10.0
-		meleeData.maxAttackHeightDifference = 10.0
-		meleeData.invalidMeleeAttackZone = 1.0
+		meleeData.meleeAttackDistance = tonumber(KnoifeRange[1])
+		meleeData.maxAttackHeightDifference = tonumber(KnoifeRange[1])
+		meleeData.invalidMeleeAttackZone = 0
 
 		print('Changed Knoife (Knife)...')
 	end
@@ -283,43 +349,41 @@ function MMWeapons:Write(mmResources)
 
 		local fireData = FiringFunctionData(mmResources:GetInstance('famas'))
 		fireData:MakeWritable()
-		fireData.ammo.magazineCapacity = 1001
+
+		local FamasMagSize = mmConVars:GetValue('FamasMagSize', {1001})
+		print('Changed Famas [FamasMagSize]['..getModuleState()..']: '..dump(FamasMagSize))
+
+		fireData.ammo.magazineCapacity = tonumber(FamasMagSize[1])
 		fireData.shot.numberOfBulletsPerBurst = 25
 
-		fireData.fireLogic.rateOfFire = 3500
-		fireData.fireLogic.rateOfFireForBurst = 7500
+		local FamasRoF = mmConVars:GetValue('FamasRoF', {3500, 7500})
+		print('Changed Famas [FamasRoF]['..getModuleState()..']: '..dump(FamasRoF))
+
+		fireData.fireLogic.rateOfFire = tonumber(FamasRoF[1])
+		fireData.fireLogic.rateOfFireForBurst = tonumber(FamasRoF[2])
 
 		print('Changed Famas...')
 	end
 end
 
+function MMWeapons:onShared_FamasMagSize( player, args )
+	mmResources:SetLoaded('famas', true)
+	self:Write(mmResources)
+end
+
+function MMWeapons:onShared_KnoifeRange( player, args )
+	mmResources:SetLoaded('knoife', true)
+	self:Write(mmResources)
+end
+
 function MMWeapons:onShared_FamasRoF( player, args )
-	local fireData = FiringFunctionData(mmResources:GetInstance('famas'))
-	if (fireData ~= nil) then
-
-		if (args[2] == nil) then
-			args[2] = args[1]
-		end
-
-		fireData:MakeWritable()
-		fireData.fireLogic.rateOfFire = tonumber(args[1])
-		fireData.fireLogic.rateOfFireForBurst = tonumber(args[2])
-		print('Changed Famas Rate of Fire, Regular: '..tostring(args[1])..' | Burst: '..tostring(args[2]))
-	else
-		print('Error: Famas not loaded')
-	end
+	mmResources:SetLoaded('famas', true)
+	self:Write(mmResources)
 end
 
 function MMWeapons:onShared_MinePower( player, args )
-	local expData = VeniceExplosionEntityData(mmResources:GetInstance('m15exp'))
-	if (expData ~= nil) then
-		expData:MakeWritable()
-		expData.blastImpulse = tonumber(args[1])
-		expData.shockwaveImpulse = tonumber(args[1])
-		print('Changed M15 AT Mine Blast Power: '..tostring(args[1]))
-	else
-		print('Error: M15 AT Mine not loaded')
-	end
+	mmResources:SetLoaded('m15exp', true)
+	self:Write(mmResources)
 end
 
 return MMWeapons()

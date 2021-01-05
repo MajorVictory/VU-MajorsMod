@@ -24,6 +24,34 @@ function MMConVars:__init()
 			["ShareType"] = 'Shared',
 			["Module"] = mmWeapons
 		},
+		["FamasMagSize"] = {
+			["Help"] = 'Set Famas rate of fire',
+			["Args"] = {
+				{
+					["Name"] = 'MagSize',
+					["Type"] = 'number',
+					["Optional"] = false,
+					["Choices"] = {},
+					["Default"] = '1001'
+				}
+			},
+			["ShareType"] = 'Shared',
+			["Module"] = mmWeapons
+		},
+		["KnoifeRange"] = {
+			["Help"] = 'Set the range of the Knoife',
+			["Args"] = {
+				{
+					["Name"] = 'RangeMeters',
+					["Type"] = 'float',
+					["Optional"] = false,
+					["Choices"] = {},
+					["Default"] = '10'
+				}
+			},
+			["ShareType"] = 'Shared',
+			["Module"] = mmWeapons
+		},
 		["MinePower"] = {
 			["Help"] = 'Set the blast power of the M15 AT Mine',
 			["Args"] = {
@@ -144,18 +172,35 @@ function MMConVars:CreateCommandIssuer(cvarName)
 	end
 end
 
--- shareType is case sensitive and must be 'Shared', 'Client', or 'Server'
+-- shareType is case sensitive and must be 'Client' or 'Server'
 function MMConVars:RegisterEvents(shareType)
-	if (shareType == nil) then shareType = 'Shared' end
 
 	for cvarName,conVar in pairs(self.cvars) do
-
 		local eventName = conVar.ShareType..'_'..cvarName
 
-		if (conVar.ShareType == shareType) then
+		if (conVar.ShareType == shareType or conVar.ShareType == 'Shared') then
 			NetEvents:Subscribe('MMConVars:'..eventName, conVar.Module, conVar.Module['on'..eventName])
 		end
 	end
+
+	if (shareType ~= 'Client') then
+		NetEvents:Subscribe('MMConVars:SetServerValue', self, self.SetServerValue)
+	end
+end
+
+-- a client call requests to set these values
+function MMConVars:SetServerValue(player, args)
+	print('MMConVars:SetServerValue ['..getModuleState()..']: '..dump(args))
+	local conVar = self.cvars[args[1]]
+	local eventName = conVar.ShareType..'_'..args[1]
+	conVar["Value"] = args[2]
+	conVar["RawValue"] = args[3]
+
+	-- server is updated, now tell the client to apply
+	NetEvents:BroadcastLocal('MMConVars:'..eventName, args[3])
+
+	-- now apply them on the server
+	conVar.Module['on'..eventName](conVar.Module, player, args[3])
 end
 
 -- [cvarName] returns config settings for given conVar
@@ -182,6 +227,30 @@ function MMConVars:Get(cvarName, argName)
 	else
 		return self.cvars
 	end
+end
+
+-- returns array of current values for specified convar
+-- if not set, returns default values provided to ...
+function MMConVars:GetValue(cvarName, args)
+	local conVar = self:Get(cvarName)
+
+	print('MMConVars:GetValue ['..cvarName..']['..getModuleState()..']: '..dump(conVar.RawValue))
+	print('MMConVars:GetValue [args]: '..dump(args))
+
+	if (conVar == nil or conVar.RawValue == nil or #conVar.RawValue == 0) then
+		return args
+	end
+
+	local values = {}
+
+	for i=1, #conVar.RawValue do
+		if (conVar.RawValue[i] == nil) then
+			values[#values+1] = args[i]
+		else
+			values[#values+1] = conVar.RawValue[i]
+		end
+	end
+	return values
 end
 
 -- returns human readble usage string with optional [format]
@@ -255,13 +324,14 @@ function MMConVars:ValidateArgs(cvarName, args)
 		return mmConVars:GetUsage(cvarName, true)
 	end
 
-	-- validate each argument
+	-- validate each argument, adding default values to missing or invalid arguments
 	for i=1, #conVar.Args do
+		local status = false
 
-		local reason = mmConVars:ValidateArgument(args[i], conVar.Args[i])
+		args[i], status = mmConVars:ValidateArgument(args[i], conVar.Args[i])
 
-		if (reason ~= true) then
-			return 'Argument '..i..' *'..conVar.Args[i].Name..'* Invalid: '..tostring(reason)
+		if (status ~= true) then
+			return 'Argument '..i..' *'..conVar.Args[i].Name..'* Invalid: '..tostring(status)
 		end
 	end
 
@@ -274,36 +344,52 @@ function MMConVars:ValidateArgs(cvarName, args)
 		storeValue = storeValue..args[i]
 	end
 
+	print('MMConVars:ValidateArgs ['..cvarName..']['..getModuleState()..']: '..dump(args))
+
 	conVar["Value"] = storeValue
 	conVar["RawValue"] = args
 
-	NetEvents:SendLocal('MMConVars:'..conVar.ShareType..'_'..cvarName, args)
+	-- client has updated its value, now tell the server to update
+	NetEvents:SendLocal('MMConVars:SetServerValue', {cvarName, storeValue, args})
 end
 
--- returns boolean true on success or string with failure message
+-- returns two values <value>,<status>
+-- <value>: the validated value, with default applied if necessary
+-- <status>: boolean true if valid, string with message if failed
 function MMConVars:ValidateArgument(argValue, argParams)
 
+	local defaultValue = argParams.Default
+
 	if (argValue == nil and argParams.IsOptional) then
-		return true
+
+		return defaultValue, true
+
 	elseif (argParams.Type == 'number' or argParams.Type == 'float') then
+
 		if (argValue ~= nil and tonumber(argValue) == nil) then
-			return 'Must be a **'..argParams.Type..'**'
+			return defaultValue, 'Must be a **'..argParams.Type..'**'
 		end
+
 	elseif (argParams.Type == 'boolean') then
 
-		if (argValue ~= nil) then
+		if (argValue ~= nil) then -- sorry this is ugly
 			if (argValue == '1' or argValue == '0' or
-			string.lower(argValue) == 'true' or string.lower(argValue) == 'false' or
-			string.lower(argValue) == 'y' or string.lower(argValue) == 'n') then
-				return true
+				string.lower(argValue) == 'true' or string.lower(argValue) == 'false' or
+				string.lower(argValue) == 'y' or string.lower(argValue) == 'n') then
+
+				-- the value still needs to be a string, but let's normalise it
+				local booltostring = tostring((argValue == '1' or string.lower(argValue) == 'true' or string.lower(argValue) == 'y'))
+				return booltostring, true
 			end
 		end
-		return 'Not a valid **boolean**, use 1/0, true/false, or y/n'
+
+		return defaultValue, 'Not a valid **boolean**, use 1/0, true/false, or y/n'
+
 	elseif (argParams.Type == 'choices') then
 
 		for i=1, #argParams.Choices do
 			if (argValue ~= nil and argValue == argParams.Choices[i]) then
-				return true
+				return argValue, true
 			end
 		end
 
@@ -315,13 +401,13 @@ function MMConVars:ValidateArgument(argValue, argParams)
 			choices = choices..'*'..argParams.Choices[i]..'*'
 		end
 
-		return 'Not a valid **choice**, use: ['..choices..']'
+		return defaultValue, 'Not a valid **choice**, use: ['..choices..']'
 	elseif (argParams.Type == 'string') then
 		if (argValue == nil) then
-			return 'Must be a **string**'
+			return defaultValue, 'Must be a **string**'
 		end
 	end
-	return true
+	return argValue, true
 end
 
 

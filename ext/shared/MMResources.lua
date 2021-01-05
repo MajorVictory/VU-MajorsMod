@@ -115,6 +115,18 @@ function MMResources:__init()
 	self.MMResources["famas"]["Partition"] = '706A1BD6-6DAB-4CEE-BFCA-82814251E2D8'
 	self.MMResources["famas"]["Instance"] = 'F91A9BA8-A08B-44EE-B6F3-9B181FAD71BA'
 
+	self.MMResources["grenade"] = {}
+	self.MMResources["grenade"]["Partition"] = 'FFF5DB09-E74B-11DF-9B5E-86394B544891'
+	self.MMResources["grenade"]["Instance"] = '04E1FA90-5B6E-4316-862C-15EB89652441'
+
+	self.MMResources["grenadeent"] = {}
+	self.MMResources["grenadeent"]["Partition"] = 'CF031A0B-2492-11E0-85B7-F234A394297F'
+	self.MMResources["grenadeent"]["Instance"] = '326152E6-0F84-430D-D2E3-19EBDA8266C4'
+
+	self.MMResources["grenadeexp"] = {}
+	self.MMResources["grenadeexp"]["Partition"] = 'CF031A0B-2492-11E0-85B7-F234A394297F'
+	self.MMResources["grenadeexp"]["Instance"] = '0E0932A0-E8EF-4037-983B-F35A6F7FEEE5'
+
 
 	self.MMResources["m1abrams"] = {}
 	self.MMResources["m1abrams"]["Partition"] = 'B069BA89-EECF-11DD-8117-9421284A74E5'
