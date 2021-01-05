@@ -7,15 +7,17 @@ Make things go boom and zoom.
 In general, more fun has been inserted
 
 ### Players
-- Default server settings give the players 696,969 HP (nice)
+- Default server settings give the players 6,969 HP (nice)
 - Movement speeds while walking, running, swimming, climbing, and falling without a chute are set to 42% as fast as Sonic the Hedghog
 - You can Yump. Yumping is better than jumping
+- Players don't take damage from falling or running into things because 2FAST
 
 ### Weapons
 - Ammobag heals and has a radius of 9,001 Meters
-- The knife is now a Knoife and has a 10 Meter range
+- The knife is now a Knoife and has a 10 Meter range (configurable via `vu-majorsmod.KnoifeRange`))
 - C4 does no damage, boosts vehicles, and you can have 25 placed at once
 - M15 Mines do no damage, has a massive blast force, and can only have 4 placed at once (Blast power configurable via console `vu-majorsmod.MinePower`)
+- Grenades are more implody than explody
 - SMAW has realistic travel speed, but not lifetime (250 m/s initial, 750 m/s max)
 - .44 Magnum (scoped and regular) shoots SMAW rockets
 - .44 Magnum (scoped) has 20x zoom
