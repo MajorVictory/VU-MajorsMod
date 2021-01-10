@@ -44,7 +44,6 @@ function IsPrimaryLevel( p_Bundle )
 end
 
 function getModuleState()
-
   if (SharedUtils:IsClientModule() and SharedUtils:IsServerModule()) then
     return 'Shared'
   elseif (SharedUtils:IsClientModule() and not SharedUtils:IsServerModule()) then

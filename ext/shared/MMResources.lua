@@ -3,6 +3,14 @@ class "MMResources"
 function MMResources:__init()
 	self.MMResources = {}
 
+	self.MMResources["chat"] = {}
+	self.MMResources["chat"]["Partition"] = '3E6AF1E2-B10E-11DF-9395-96FA88A245BF'
+	self.MMResources["chat"]["Instance"] = '78B3E33E-098B-3320-ED15-89A36F04007B'
+
+	self.MMResources["ammobag"] = {}
+	self.MMResources["ammobag"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
+	self.MMResources["ammobag"]["Instance"] = '4AE515CE-846D-6070-5F56-1285B7E8E187'
+
 	self.MMResources["magnum44"] = {}
 	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
 	self.MMResources["magnum44"]["Instance"] = 'B6CD5488-67E6-4063-8594-A09DAA2640F3'
@@ -305,9 +313,15 @@ function MMResources:__init()
 	self.MMResources["pose_chute"]["Instance"] = 'F39A8591-BA69-4BE9-B289-B2A0B336A7EE'
 
 
-	self.MMResources["ammobag"] = {}
-	self.MMResources["ammobag"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
-	self.MMResources["ammobag"]["Instance"] = '4AE515CE-846D-6070-5F56-1285B7E8E187'
+
+	self.MMResources["kit_us_engineer"] = {}
+	self.MMResources["kit_us_engineer"]["Partition"] = 'CFA00DBF-5106-46D0-BD82-94ADE98BBA27'
+	self.MMResources["kit_us_engineer"]["Instance"] = '0A99EBDB-602C-4080-BC3F-B388AA18ADDD'
+	self.MMResources["kit_us_engineer"]["Primary"] = '2AD7C3A9-113F-4944-AB37-E29799AE366D'
+	self.MMResources["kit_us_engineer"]["Secondary"] = '1C341A9E-3ECD-4739-926F-5227B7CA2F95'
+	self.MMResources["kit_us_engineer"]["Gadget1"] = '176939B3-1D98-466A-81E2-E9F977DE4A68'
+	self.MMResources["kit_us_engineer"]["Gadget2"] = 'D7681A79-30D6-40D6-AA8F-70EBCD31C855'
+	self.MMResources["kit_us_engineer"]["Special"] = '806E5135-7E26-4B4E-9978-869C2769437C'
 
 	-- vehicles can be imported by supplying blueprints, entities, and logic referrences required
 	self.MMResources["a10"] = {}
@@ -494,8 +508,12 @@ function MMResources:GetPartition(resourceName)
 	return ResourceManager:FindDatabasePartition(Guid(self.MMResources[resourceName].Partition))
 end
 
-function MMResources:GetInstance(resourceName)
-	return ResourceManager:FindInstanceByGuid(Guid(self.MMResources[resourceName].Partition), Guid(self.MMResources[resourceName].Instance))
+function MMResources:GetInstance(resourceName, secondaryResource)
+	if (secondaryResource ~= nil) then
+		return ResourceManager:FindInstanceByGuid(Guid(self.MMResources[resourceName].Partition), Guid(self.MMResources[resourceName][secondaryResource]))
+	else
+		return ResourceManager:FindInstanceByGuid(Guid(self.MMResources[resourceName].Partition), Guid(self.MMResources[resourceName].Instance))
+	end
 end
 
 function MMResources:AddToPartition(resourceName, partition)

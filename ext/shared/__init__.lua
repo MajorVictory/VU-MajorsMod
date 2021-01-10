@@ -108,6 +108,15 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			vehicleConfig.motionDamping = nil
 			print('Removed Motion Damping ['..dump(vehicleBlueprint.name)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
+
+		-- remove explosion supression
+		if (instance:Is('VeniceExplosionEntityData')) then
+			local expData = VeniceExplosionEntityData(instance)
+			expData:MakeWritable()
+			expData.triggerImpairedHearing = false
+			expData.isCausingSuppression = false
+			print('Removed Explosion Supression ['..instance.instanceGuid:ToString('D')..']...')
+		end
 	end
 end)
 

@@ -30,12 +30,15 @@ function MMWeapons:Write(mmResources)
 		local fireData = FiringFunctionData(mmResources:GetInstance('grenade'))
 		fireData:MakeWritable()
 		
-		fireData.weaponDispersion.standDispersion.minAngle = 0.25
-		fireData.weaponDispersion.standDispersion.maxAngle = 3
-		fireData.weaponDispersion.crouchDispersion.minAngle = 0.25
-		fireData.weaponDispersion.crouchDispersion.maxAngle = 3
-		fireData.weaponDispersion.proneDispersion.minAngle = 0.25
-		fireData.weaponDispersion.proneDispersion.maxAngle = 3
+		fireData.weaponDispersion.standDispersion.minAngle = 3.5
+		fireData.weaponDispersion.standDispersion.maxAngle = 5
+		fireData.weaponDispersion.standDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.crouchDispersion.minAngle = 3.5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.proneDispersion.minAngle = 3.5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 5
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
 
 		fireData.shot.initialSpeed.z = 15
 		fireData.shot.numberOfBulletsPerShell = 10
@@ -57,7 +60,7 @@ function MMWeapons:Write(mmResources)
 		grenadeData.transform.up.y = 4
 		grenadeData.transform.forward.z = 4
 
-		grenadeData.timeToLive = 5
+		grenadeData.timeToLive = 1
 		grenadeData.gravity = -30
 		print('Changed M67 Grenade Entity...')
 	end
@@ -67,12 +70,12 @@ function MMWeapons:Write(mmResources)
 
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('grenadeexp'))
 		expData:MakeWritable()
-		expData.blastDamage = 0
-		expData.blastRadius = 10
-		expData.blastImpulse = -50000
+		expData.blastDamage = 133
+		expData.blastRadius = 4
+		expData.blastImpulse = 0
 		expData.shockwaveDamage = 0.1
-		expData.shockwaveRadius = 10
-		expData.shockwaveImpulse = -50000
+		expData.shockwaveRadius = 3
+		expData.shockwaveImpulse = 0
 		expData.shockwaveTime = 0
 		expData.triggerImpairedHearing = false
 		expData.isCausingSuppression = false
