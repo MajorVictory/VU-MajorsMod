@@ -82,72 +82,10 @@ function MMWeapons:Write(instance)
 		dprint('Changed M67 Grenade Explosion...')
 	end
 
-	if (mmResources:IsLoaded('smaw')) then
-		mmResources:SetLoaded('smaw', false)
-
-		local fireData = FiringFunctionData(mmResources:GetInstance('smaw'))
-		fireData:MakeWritable()
-		fireData.shot.initialSpeed.z = 250
-		dprint('Changed SMAW...')
-	end
-
-	if ((mmResources:IsLoaded('gm_magnum44') or mmResources:IsLoaded('magnum44')) and mmResources:IsLoaded('smawmissile')) then
-		mmResources:SetLoaded('gm_magnum44', false)
-		mmResources:SetLoaded('magnum44', false)
-		mmResources:SetLoaded('smawmissile', false)
-
-		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
-		end
-		local weaponData = SoldierWeaponData(weaponBP.object)
-
-		self:OverrideGMMagSize(weaponData, 1)
-
-		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
-		missileData:MakeWritable()
-		missileData.maxSpeed = 750
-		missileData.gravity = -9.8
-		missileData.damage = 5000
-		dprint('Changed SMAW Missile...')
-
-		-- swap magnum for smaw rocket
-		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
-		fireData:MakeWritable()
-		fireData.ammo.magazineCapacity = 1
-		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(missileData)
-		dprint('Changed Magnum .44...')
-	end
-
-	if (mmResources:IsLoaded('magnum44scope')) then
-		mmResources:SetLoaded('magnum44scope', false)
-
-		local zoomData = WeaponZoomModifier(mmResources:GetInstance('magnum44scope'))
-		zoomData:MakeWritable()
-		zoomData.zoomRenderFov = 3.5
-		dprint('Changed Magnum Scope Zoom...')
-	end
-
-	if (mmResources:IsLoaded('magnum44aim') and mmResources:IsLoaded('zoom20x')) then
-		mmResources:SetLoaded('magnum44aim', false)
-		mmResources:SetLoaded('zoom20x', false)
-
-		local aimData = SoldierAimingSimulationData(mmResources:GetInstance('magnum44aim'))
-		aimData:MakeWritable()
-		aimData.zoomLevels[2] = ZoomLevelData(mmResources:GetInstance('zoom20x'))
-		dprint('Changed Magnum Zoom Level...')
-	end
-
-	if ((mmResources:IsLoaded('p90') or mmResources:IsLoaded('gm_p90')) and mmResources:IsLoaded('12gfrag')) then
+	if (mmResources:IsLoaded('gm_p90') and mmResources:IsLoaded('12gfrag')) then
 		mmResources:SetLoaded('gm_p90', false)
-		mmResources:SetLoaded('p90', false)
-		mmResources:SetLoaded('12gfrag', false)
 
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90')
-		end
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 404)
@@ -158,7 +96,34 @@ function MMWeapons:Write(instance)
 		bulletData.startDamage = 404
 		bulletData.endDamage = 4004
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 400
+		bulletData.damageFalloffEndDistance = 100
+		bulletData.timeToLive = 5
+		bulletData.impactImpulse = 40000
+		dprint('Changed 12G Frag Projectile...')
+
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+		fireData.ammo.magazineCapacity = 500
+		dprint('Changed P90 (GM)...')
+	end
+
+	if (mmResources:IsLoaded('p90') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('p90', false)
+
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90')
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 404)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('12gfrag'))
+		bulletData:MakeWritable()
+		bulletData.gravity = -4.5
+		bulletData.startDamage = 404
+		bulletData.endDamage = 4004
+		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffEndDistance = 100
 		bulletData.timeToLive = 5
 		bulletData.impactImpulse = 40000
 		dprint('Changed 12G Frag Projectile...')
@@ -314,43 +279,6 @@ function MMWeapons:Write(instance)
 		dprint('Changed M15 AT Mine Explosion...')
 	end
 
-	if (mmResources:IsLoaded('jackhammer')) then
-		mmResources:SetLoaded('jackhammer', false)
-
-		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('jackhammer'))
-		local weaponData = SoldierWeaponData(weaponBP.object)
-
-		self:OverrideGMMagSize(weaponData, 87)
-
-		local fireData = {
-			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction1')),
-			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction2')),
-			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction3')),
-			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction4'))
-		}
-
-		for i=1, #fireData do
-			fireData[i]:MakeWritable()
-			fireData[i].fireLogic.recoil.maxRecoilAngleX = -25
-	        fireData[i].fireLogic.recoil.minRecoilAngleX = -25
-	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 25
-	        fireData[i].fireLogic.recoil.minRecoilAngleY = 25
-	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 0
-	        fireData[i].fireLogic.recoil.minRecoilAngleZ = 0
-			fireData[i].fireLogic.rateOfFire = 600
-
-			fireData[i].ammo.magazineCapacity = 87
-			fireData[i].ammo.numberOfMagazines = 8
-		end
-
-		fireData[1].shot.numberOfBulletsPerShell = 60 -- pellets
-		fireData[2].shot.numberOfBulletsPerShell = 60 -- flechets
-		fireData[3].shot.numberOfBulletsPerShell = 10 -- frags
-		fireData[4].shot.numberOfBulletsPerShell = 10 -- slugs
-
-		dprint('Changed Jackhammer...')
-	end
-
 	if (mmResources:IsLoaded('knoife')) then
 		mmResources:SetLoaded('knoife', false)
 
@@ -376,14 +304,10 @@ function MMWeapons:Write(instance)
 		dprint('Changed Famas...')
 	end
 
-	if (mmResources:IsLoaded('gm_mp443') or mmResources:IsLoaded('mp443')) then
-		mmResources:SetLoaded('gm_mp443', false)
+	if (mmResources:IsLoaded('mp443')) then
 		mmResources:SetLoaded('mp443', false)
 
-		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443')
-		end
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443')
 		local fireData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire')
 		local bulletData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire.shot.projectileData')
 
@@ -402,15 +326,32 @@ function MMWeapons:Write(instance)
 		dprint('Changed Mp443...')
 	end
 
-	if ((mmResources:IsLoaded('gm_m93r') or mmResources:IsLoaded('m93r')) and mmResources:IsLoaded('m93rbullet')) then
-		mmResources:SetLoaded('gm_m93r', false)
-		mmResources:SetLoaded('m93r', false)
-		mmResources:SetLoaded('m93rbullet', false)
+	if (mmResources:IsLoaded('gm_mp443')) then
+		mmResources:SetLoaded('gm_mp443', false)
 
-		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/M93R/M93R_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/M93R/M93R')
-		end
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443_GM')
+		local fireData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire')
+		local bulletData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire.shot.projectileData')
+
+		self:OverrideGMMagSize(SoldierWeaponData(weaponBP.object), 420)
+
+		fireData.shot.initialSpeed.z = 450
+		fireData.fireLogic.rateOfFire = 900
+		fireData.ammo.magazineCapacity = 420
+		fireData.ammo.numberOfMagazines = -1
+		
+		bulletData.gravity = -9.8
+		bulletData.startDamage = 600
+		bulletData.endDamage = 1000
+		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffEndDistance = 15
+		dprint('Changed Mp443 (GM)...')
+	end
+
+	if (mmResources:IsLoaded('m93r') and mmResources:IsLoaded('m93rbullet')) then
+		mmResources:SetLoaded('m93r', false)
+
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/M93R/M93R')
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 5)
@@ -433,6 +374,32 @@ function MMWeapons:Write(instance)
 		dprint('Changed M93r...')
 	end
 
+	if (mmResources:IsLoaded('gm_m93r') and mmResources:IsLoaded('m93rbullet')) then
+		mmResources:SetLoaded('gm_m93r', false)
+
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/M93R/M93R_GM')
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 5)
+
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 380
+		fireData.shot.numberOfBulletsPerBurst = 5
+		fireData.fireLogic.rateOfFire = 900
+		fireData.ammo.magazineCapacity = 5
+		fireData.ammo.numberOfMagazines = -1
+		
+		local bulletData = BulletEntityData(mmResources:GetInstance('m93rbullet'))
+		bulletData:MakeWritable()
+		bulletData.gravity = -9.8
+		bulletData.startDamage = 2323
+		bulletData.endDamage = 2323
+		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffEndDistance = 1
+		dprint('Changed M93r (GM)...')
+	end
+
 	if (mmResources:IsLoaded('smaw')) then
 		mmResources:SetLoaded('smaw', false)
 
@@ -442,15 +409,34 @@ function MMWeapons:Write(instance)
 		dprint('Changed SMAW...')
 	end
 
-	if ((mmResources:IsLoaded('gm_magnum44') or mmResources:IsLoaded('magnum44')) and mmResources:IsLoaded('smawmissile')) then
+	if (mmResources:IsLoaded('gm_magnum44') and mmResources:IsLoaded('smawmissile')) then
 		mmResources:SetLoaded('gm_magnum44', false)
-		mmResources:SetLoaded('magnum44', false)
-		mmResources:SetLoaded('smawmissile', false)
 
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
-		end
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 1)
+
+		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
+		missileData:MakeWritable()
+		missileData.maxSpeed = 750
+		missileData.gravity = -9.8
+		missileData.damage = 5000
+		dprint('Changed SMAW Missile...')
+
+		-- swap magnum for smaw rocket
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+		fireData.ammo.magazineCapacity = 1
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(missileData)
+		dprint('Changed Magnum .44 (GM)...')
+	end
+
+	if (mmResources:IsLoaded('magnum44') and mmResources:IsLoaded('smawmissile')) then
+		mmResources:SetLoaded('magnum44', false)
+
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 1)
@@ -469,6 +455,25 @@ function MMWeapons:Write(instance)
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(missileData)
 		dprint('Changed Magnum .44...')
+	end
+
+	if (mmResources:IsLoaded('magnum44scope')) then
+		mmResources:SetLoaded('magnum44scope', false)
+
+		local zoomData = WeaponZoomModifier(mmResources:GetInstance('magnum44scope'))
+		zoomData:MakeWritable()
+		zoomData.zoomRenderFov = 3.5
+		dprint('Changed Magnum Scope Zoom...')
+	end
+
+	if (mmResources:IsLoaded('magnum44aim') and mmResources:IsLoaded('zoom20x')) then
+		mmResources:SetLoaded('magnum44aim', false)
+		mmResources:SetLoaded('zoom20x', false)
+
+		local aimData = SoldierAimingSimulationData(mmResources:GetInstance('magnum44aim'))
+		aimData:MakeWritable()
+		aimData.zoomLevels[2] = ZoomLevelData(mmResources:GetInstance('zoom20x'))
+		dprint('Changed Magnum Zoom Level...')
 	end
 
 	if (mmResources:IsLoaded('pp19') and mmResources:IsLoaded('pp19_bullet')) then
@@ -541,6 +546,43 @@ function MMWeapons:Write(instance)
 		dprint('Changed Spas-12...')
 	end
 
+	if (mmResources:IsLoaded('jackhammer')) then
+		mmResources:SetLoaded('jackhammer', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('jackhammer'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 87)
+
+		local fireData = {
+			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction1')),
+			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction2')),
+			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction3')),
+			FiringFunctionData(mmResources:GetInstance('jackhammer', 'FireFunction4'))
+		}
+
+		for i=1, #fireData do
+			fireData[i]:MakeWritable()
+			fireData[i].fireLogic.recoil.maxRecoilAngleX = -25
+	        fireData[i].fireLogic.recoil.minRecoilAngleX = -25
+	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 25
+	        fireData[i].fireLogic.recoil.minRecoilAngleY = 25
+	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 0
+	        fireData[i].fireLogic.recoil.minRecoilAngleZ = 0
+			fireData[i].fireLogic.rateOfFire = 600
+
+			fireData[i].ammo.magazineCapacity = 87
+			fireData[i].ammo.numberOfMagazines = 8
+		end
+
+		fireData[1].shot.numberOfBulletsPerShell = 60 -- pellets
+		fireData[2].shot.numberOfBulletsPerShell = 60 -- flechets
+		fireData[3].shot.numberOfBulletsPerShell = 10 -- frags
+		fireData[4].shot.numberOfBulletsPerShell = 10 -- slugs
+
+		dprint('Changed Jackhammer...')
+	end
+
 	if (mmResources:IsLoaded('acwr') and mmResources:IsLoaded('acwrbullets')) then
 		mmResources:SetLoaded('acwr', false)
 		mmResources:SetLoaded('acwrbullets', false)
@@ -583,18 +625,18 @@ function MMWeapons:Write(instance)
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
-		fireData.weaponDispersion.standDispersion.minAngle = 20
-		fireData.weaponDispersion.standDispersion.maxAngle = 20
+		fireData.weaponDispersion.standDispersion.minAngle = 15
+		fireData.weaponDispersion.standDispersion.maxAngle = 15
 		fireData.weaponDispersion.standDispersion.increasePerShot = 100
-		fireData.weaponDispersion.crouchDispersion.minAngle = 10
-		fireData.weaponDispersion.crouchDispersion.maxAngle = 10
+		fireData.weaponDispersion.crouchDispersion.minAngle = 8
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 8
 		fireData.weaponDispersion.crouchDispersion.increasePerShot = 100
 		fireData.weaponDispersion.proneDispersion.minAngle = 5
 		fireData.weaponDispersion.proneDispersion.maxAngle = 5
 		fireData.weaponDispersion.proneDispersion.increasePerShot = 100
 
-		fireData.shot.initialSpeed.z = 35
-		fireData.shot.numberOfBulletsPerShell = 10
+		fireData.shot.initialSpeed.z = 45
+		fireData.shot.numberOfBulletsPerShell = 5
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(grenadeData)
 
@@ -602,7 +644,7 @@ function MMWeapons:Write(instance)
 
 		fireData.fireLogic.rateOfFire = 250
 
-		fireData.ammo.magazineCapacity = 2
+		fireData.ammo.magazineCapacity = 4
 		fireData.ammo.numberOfMagazines = -1
 		dprint('Changed MTAR...')
 	end
@@ -691,8 +733,8 @@ function MMWeapons:Write(instance)
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
-		fireData.weaponDispersion.standDispersion.minAngle = 30
-		fireData.weaponDispersion.standDispersion.maxAngle = 30
+		fireData.weaponDispersion.standDispersion.minAngle = 25
+		fireData.weaponDispersion.standDispersion.maxAngle = 25
 		fireData.weaponDispersion.standDispersion.increasePerShot = 100
 		fireData.weaponDispersion.crouchDispersion.minAngle = 15
 		fireData.weaponDispersion.crouchDispersion.maxAngle = 15
@@ -828,7 +870,7 @@ function MMWeapons:Write(instance)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('jng90'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 5)
+		self:OverrideGMMagSize(weaponData, 2)
 
 		local bulletData = MissileEntityData(mmResources:GetInstance('mortar'))
 		bulletData:MakeWritable()
@@ -842,7 +884,7 @@ function MMWeapons:Write(instance)
 		fireData.shot.initialSpeed.z = 250
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
-		fireData.ammo.magazineCapacity = 5
+		fireData.ammo.magazineCapacity = 2
 		dprint('Changed JNG-90...')
 	end
 
@@ -852,12 +894,12 @@ function MMWeapons:Write(instance)
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('mortarexp'))
 		expData:MakeWritable()
 		expData.blastDamage = 10000
-		expData.blastRadius = 15
-		expData.blastImpulse = 0
+		expData.blastRadius = 25
+		expData.blastImpulse = 5000
 		expData.shockwaveDamage = 10000
-		expData.shockwaveRadius = 15
-		expData.shockwaveImpulse = 0
-		expData.shockwaveTime = 0
+		expData.shockwaveRadius = 25
+		expData.shockwaveImpulse = 5000
+		expData.shockwaveTime = 0.1
 		expData.triggerImpairedHearing = false
 		expData.isCausingSuppression = false
 		dprint('Changed Mortar Explosion...')
@@ -881,7 +923,70 @@ function MMWeapons:Write(instance)
 	end
 end
 
+levelChangesMade = false
+
 -- specific to GunMaster only
+Events:Subscribe('Level:Loaded', function()
+
+	if (SharedUtils:GetCurrentGameMode() == 'GunMaster0' and not levelChangesMade) then
+
+		levelChangesMade = true
+
+		local yump = mmResources:GetInstance('yump')
+		if (yump ~= nil) then
+			local playerYump = JumpStateData(yump)
+			playerYump:MakeWritable()
+			playerYump.jumpHeight = 6
+			playerYump.jumpEffectSize = 5
+			print('Changed Player Jump (GM)...')
+		end
+
+		local pose_stand = mmResources:GetInstance('pose_stand')
+		if (pose_stand ~= nil) then
+			local poseStand = CharacterStatePoseInfo(pose_stand)
+			poseStand:MakeWritable()
+			poseStand.velocity = 4
+			poseStand.sprintMultiplier = 3
+			dprint('Changed Player Stand Pose (GM)...')
+		end
+
+		local pose_standair = mmResources:GetInstance('pose_standair')
+		if (pose_standair ~= nil) then
+			local poseStandAir = CharacterStatePoseInfo(pose_standair)
+			poseStandAir:MakeWritable()
+			poseStandAir.velocity = 5
+			poseStandAir.sprintMultiplier = 3.5
+			dprint('Changed Player Stand Air Pose (GM)...')
+		end
+
+		local pose_swimming = mmResources:GetInstance('pose_swimming')
+		if (pose_swimming ~= nil) then
+			local poseSwim = CharacterStatePoseInfo(pose_swimming)
+			poseSwim:MakeWritable()
+			poseSwim.velocity = 8
+			dprint('Changed Player Swim Pose (GM)...')
+		end
+
+		local pose_climbing = mmResources:GetInstance('pose_climbing')
+		if (pose_climbing ~= nil) then
+			local poseClimb = CharacterStatePoseInfo(pose_climbing)
+			poseClimb:MakeWritable()
+			poseClimb.velocity = 15
+			poseClimb.sprintMultiplier = 2
+			dprint('Changed Player Climb Pose (GM)...')
+		end
+
+		local pose_chute = mmResources:GetInstance('pose_chute')
+		if (pose_chute ~= nil) then
+			local poseChute = CharacterStatePoseInfo(pose_chute)
+			poseChute:MakeWritable()
+			poseChute.velocity = 40
+			dprint('Changed Player Parachute Pose (GM)...')
+		end
+	end
+end)
+
+
 function MMWeapons:OverrideGMMagSize(weaponData, newMagSize)
 
 	if (weaponData == nil or weaponData.weaponModifierData == nil or #weaponData.weaponModifierData == 0) then

@@ -14,6 +14,7 @@ mmLevelManager = require('__shared/MMLevelManager')
 mmConVars = require('__shared/MMConVars')
 mmConVars:RegisterEvents('Server')
 
+--[[
 myRconVars = {
 	["testmodcommand"] = 'novalue'
 }
@@ -32,3 +33,4 @@ Events:Subscribe('Level:LoadingInfo', function()
 	-- prints 'foo', Startup.txt has been read
     print('Level:LoadingInfo: '..tostring(myRconVars.testmodcommand))
 end)
+]]
