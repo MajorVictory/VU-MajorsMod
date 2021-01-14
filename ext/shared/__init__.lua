@@ -1,5 +1,7 @@
 
+-- global funcs and utils
 require('__shared/MMUtils')
+ebxEditUtils = require('__shared/EbxEditUtils')
 
 -- load resource list
 mmResources = require('__shared/MMResources')
@@ -10,52 +12,19 @@ mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
 mmLevelManager = require('__shared/MMLevelManager')
 
--- register console variables
-mmConVars = require('__shared/MMConVars')
-
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do
 	if (resourceData.Partition and resourceData.Instance) then
 		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
-		  mmResources:SetLoaded(resourceName, true)
-		  print("Resource Loaded: "..tostring(resourceName))
-		  mmLevelManager:Write(mmResources)
-		  mmPlayers:Write(mmResources)
-		  mmWeapons:Write(mmResources)
-		  mmVehicles:Write(mmResources)
+			mmResources:SetLoaded(resourceName, true)
+			dprint("Resource Loaded: "..tostring(resourceName))
+			mmLevelManager:Write(mmResources)
+			mmPlayers:Write(mmResources)
+			mmWeapons:Write(mmResources)
+			mmVehicles:Write(mmResources)
 		end)
 	end
 end
-
--- Thanks to Powback's bundle mounter: https://github.com/BF3RM/BundleMounter
---[[
-Events:Subscribe('BundleMounter:GetBundles', function(bundles)
-	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/MP_007/MP_007', {
-		'Levels/MP_007/MP_007',
-		'Levels/MP_007/Rush'
-	})
-	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/SP_Tank/SP_Tank', {
-		'Levels/SP_Tank/SP_Tank',
-		'Levels/SP_Tank/HighwayToTeheran_01',
-	})
-    Events:Dispatch('BundleMounter:LoadBundles', 'Xp3Chunks', {
-    	'Xp3Chunks'
-    })
-	Events:Dispatch('BundleMounter:LoadBundles', 'Levels/XP3_Desert/XP3_Desert', {
-		'Levels/XP3_Desert/XP3_Desert'
-	})
-	--Events:Dispatch('BundleMounter:LoadBundles', 'SpChunks', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'CoopChunks', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'MpChunks', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Chunks0', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Chunks1', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Chunks2', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp1Chunks', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp2Chunks', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp4Chunks', {})
-    --Events:Dispatch('BundleMounter:LoadBundles', 'Xp5Chunks', {})
-end)
-]]
 
 Events:Subscribe('Partition:Loaded', function(partition)
 
@@ -72,7 +41,7 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			vehicleData.throwOutSoldierInsideOnWaterDamage = false
 			vehicleData.velocityDamageThreshold = 0
 			vehicleData.velocityDamageMagnifier = 0
-			print('Sturdified Vehicle ['..dump(vehicleData.nameSid)..': '..instance.instanceGuid:ToString('D')..']...')
+			dprint('Sturdified Vehicle ['..dump(vehicleData.nameSid)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
 
 		-- remove scaled dust clouds behind vehicles for visibility while driving 3p
@@ -92,7 +61,7 @@ Events:Subscribe('Partition:Loaded', function(partition)
 				processorData = UpdateAgeData(processor)
 				processorData:MakeWritable()
 				processorData.lifetime = 0
-				print('Changed Emitter: '..tostring(effectEmitter.name))
+				dprint('Changed Emitter: '..tostring(effectEmitter.name))
 			end
 		end
 
@@ -106,16 +75,24 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			local motionDampingData = MotionDampingData(vehicleConfig.motionDamping)
 			vehicleConfig:MakeWritable()
 			vehicleConfig.motionDamping = nil
-			print('Removed Motion Damping ['..dump(vehicleBlueprint.name)..': '..instance.instanceGuid:ToString('D')..']...')
+			dprint('Removed Motion Damping ['..dump(vehicleBlueprint.name)..': '..instance.instanceGuid:ToString('D')..']...')
 		end
 
 		-- remove explosion supression
 		if (instance:Is('VeniceExplosionEntityData')) then
 			local expData = VeniceExplosionEntityData(instance)
-			expData:MakeWritable()
-			expData.triggerImpairedHearing = false
-			expData.isCausingSuppression = false
-			print('Removed Explosion Supression ['..instance.instanceGuid:ToString('D')..']...')
+			if (expData.triggerImpairedHearing or expData.isCausingSuppression) then
+				expData:MakeWritable()
+				expData.triggerImpairedHearing = false
+				expData.isCausingSuppression = false
+				dprint('Removed Explosion Supression ['..instance.instanceGuid:ToString('D')..']...')
+			end
+		end
+
+		-- adjust Gun Master level kills
+		if (instance:Is('GunMasterKillCounterEntityData')) then
+			mmWeapons:SetGMLevelKills(instance)
+			--dprint('Changed Gun Master kill requirements...')
 		end
 	end
 end)

@@ -3,69 +3,6 @@ class "MMConVars"
 function MMConVars:__init()
 	self.moduleName = 'vu-majorsmod'
 	self.cvars = {
-		["FamasRoF"] = {
-			["Help"] = 'Set Famas rate of fire',
-			["Args"] = {
-				{
-					["Name"] = 'RoF',
-					["Type"] = 'number',-- 'Type' can be 'number', 'float', 'string', 'boolean', 'options'
-					["Optional"] = false,
-					["Choices"] = {},
-					["Default"] = '3500'
-				},
-				{
-					["Name"] = 'BurstRoF',
-					["Type"] = 'number',
-					["Optional"] = true,
-					["Choices"] = {},
-					["Default"] = '7500'
-				}
-			},
-			["ShareType"] = 'Shared',
-			["Module"] = mmWeapons
-		},
-		["FamasMagSize"] = {
-			["Help"] = 'Set Famas rate of fire',
-			["Args"] = {
-				{
-					["Name"] = 'MagSize',
-					["Type"] = 'number',
-					["Optional"] = false,
-					["Choices"] = {},
-					["Default"] = '1001'
-				}
-			},
-			["ShareType"] = 'Shared',
-			["Module"] = mmWeapons
-		},
-		["KnoifeRange"] = {
-			["Help"] = 'Set the range of the Knoife',
-			["Args"] = {
-				{
-					["Name"] = 'RangeMeters',
-					["Type"] = 'float',
-					["Optional"] = false,
-					["Choices"] = {},
-					["Default"] = '10'
-				}
-			},
-			["ShareType"] = 'Shared',
-			["Module"] = mmWeapons
-		},
-		["MinePower"] = {
-			["Help"] = 'Set the blast power of the M15 AT Mine',
-			["Args"] = {
-				{
-					["Name"] = 'Power',
-					["Type"] = 'number',
-					["Optional"] = false,
-					["Choices"] = {},
-					["Default"] = '900000'
-				},
-			},
-			["ShareType"] = 'Shared',
-			["Module"] = mmWeapons
-		},
 		["TestConvar"] = {
 			["Help"] = 'An Example of each type of argument',
 			["Args"] = {
