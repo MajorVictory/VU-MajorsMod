@@ -313,16 +313,27 @@ function MMWeapons:Write(instance)
 
 		self:OverrideGMMagSize(SoldierWeaponData(weaponBP.object), 420)
 
+		fireData.weaponDispersion.standDispersion.minAngle = 3
+		fireData.weaponDispersion.standDispersion.maxAngle = 3
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
 		fireData.shot.initialSpeed.z = 450
+		fireData.shot.numberOfBulletsPerShell = 5
 		fireData.fireLogic.rateOfFire = 900
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 		
 		bulletData.gravity = -9.8
-		bulletData.startDamage = 600
-		bulletData.endDamage = 1000
+		bulletData.startDamage = 250
+		bulletData.endDamage = 600
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 15
+		bulletData.damageFalloffEndDistance = 20
 		dprint('Changed Mp443...')
 	end
 
@@ -335,16 +346,27 @@ function MMWeapons:Write(instance)
 
 		self:OverrideGMMagSize(SoldierWeaponData(weaponBP.object), 420)
 
+		fireData.weaponDispersion.standDispersion.minAngle = 3
+		fireData.weaponDispersion.standDispersion.maxAngle = 3
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
 		fireData.shot.initialSpeed.z = 450
+		fireData.shot.numberOfBulletsPerShell = 5
 		fireData.fireLogic.rateOfFire = 900
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 		
 		bulletData.gravity = -9.8
-		bulletData.startDamage = 600
-		bulletData.endDamage = 1000
+		bulletData.startDamage = 250
+		bulletData.endDamage = 600
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 15
+		bulletData.damageFalloffEndDistance = 20
 		dprint('Changed Mp443 (GM)...')
 	end
 
@@ -616,7 +638,7 @@ function MMWeapons:Write(instance)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mtar'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 2)
+		self:OverrideGMMagSize(weaponData, 5)
 
 		local grenadeData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
 		grenadeData:MakeWritable()
@@ -644,7 +666,7 @@ function MMWeapons:Write(instance)
 
 		fireData.fireLogic.rateOfFire = 250
 
-		fireData.ammo.magazineCapacity = 4
+		fireData.ammo.magazineCapacity = 5
 		fireData.ammo.numberOfMagazines = -1
 		dprint('Changed MTAR...')
 	end
@@ -668,6 +690,7 @@ function MMWeapons:Write(instance)
 
 	if (mmResources:IsLoaded('aug') and mmResources:IsLoaded('augbullet')) then
 		mmResources:SetLoaded('aug', false)
+		mmResources:SetLoaded('augbullet', false)
 
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('aug'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
@@ -923,14 +946,29 @@ function MMWeapons:Write(instance)
 	end
 end
 
-levelChangesMade = false
-
 -- specific to GunMaster only
 Events:Subscribe('Level:Loaded', function()
 
-	if (SharedUtils:GetCurrentGameMode() == 'GunMaster0' and not levelChangesMade) then
+	if (mmResources:IsLoaded('smawmissile')) then
+		mmResources:SetLoaded('smawmissile', false)
+	end
+	if (mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('12gfrag', false)
+	end
+	if (mmResources:IsLoaded('m93rbullet')) then
+		mmResources:SetLoaded('m93rbullet', false)
+	end
+	if (mmResources:IsLoaded('40mmlvg_grenade')) then
+		mmResources:SetLoaded('40mmlvg_grenade', false)
+	end
+	if (mmResources:IsLoaded('40mmlvgsound')) then
+		mmResources:SetLoaded('40mmlvgsound', false)
+	end
+	if (mmResources:IsLoaded('sniperbullet')) then
+		mmResources:SetLoaded('sniperbullet', false)
+	end
 
-		levelChangesMade = true
+	if (SharedUtils:GetCurrentGameMode() == 'GunMaster0') then
 
 		local yump = mmResources:GetInstance('yump')
 		if (yump ~= nil) then
