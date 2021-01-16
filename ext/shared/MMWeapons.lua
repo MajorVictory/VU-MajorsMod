@@ -284,9 +284,9 @@ function MMWeapons:Write(instance)
 
 		local meleeData = MeleeEntityCommonData(mmResources:GetInstance('knoife'))
 		meleeData:MakeWritable()
-		meleeData.meleeAttackDistance = 2
-		meleeData.maxAttackHeightDifference = 2
-		meleeData.invalidMeleeAttackZone = 5
+		meleeData.meleeAttackDistance = 10
+		meleeData.maxAttackHeightDifference = 100
+		meleeData.invalidMeleeAttackZone = 0
 
 		dprint('Changed Knoife (Knife)...')
 	end
@@ -1020,6 +1020,16 @@ Events:Subscribe('Level:Loaded', function()
 			poseChute:MakeWritable()
 			poseChute.velocity = 40
 			dprint('Changed Player Parachute Pose (GM)...')
+		end
+
+		local knoife = mmResources:GetInstance('knoife')
+		if (knoife ~= nil) then
+			local meleeData = MeleeEntityCommonData(knoife)
+			meleeData:MakeWritable()
+			meleeData.meleeAttackDistance = 2
+			meleeData.maxAttackHeightDifference = 2
+			meleeData.invalidMeleeAttackZone = 5
+			dprint('Changed Knoife (Knife) (GM)...')
 		end
 	end
 end)
