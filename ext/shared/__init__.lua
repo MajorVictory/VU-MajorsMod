@@ -17,7 +17,7 @@ for resourceName, resourceData in pairs(mmResources:Get()) do
 		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
 			mmResources:SetLoaded(resourceName, true)
 			dprint("Resource Loaded: "..tostring(resourceName))
-			mmLevelManager:Write(mmResources)
+			--mmLevelManager:Write(mmResources)
 			mmPlayers:Write(mmResources)
 			mmWeapons:Write(mmResources)
 			mmVehicles:Write(mmResources)
