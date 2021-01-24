@@ -1,7 +1,6 @@
 
 -- global funcs and utils
 require('__shared/MMUtils')
-ebxEditUtils = require('__shared/EbxEditUtils')
 
 -- load resource list
 mmResources = require('__shared/MMResources')
@@ -10,7 +9,7 @@ mmResources = require('__shared/MMResources')
 mmPlayers = require('__shared/MMPlayers')
 mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
-mmLevelManager = require('__shared/MMLevelManager')
+--mmLevelManager = require('__shared/MMLevelManager')
 
 -- loop registered resources to listen for
 for resourceName, resourceData in pairs(mmResources:Get()) do
@@ -58,7 +57,7 @@ Events:Subscribe('Partition:Loaded', function(partition)
 					processor = processor.nextProcessor
 				end
 
-				processorData = UpdateAgeData(processor)
+				local processorData = UpdateAgeData(processor)
 				processorData:MakeWritable()
 				processorData.lifetime = 0
 				dprint('Changed Emitter: '..tostring(effectEmitter.name))

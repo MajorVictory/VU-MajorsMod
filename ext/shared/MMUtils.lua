@@ -32,3 +32,5 @@ function dprint(message)
           print(message)
      end
 end
+
+ebxEditUtils = require('__shared/EbxEditUtils')
