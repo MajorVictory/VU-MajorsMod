@@ -33,4 +33,32 @@ function dprint(message)
      end
 end
 
+function table:has(value)
+     for i=1, #self do
+          if (self[i] == value) then
+               return true
+          end
+     end
+     return false
+end
+
+function string:split(value, seperator)
+     if (seperator == nil) then
+          seperator = "%s"
+     end
+     local result = {}
+     for piece in string.gmatch(value, "([^"..seperator.."]+)") do
+          result[#result+1] = piece
+     end
+     return result
+end
+
+function string:isLower(value)
+     return str:lower() == str
+end
+
+function string:isDigit(value)
+     return tonumber(str) ~= nil
+end
+
 ebxEditUtils = require('__shared/EbxEditUtils')

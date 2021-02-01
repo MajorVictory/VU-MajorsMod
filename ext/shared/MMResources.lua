@@ -38,6 +38,10 @@ function MMResources:__init()
 	self.MMResources["smawmissile"]["Partition"] = '168F529B-17F6-11E0-8CD8-85483A75A7C5'
 	self.MMResources["smawmissile"]["Instance"] = '168F529C-17F6-11E0-8CD8-85483A75A7C5'
 
+	self.MMResources["rpg7"] = {}
+	self.MMResources["rpg7"]["Partition"] = 'E7F8EC1A-E8F5-11DF-AC96-84E6B0EFF32E'
+	self.MMResources["rpg7"]["Instance"] = '7584D16E-6B77-4A7B-BEEE-15DA5EF98E2E'
+
 	self.MMResources["p90"] = {}
 	self.MMResources["p90"]["Partition"] = 'C75DBA86-F326-11DF-ABE6-A89858BEBE43'
 	self.MMResources["p90"]["Instance"] = '25F31D4F-71A9-E349-983D-A86989548A74'
@@ -121,6 +125,10 @@ function MMResources:__init()
 	self.MMResources["famas"]["Partition"] = '706A1BD6-6DAB-4CEE-BFCA-82814251E2D8'
 	self.MMResources["famas"]["Instance"] = 'F91A9BA8-A08B-44EE-B6F3-9B181FAD71BA'
 
+	self.MMResources["l96"] = {}
+	self.MMResources["l96"]["Partition"] = '30710090-22F9-11E0-9B3A-DBCC579DBD38'
+	self.MMResources["l96"]["Instance"] = '4A933C70-2E94-4FD7-B736-50A7ADD25CE5'
+
 	self.MMResources["grenade"] = {}
 	self.MMResources["grenade"]["Partition"] = 'FFF5DB09-E74B-11DF-9B5E-86394B544891'
 	self.MMResources["grenade"]["Instance"] = '04E1FA90-5B6E-4316-862C-15EB89652441'
@@ -195,6 +203,10 @@ function MMResources:__init()
 	self.MMResources["claymoreexp"]["Partition"] = '8709A814-1FF9-11E0-8A74-C88A4F19AAB4'
 	self.MMResources["claymoreexp"]["Instance"] = '5120E4F0-CD8C-4926-A45C-DA4460865508'
 
+	self.MMResources["claymore_havok"] = {}
+	self.MMResources["claymore_havok"]["Partition"] = '8709A814-1FF9-11E0-8A74-C88A4F19AAB4'
+	self.MMResources["claymore_havok"]["Instance"] = '426247C9-56D7-FBA7-539C-F6C6BD7FD07A'
+
 	self.MMResources["lsat"] = {}
 	self.MMResources["lsat"]["Partition"] = '75E9AE70-B8B5-4A63-BDCC-AAF2914277D2'
 	self.MMResources["lsat"]["Instance"] = '1153E489-7C95-402B-BB66-F38D1C830C10'
@@ -227,6 +239,10 @@ function MMResources:__init()
 	self.MMResources["mortarexp"]["Partition"] = '5350B268-18C9-11E0-B820-CD6C272E4FCC'
 	self.MMResources["mortarexp"]["Instance"] = '4827959A-8A3B-4C9F-994E-E54150AA565F'
 
+	self.MMResources["mortarexp2"] = {}
+	self.MMResources["mortarexp2"]["Partition"] = '5350B268-18C9-11E0-B820-CD6C272E4FCC'
+	self.MMResources["mortarexp2"]["Instance"] = 'BF5478A3-77E5-4F87-BAC7-91936CAD1C81'
+
 	self.MMResources["40mmlvg"] = {}
 	self.MMResources["40mmlvg"]["Partition"] = 'A2BD3F80-0474-11E0-8A24-DDC0A9242026'
 	self.MMResources["40mmlvg"]["Instance"] = 'DCFE8B49-493D-2586-0195-BD4F35BB8197'
@@ -246,6 +262,50 @@ function MMResources:__init()
 	self.MMResources["40mmlvg_grenadeexp"] = {}
 	self.MMResources["40mmlvg_grenadeexp"]["Partition"] = 'FD79A08F-F108-4751-B2C0-6C47397133B5'
 	self.MMResources["40mmlvg_grenadeexp"]["Instance"] = '5FE2082D-F901-43F2-A822-969CC6857134'
+
+	self.MMResources["m240"] = {}
+	self.MMResources["m240"]["Partition"] = '5D6FD6B8-E5BC-11DF-A152-D82BD29AC2ED'
+	self.MMResources["m240"]["Instance"] = '335B1E8B-8BFF-4A0B-80E7-9F55FB9C25DC'
+
+	self.MMResources["m240_extended"] = {}
+	self.MMResources["m240_extended"]["Partition"] = '5D6FD6B8-E5BC-11DF-A152-D82BD29AC2ED'
+	self.MMResources["m240_extended"]["Instance"] = '87CB23D8-28DA-4151-89C8-4C4E615E16CE'
+
+	self.MMResources["m240_swag"] = {}
+	self.MMResources["m240_swag"]["Partition"] = '5D6FD6B8-E5BC-11DF-A152-D82BD29AC2ED'
+	self.MMResources["m240_swag"]["Instance"] = '08D8BE73-EABA-4E16-A19A-20FE567945F2'
+
+	self.MMResources["tugs_vehicle"] = {}
+	self.MMResources["tugs_vehicle"]["Partition"] = 'C6AC3720-4E44-11E0-B74F-973632ECCDB7'
+	self.MMResources["tugs_vehicle"]["Instance"] = '6AD11C63-B795-4233-B943-C6DE347E26A7'
+
+	self.MMResources["tugs_chassis"] = {}
+	self.MMResources["tugs_chassis"]["Partition"] = 'C6AC3720-4E44-11E0-B74F-973632ECCDB7'
+	self.MMResources["tugs_chassis"]["Instance"] = 'F9706033-B085-A573-1CF8-235C43B2FCAE'
+
+	self.MMResources["eod"] = {}
+	self.MMResources["eod"]["Partition"] = '269BB4A2-0DC3-11E0-B817-B1885439A6BF'
+	self.MMResources["eod"]["Instance"] = 'E280A780-82D0-4B1F-865D-E47865E2772C'
+
+	self.MMResources["eod_chassis"] = {}
+	self.MMResources["eod_chassis"]["Partition"] = '269BB4A2-0DC3-11E0-B817-B1885439A6BF'
+	self.MMResources["eod_chassis"]["Instance"] = '9FF66CD4-2AF1-11CE-78ED-6EC576D7F93D'
+
+	self.MMResources["us_stinger"] = {}
+	self.MMResources["us_stinger"]["Partition"] = '28C2561D-EC16-11DF-BA9E-F3DCE5C70CB9'
+	self.MMResources["us_stinger"]["Instance"] = 'AC50A504-5962-4F7F-84F8-640BCC36F73B'
+
+	self.MMResources["mav_pda"] = {}
+	self.MMResources["mav_pda"]["Partition"] = '1271F1BE-49D5-4599-AAD2-0D3BBAFB1EF7'
+	self.MMResources["mav_pda"]["Instance"] = '0A6952EC-1EF1-4B3C-80DC-DEC527096066'
+
+	self.MMResources["repairtool"] = {}
+	self.MMResources["repairtool"]["Partition"] = '9D6458CD-2955-11E0-864C-EDEE51946146'
+	self.MMResources["repairtool"]["Instance"] = '4D509E54-0572-4D7D-BF49-3D83AFCFD73D'
+
+	self.MMResources["radiobeacon_chassis"] = {}
+	self.MMResources["radiobeacon_chassis"]["Partition"] = '8887C2AE-27C6-11E0-9123-987FBA709E0E'
+	self.MMResources["radiobeacon_chassis"]["Instance"] = '7748BE51-BBA1-E5C1-F911-4D417F47A31C'
 
 
 
@@ -394,24 +454,10 @@ function MMResources:__init()
 	self.MMResources["pose_stand"] = {}
 	self.MMResources["pose_stand"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
 	self.MMResources["pose_stand"]["Instance"] = '69A866A2-DF7C-4BAD-B55F-99536F2551F6'
-	--self.MMResources["pose_crouch"] = {}
-	--self.MMResources["pose_crouch"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
-	--self.MMResources["pose_crouch"]["Instance"] = '79C79DFB-769E-4B4E-A279-CBA6732C85A5'
-	--self.MMResources["pose_prone"] = {}
-	--self.MMResources["pose_prone"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
-	--self.MMResources["pose_prone"]["Instance"] = '173494FC-694C-40C7-99CE-271FEAB63E69'
-
 
 	self.MMResources["pose_standair"] = {}
 	self.MMResources["pose_standair"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
 	self.MMResources["pose_standair"]["Instance"] = 'DF7475F9-216E-48C3-AED1-5483EFA3BB15'
-	--self.MMResources["pose_crouchair"] = {}
-	--self.MMResources["pose_crouchair"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
-	--self.MMResources["pose_crouchair"]["Instance"] = '22764197-C64C-4E48-940C-6E1BD38FDEE7'
-	--self.MMResources["pose_proneair"] = {}
-	--self.MMResources["pose_proneair"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
-	--self.MMResources["pose_proneair"]["Instance"] = '0CD1E94C-7E21-42EF-816E-0B5657FE1676'
-
 
 	self.MMResources["pose_swimming"] = {}
 	self.MMResources["pose_swimming"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
@@ -425,16 +471,6 @@ function MMResources:__init()
 	self.MMResources["pose_chute"]["Partition"] = '235CD1DA-8B06-4A7F-94BE-D50DA2D077CE'
 	self.MMResources["pose_chute"]["Instance"] = 'F39A8591-BA69-4BE9-B289-B2A0B336A7EE'
 
-
-
-	self.MMResources["kit_us_engineer"] = {}
-	self.MMResources["kit_us_engineer"]["Partition"] = 'CFA00DBF-5106-46D0-BD82-94ADE98BBA27'
-	self.MMResources["kit_us_engineer"]["Instance"] = '0A99EBDB-602C-4080-BC3F-B388AA18ADDD'
-	self.MMResources["kit_us_engineer"]["Primary"] = '2AD7C3A9-113F-4944-AB37-E29799AE366D'
-	self.MMResources["kit_us_engineer"]["Secondary"] = '1C341A9E-3ECD-4739-926F-5227B7CA2F95'
-	self.MMResources["kit_us_engineer"]["Gadget1"] = '176939B3-1D98-466A-81E2-E9F977DE4A68'
-	self.MMResources["kit_us_engineer"]["Gadget2"] = 'D7681A79-30D6-40D6-AA8F-70EBCD31C855'
-	self.MMResources["kit_us_engineer"]["Special"] = '806E5135-7E26-4B4E-9978-869C2769437C'
 
 	-- vehicles can be imported by supplying blueprints, entities, and logic referrences required
 	self.MMResources["a10"] = {}

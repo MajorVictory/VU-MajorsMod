@@ -187,7 +187,6 @@ function MMWeapons:Write(instance)
 	end
 
 	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('aek971')) then
-		mmResources:SetLoaded('rpgprojectile', false)
 		mmResources:SetLoaded('aek971', false)
 		-- swap aek bullet for rpg rocket
 		local fireData = FiringFunctionData(mmResources:GetInstance('aek971'))
@@ -302,6 +301,27 @@ function MMWeapons:Write(instance)
 		fireData.fireLogic.rateOfFireForBurst = 7500
 
 		dprint('Changed Famas...')
+	end
+
+	if (mmResources:IsLoaded('l96')) then
+		mmResources:SetLoaded('l96', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('l96'))
+		fireData:MakeWritable()
+		fireData.fireLogic.boltAction.boltActionTime = 0.48
+		fireData.fireLogic.boltAction.holdBoltActionUntilFireRelease = false
+		fireData.fireLogic.boltAction.holdBoltActionUntilZoomRelease = false
+		fireData.fireLogic.boltAction.unZoomOnBoltAction = false
+
+		fireData.fireLogic.rateOfFire = 600
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.holdOffReloadUntilFireRelease = false
+		fireData.fireLogic.holdOffReloadUntilZoomRelease = false
+		fireData.fireLogic.forceReloadActionOnFireTrigger = false
+
+		fireData.ammo.magazineCapacity = 87
+
+		dprint('Changed L96...')
 	end
 
 	if (mmResources:IsLoaded('mp443')) then
@@ -429,6 +449,20 @@ function MMWeapons:Write(instance)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 250
 		dprint('Changed SMAW...')
+	end
+
+	if (mmResources:IsLoaded('rpg7')) then
+		mmResources:SetLoaded('rpg7', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('rpg7'))
+		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 20
+		fireData.fireLogic.rateOfFire = 500
+		fireData.fireLogic.reloadTime = 0
+		fireData.ammo.magazineCapacity = -1
+		fireData.ammo.numberOfMagazines = -1
+
+		dprint('Changed RPG7...')
 	end
 
 	if (mmResources:IsLoaded('gm_magnum44') and mmResources:IsLoaded('smawmissile')) then
@@ -745,9 +779,13 @@ function MMWeapons:Write(instance)
 
 		local claymoreData = ExplosionPackEntityData(mmResources:GetInstance('claymore'))
 		claymoreData:MakeWritable()
-		claymoreData.maxAttachableInclination = 360
-		claymoreData.timeToLive = 10
+		claymoreData.maxAttachableInclination = 720
+		--claymoreData.timeToLive = 20
 		claymoreData.maxCount = 25
+
+		claymoreData.transform.left.x = 2
+		claymoreData.transform.up.y = 2
+		claymoreData.transform.forward.z = 2
 
 		claymoreData.soldierDetonationData.useAngle = false
 		claymoreData.soldierDetonationData.radius = 2
@@ -778,6 +816,15 @@ function MMWeapons:Write(instance)
 		fireData.ammo.magazineCapacity = 5
 		fireData.ammo.numberOfMagazines = -1
 		dprint('Changed MTAR...')
+	end
+
+	if (mmResources:IsLoaded('claymore_havok')) then
+		mmResources:SetLoaded('claymore_havok', false)
+
+		local expData = HavokAsset(mmResources:GetInstance('claymore_havok'))
+		expData:MakeWritable()
+		expData.scale = 2.0
+		dprint('Changed Claymore HavokAsset...')
 	end
 
 	if (mmResources:IsLoaded('claymoreexp')) then
@@ -907,7 +954,7 @@ function MMWeapons:Write(instance)
 		fireData.shot.initialSpeed.z = 250
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
-		fireData.ammo.magazineCapacity = 2
+		fireData.ammo.magazineCapacity = 20
 		dprint('Changed JNG-90...')
 	end
 
@@ -917,15 +964,32 @@ function MMWeapons:Write(instance)
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('mortarexp'))
 		expData:MakeWritable()
 		expData.blastDamage = 10000
-		expData.blastRadius = 25
-		expData.blastImpulse = 5000
-		expData.shockwaveDamage = 10000
-		expData.shockwaveRadius = 25
+		expData.blastRadius = 6
+		expData.blastImpulse = 8000
+		expData.shockwaveDamage = 1
+		expData.shockwaveRadius = 7
 		expData.shockwaveImpulse = 5000
-		expData.shockwaveTime = 0.1
+		expData.shockwaveTime = 0.15
 		expData.triggerImpairedHearing = false
 		expData.isCausingSuppression = false
 		dprint('Changed Mortar Explosion...')
+	end
+
+	if (mmResources:IsLoaded('mortarexp2')) then
+		mmResources:SetLoaded('mortarexp2', false)
+
+		local expData = VeniceExplosionEntityData(mmResources:GetInstance('mortarexp2'))
+		expData:MakeWritable()
+		expData.blastDamage = 10000
+		expData.blastRadius = 6
+		expData.blastImpulse = 8000
+		expData.shockwaveDamage = 1
+		expData.shockwaveRadius = 7
+		expData.shockwaveImpulse = 5000
+		expData.shockwaveTime = 0.15
+		expData.triggerImpairedHearing = false
+		expData.isCausingSuppression = false
+		dprint('Changed Mortar Explosion (2)...')
 	end
 
 	if (mmResources:IsLoaded('40mmlvg') and mmResources:IsLoaded('40mmlvgfire')) then
@@ -944,6 +1008,173 @@ function MMWeapons:Write(instance)
 		fireData.ammo.magazineCapacity = 1
 		dprint('Changed 40MM LVG Launcher...')
 	end
+
+	if (mmResources:IsLoaded('m240')) then
+		mmResources:SetLoaded('m240', false)
+
+		local fireData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m240'))
+		fireData.fireLogic.rateOfFire = 900
+		fireData.ammo.magazineCapacity = 400
+		dprint('Changed M240...')
+	end
+
+	if (mmResources:IsLoaded('m240_extended')) then
+		mmResources:SetLoaded('m240_extended', false)
+
+		local magMod = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m240_extended'))
+		magMod.magazineCapacity = 800
+		dprint('Changed M240 EX Mag...')
+	end
+
+	if (mmResources:IsLoaded('m240_swag')) then
+		mmResources:SetLoaded('m240_swag', false)
+
+		local swagData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m240_swag'))
+		local stances = {'stand', 'crouch', 'prone'}
+		local zoomlevels = {'noZoom', 'zoom'}
+		local poses = {'baseValue', 'moving', 'jumping', 'sprinting', 'vaultingSmallObject', 'vaultingMediumObject'}
+		local transitions = {
+			'proneToCrouch', 'proneToStand',
+			'crouchToProne', 'crouchToStand',
+			'standToProne', 'standToCrouch',
+		}
+		local suppressionZooms = {'Unzoomed', 'Zoomed'}
+
+		for _,stance in pairs(stances) do
+			for _,zoomlevel in pairs(zoomlevels) do
+
+				for _,pose in pairs(poses) do
+
+					if (stance == 'stand' or (stance ~= 'stand' and (pose == 'baseValue' or pose == 'moving'))) then
+						swagData[stance][zoomlevel][pose].minAngle = 0
+						swagData[stance][zoomlevel][pose].maxAngle = 0
+						swagData[stance][zoomlevel][pose].increasePerShot = 0
+					end
+				end
+
+				swagData[stance][zoomlevel].recoil.recoilAmplitudeMax = 0
+				swagData[stance][zoomlevel].recoil.recoilAmplitudeIncPerShot = 0
+				swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMin = 0
+				swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMax = 0
+				swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeMax = 0
+				swagData[stance][zoomlevel].recoil.recoilAmplitudeDecreaseFactor = 24
+			end
+		end
+
+		for _,transition in pairs(transitions) do
+			swagData[transition].maxPenaltyValue.minAngle = 0
+			swagData[transition].maxPenaltyValue.maxAngle = 0
+			swagData[transition].maxPenaltyValue.increasePerShot = 0
+			swagData[transition].coolDown = 0
+		end
+
+		for _,zoom in pairs(suppressionZooms) do
+			swagData['suppressionModifier'..zoom].dispersionMod.minAngleModifier = 0
+			swagData['suppressionModifier'..zoom].dispersionMod.maxAngleModifier = 0
+			swagData['suppressionModifier'..zoom].dispersionMod.increasePerShotModifier = 0
+			swagData['suppressionModifier'..zoom].recoilAngleMod = 0
+		end
+
+		swagData.firstShotRecoilMultiplier = 0
+		dprint('Changed M240 Gun Sway...')
+	end
+
+	if (mmResources:IsLoaded('tugs_vehicle')) then
+		mmResources:SetLoaded('tugs_vehicle', false)
+
+		local radarSweep = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('tugs_vehicle'))
+		radarSweep.controllableSweepInterval = 0.8
+		radarSweep.mineSweepInterval = 0.8
+		dprint('Changed T-UGS Vehicle...')
+	end
+
+	if (mmResources:IsLoaded('tugs_chassis')) then
+		mmResources:SetLoaded('tugs_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('tugs_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 4
+		chassisData.transform.up.y = 4
+		chassisData.transform.forward.z = 4
+
+		print('Changed T-UGS Chassis...')
+	end
+
+	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('eod')) then
+		mmResources:SetLoaded('eod', false)
+		local fireData = FiringFunctionData(mmResources:GetInstance('eod'))
+		fireData:MakeWritable()
+		fireData.ammo.ammoBagPickupDelayMultiplier = 100
+		fireData.fireLogic.rateOfFire = 100
+		fireData.fireLogic.reloadTime = 5
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
+		dprint('Changed EOD Projectile...')
+	end
+
+	if (mmResources:IsLoaded('eod_chassis')) then
+		mmResources:SetLoaded('eod_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('eod_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 3
+		chassisData.transform.up.y = 3
+		chassisData.transform.forward.z = 3
+		print('Changed EOD Chassis...')
+	end
+
+	if (mmResources:IsLoaded('radiobeacon_chassis')) then
+		mmResources:SetLoaded('radiobeacon_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('radiobeacon_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 0.25
+		chassisData.transform.up.y = 0.25
+		chassisData.transform.forward.z = 0.25
+		print('Changed Radio Beacon Chassis...')
+	end
+
+	if (mmResources:IsLoaded('us_stinger')) then
+		mmResources:SetLoaded('us_stinger', false)
+
+		local lockingWeaponData = LockingWeaponData(mmResources:GetInstance('us_stinger'))
+		lockingWeaponData:MakeWritable()
+		lockingWeaponData.isGuided = true
+		lockingWeaponData.isGuidedWhenZoomed = true
+		lockingWeaponData.fireOnlyWhenLockedOn = false
+
+		local lockingData = LockingControllerData(lockingWeaponData.lockingController)
+		lockingData:MakeWritable()
+
+		lockingData.zoomLevelLock[2].lockType = LockType.LockAlways
+		lockingData.lockTime = 0.3
+		lockingData.releaseTime = 0.2
+		lockingData.releaseOnNewTargetTime = 1
+		lockingData.acceptanceAngle = 20
+
+		print('Changed FIM92A Stinger...')
+	end
+
+	-- slow down regen rate to allow enetering vehicle before ammo refills
+	if (mmResources:IsLoaded('mav_pda')) then
+		mmResources:SetLoaded('mav_pda', false)
+		local fireData = FiringFunctionData(mmResources:GetInstance('mav_pda'))
+		fireData:MakeWritable()
+		fireData.fireLogic.reloadTime = 5
+		fireData.ammo.ammoBagPickupDelayMultiplier = 100
+		dprint('Changed MAV PDA...')
+	end
+
+	-- slow down regen rate to allow enetering vehicle before ammo refills
+	if (mmResources:IsLoaded('repairtool')) then
+		mmResources:SetLoaded('repairtool', false)
+		local fireData = FiringFunctionData(mmResources:GetInstance('repairtool'))
+		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 10
+		fireData.shot.numberOfBulletsPerShot = 5
+		fireData.overHeat.heatPerBullet = 0
+		dprint('Changed Repair Tool...')
+	end
 end
 
 -- specific to GunMaster only
@@ -951,6 +1182,9 @@ Events:Subscribe('Level:Loaded', function()
 
 	if (mmResources:IsLoaded('smawmissile')) then
 		mmResources:SetLoaded('smawmissile', false)
+	end
+	if (mmResources:IsLoaded('rpgprojectile')) then
+		mmResources:SetLoaded('rpgprojectile', false)
 	end
 	if (mmResources:IsLoaded('12gfrag')) then
 		mmResources:SetLoaded('12gfrag', false)
@@ -966,71 +1200,6 @@ Events:Subscribe('Level:Loaded', function()
 	end
 	if (mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('sniperbullet', false)
-	end
-
-	if (SharedUtils:GetCurrentGameMode() == 'GunMaster0') then
-
-		local yump = mmResources:GetInstance('yump')
-		if (yump ~= nil) then
-			local playerYump = JumpStateData(yump)
-			playerYump:MakeWritable()
-			playerYump.jumpHeight = 6
-			playerYump.jumpEffectSize = 5
-			print('Changed Player Jump (GM)...')
-		end
-
-		local pose_stand = mmResources:GetInstance('pose_stand')
-		if (pose_stand ~= nil) then
-			local poseStand = CharacterStatePoseInfo(pose_stand)
-			poseStand:MakeWritable()
-			poseStand.velocity = 4
-			poseStand.sprintMultiplier = 3
-			dprint('Changed Player Stand Pose (GM)...')
-		end
-
-		local pose_standair = mmResources:GetInstance('pose_standair')
-		if (pose_standair ~= nil) then
-			local poseStandAir = CharacterStatePoseInfo(pose_standair)
-			poseStandAir:MakeWritable()
-			poseStandAir.velocity = 5
-			poseStandAir.sprintMultiplier = 3.5
-			dprint('Changed Player Stand Air Pose (GM)...')
-		end
-
-		local pose_swimming = mmResources:GetInstance('pose_swimming')
-		if (pose_swimming ~= nil) then
-			local poseSwim = CharacterStatePoseInfo(pose_swimming)
-			poseSwim:MakeWritable()
-			poseSwim.velocity = 8
-			dprint('Changed Player Swim Pose (GM)...')
-		end
-
-		local pose_climbing = mmResources:GetInstance('pose_climbing')
-		if (pose_climbing ~= nil) then
-			local poseClimb = CharacterStatePoseInfo(pose_climbing)
-			poseClimb:MakeWritable()
-			poseClimb.velocity = 15
-			poseClimb.sprintMultiplier = 2
-			dprint('Changed Player Climb Pose (GM)...')
-		end
-
-		local pose_chute = mmResources:GetInstance('pose_chute')
-		if (pose_chute ~= nil) then
-			local poseChute = CharacterStatePoseInfo(pose_chute)
-			poseChute:MakeWritable()
-			poseChute.velocity = 40
-			dprint('Changed Player Parachute Pose (GM)...')
-		end
-
-		local knoife = mmResources:GetInstance('knoife')
-		if (knoife ~= nil) then
-			local meleeData = MeleeEntityCommonData(knoife)
-			meleeData:MakeWritable()
-			meleeData.meleeAttackDistance = 2
-			meleeData.maxAttackHeightDifference = 2
-			meleeData.invalidMeleeAttackZone = 5
-			dprint('Changed Knoife (Knife) (GM)...')
-		end
 	end
 end)
 

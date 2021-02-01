@@ -1,5 +1,9 @@
 class "MMPlayers"
 
+function MMPlayers:__init()
+	Events:Subscribe('Level:Loaded', self, self.onLevelLoaded)
+end
+
 function MMPlayers:Write(mmResources)
 
 	-- chat lag spike fix
@@ -70,32 +74,252 @@ function MMPlayers:Write(mmResources)
 		poseClimb.velocity = 40
 		print('Changed Player Parachute Pose...')
 	end
+end
 
-	if (mmResources:IsLoaded('kit_us_engineer')) then
-		mmResources:SetLoaded('kit_us_engineer', false)
+function MMPlayers:onLevelLoaded(levelName, gameMode)
 
-		local primaryUnlocks = CustomizationUnlockParts(mmResources:GetInstance('kit_us_engineer', 'Primary'))
-		local secondaryUnlocks = CustomizationUnlockParts(mmResources:GetInstance('kit_us_engineer', 'Secondary'))
-		local gadget1Unlocks = CustomizationUnlockParts(mmResources:GetInstance('kit_us_engineer', 'Gadget1'))
-		local gadget2Unlocks = CustomizationUnlockParts(mmResources:GetInstance('kit_us_engineer', 'Gadget2'))
-		local specialUnlocks = CustomizationUnlockParts(mmResources:GetInstance('kit_us_engineer', 'Special'))
+	local slowSpeedGamemodes = {
+		'SquadDeathMatch0',
+		'TeamDeathMatch0',
+		'TeamDeathMatchC0',
+		'GunMaster0',
+		'Scavenger0',
+		'CaptureTheFlag0'
+	}
+	local gm = SharedUtils:GetCurrentGameMode()
 
-		primaryUnlocks:MakeWritable()
-		primaryUnlocks.selectableUnlocks:add(SoldierWeaponUnlockAsset(ResourceManager:SearchForDataContainer('Weapons/Model98B/U_M98B')))
 
-		secondaryUnlocks:MakeWritable()
-		secondaryUnlocks.selectableUnlocks:add(SoldierWeaponUnlockAsset(ResourceManager:SearchForDataContainer('Weapons/XP1_Jackhammer/U_Jackhammer')))
+	if (table.has(slowSpeedGamemodes, gm)) then
 
-		gadget1Unlocks:MakeWritable()
-		gadget1Unlocks.selectableUnlocks:add(SoldierWeaponUnlockAsset(ResourceManager:SearchForDataContainer('Weapons/Gadgets/Ammobag/U_Ammobag')))
+		local yump = mmResources:GetInstance('yump')
+		if (yump ~= nil) then
+			local playerYump = JumpStateData(yump)
+			playerYump:MakeWritable()
+			playerYump.jumpHeight = 6
+			playerYump.jumpEffectSize = 5
+			print('Changed Player Jump ('..gm..')...')
+		end
 
-		gadget2Unlocks:MakeWritable()
-		gadget2Unlocks.selectableUnlocks:add(SoldierWeaponUnlockAsset(ResourceManager:SearchForDataContainer('Weapons/Gadgets/C4/U_C4')))
+		local pose_stand = mmResources:GetInstance('pose_stand')
+		if (pose_stand ~= nil) then
+			local poseStand = CharacterStatePoseInfo(pose_stand)
+			poseStand:MakeWritable()
+			poseStand.velocity = 4
+			poseStand.sprintMultiplier = 3
+			dprint('Changed Player Stand Pose ('..gm..')...')
+		end
 
-		specialUnlocks:MakeWritable()
-		specialUnlocks.selectableUnlocks:add(SoldierWeaponUnlockAsset(ResourceManager:SearchForDataContainer('Weapons/Gadgets/M15/U_M15')))
-		print('Changed US Engineer...')
+		local pose_standair = mmResources:GetInstance('pose_standair')
+		if (pose_standair ~= nil) then
+			local poseStandAir = CharacterStatePoseInfo(pose_standair)
+			poseStandAir:MakeWritable()
+			poseStandAir.velocity = 5
+			poseStandAir.sprintMultiplier = 3.5
+			dprint('Changed Player Stand Air Pose ('..gm..')...')
+		end
+
+		local pose_swimming = mmResources:GetInstance('pose_swimming')
+		if (pose_swimming ~= nil) then
+			local poseSwim = CharacterStatePoseInfo(pose_swimming)
+			poseSwim:MakeWritable()
+			poseSwim.velocity = 8
+			dprint('Changed Player Swim Pose ('..gm..')...')
+		end
+
+		local pose_climbing = mmResources:GetInstance('pose_climbing')
+		if (pose_climbing ~= nil) then
+			local poseClimb = CharacterStatePoseInfo(pose_climbing)
+			poseClimb:MakeWritable()
+			poseClimb.velocity = 15
+			poseClimb.sprintMultiplier = 2
+			dprint('Changed Player Climb Pose ('..gm..')...')
+		end
+
+		local pose_chute = mmResources:GetInstance('pose_chute')
+		if (pose_chute ~= nil) then
+			local poseChute = CharacterStatePoseInfo(pose_chute)
+			poseChute:MakeWritable()
+			poseChute.velocity = 40
+			dprint('Changed Player Parachute Pose ('..gm..')...')
+		end
+
+		local knoife = mmResources:GetInstance('knoife')
+		if (knoife ~= nil) then
+			local meleeData = MeleeEntityCommonData(knoife)
+			meleeData:MakeWritable()
+			meleeData.meleeAttackDistance = 2
+			meleeData.maxAttackHeightDifference = 2
+			meleeData.invalidMeleeAttackZone = 5
+			dprint('Changed Knoife (Knife) ('..gm..')...')
+		end
 	end
+
+	local kitSetups = {
+		US = {
+			Assault = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+			Engineer = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {
+					'Weapons/RPG7/U_RPG7',
+					'Weapons/Sa18IGLA/U_Sa18IGLA'
+				},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+			Recon = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+			Support = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+		},
+		RU = {
+			Assault = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+			Engineer = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {
+					'Weapons/FIM92A/U_FIM92',
+					'Weapons/SMAW/U_SMAW'
+				},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+			Recon = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+			Support = {
+				ID_M_SOLDIER_PRIMARY = {},
+				ID_M_SOLDIER_SECONDARY = {},
+				ID_M_SOLDIER_GADGET1 = {},
+				ID_WEAPON_CATEGORYGADGET1 = {},
+				ID_M_SOLDIER_GADGET2 = {},
+				GRENADE = {},
+				KNIFE = {}
+			},
+		}
+	}
+
+	for teamName, team in pairs(kitSetups) do
+		for kitName, kit in pairs(team) do
+			if (kitName ~= '*') then
+				local kitData = self:findKit(teamName, kitName, true)
+				for i=1, #kitData do
+
+					local unlockCategories = ebxEditUtils:GetWritableContainer(kitData[i][1], 'WeaponTable')
+					local specialsDone = false
+					local newUnlockCategories = {}
+
+					for categoryId, weapons in pairs(kit) do
+
+						local categoryIndex = self:CategoryIdToIndex(categoryId)
+						local unlockCategory = unlockCategories.unlockParts[categoryIndex]
+						unlockCategory:MakeWritable()
+
+						for weapon=1, #weapons do
+							unlockCategory.selectableUnlocks:add(ebxEditUtils:GetWritableInstance(weapons[weapon]))
+							print('Adding ['..tostring(categoryId)..']: '..weapons[weapon])
+						end
+					end
+
+					print('Changed Kit: '..teamName..' - '..kitName)
+				end
+			end
+		end
+	end
+end
+
+function MMPlayers:CategoryIdToIndex(categoryId)
+
+	if (categoryId == 'ID_M_SOLDIER_PRIMARY') then
+		return 1
+	elseif (categoryId == 'ID_M_SOLDIER_SECONDARY') then
+		return 2
+	elseif (categoryId == 'ID_M_SOLDIER_GADGET1') then
+		return 3
+	elseif (categoryId == 'ID_WEAPON_CATEGORYGADGET1' or categoryId == 'GADGET1') then
+		return 5
+	elseif (categoryId == 'ID_M_SOLDIER_GADGET2') then
+		return 6
+	elseif (categoryId == 'GRENADE') then
+		return 7
+	elseif (categoryId == 'KNIFE') then
+		return 8
+	end
+	return 4
+end
+
+-- Tries to find first available kit
+-- @param teamName string Values: 'US', 'RU'
+-- @param kitName string Values: 'Assault', 'Engineer', 'Support', 'Recon'
+-- @param returnAll boolean returns all matches
+function MMPlayers:findKit(teamName, kitName, returnAll)
+
+    local gameModeKits = {
+        '', -- Standard
+        '_GM', --Gun Master on XP2 Maps
+        '_GM_XP4', -- Gun Master on XP4 Maps
+        '_XP4', -- Copy of Standard for XP4 Maps
+        '_XP4_SCV' -- Scavenger on XP4 Maps
+    }
+
+    local matches = {}
+
+    for kitType=1, #gameModeKits do
+        local properKitName = string.lower(kitName)
+        properKitName = properKitName:gsub("%a", string.upper, 1)
+
+        local fullKitName = string.upper(teamName)..properKitName..gameModeKits[kitType]
+        local kit = ResourceManager:SearchForDataContainer('Gameplay/Kits/'..fullKitName)
+        if kit ~= nil  then
+        	print('Found Kit: '..fullKitName)
+            table.insert(matches, {kit, gameModeKits[kitType]})
+            if (not returnAll) then
+        		return {kit, gameModeKits[kitType]}
+        	end
+        end
+    end
+
+    return matches
 end
 
 return MMPlayers()

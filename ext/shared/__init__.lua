@@ -96,17 +96,23 @@ Events:Subscribe('Partition:Loaded', function(partition)
 	end
 end)
 
--- negate damage from hitting stuff because 2FAST
-Hooks:Install('Soldier:Damage', 1987, function(hook, soldier, info, giverInfo)
+
+function debugDamageHook(ident, hook, soldier, info, giverInfo)
 
 	local debugDamage = false
 
 	if debugDamage then
-		SharedUtils:Print('Soldier:Damage --------------------------------')
+		SharedUtils:Print('['..ident..']==================: '..tostring(SharedUtils:GetTimeMS()))
 	end
 
 	if debugDamage and giverInfo ~= nil then
 		SharedUtils:Print('giverInfo.damageType: '..tostring(giverInfo.damageType))
+		SharedUtils:Print('giverInfo.weaponUnlock: '..tostring(giverInfo.damageType))
+		SharedUtils:Print('giverInfo.weaponFiring: '..tostring(giverInfo.damageType))
+		SharedUtils:Print('giverInfo.physicsEntity: '..tostring(giverInfo.damageType))
+		SharedUtils:Print('giverInfo.giverControllable: '..tostring(giverInfo.damageType))
+		SharedUtils:Print('giverInfo.lockedTarget: '..tostring(giverInfo.damageType))
+		SharedUtils:Print('giverInfo.giverCharacterCustomization: '..tostring(giverInfo.damageType))
 	end
 
 	if debugDamage and giverInfo ~= nil and giverInfo.giver ~= nil then
@@ -117,10 +123,25 @@ Hooks:Install('Soldier:Damage', 1987, function(hook, soldier, info, giverInfo)
 		SharedUtils:Print('giverInfo.giver.alive: '..tostring(giverInfo.giver.alive))
 	end
 
+	if debugDamage and giverInfo ~= nil and giverInfo.assistant ~= nil then
+		SharedUtils:Print('giverInfo.assistant.name: '..tostring(giverInfo.giver.name))
+		SharedUtils:Print('giverInfo.assistant.id: '..tostring(giverInfo.giver.id))
+		SharedUtils:Print('giverInfo.assistant.onlineId: '..tostring(giverInfo.giver.onlineId))
+		SharedUtils:Print('giverInfo.assistant.hasSoldier: '..tostring(giverInfo.giver.hasSoldier))
+		SharedUtils:Print('giverInfo.assistant.alive: '..tostring(giverInfo.giver.alive))
+	end
+
 	if debugDamage and info ~= nil then
+		SharedUtils:Print('Distance: '..tostring(info.position:Distance(info.origin)))
+		SharedUtils:Print('info.position: '..tostring(info.position))
+		SharedUtils:Print('info.direction: '..tostring(info.direction))
+		SharedUtils:Print('info.origin: '..tostring(info.origin))
 		SharedUtils:Print('info.damage: '..tostring(info.damage))
+		SharedUtils:Print('info.damagedMaterial: '..getMaterialName(info.damagedMaterial))
+		SharedUtils:Print('info.collidingMaterial: '..getMaterialName(info.collidingMaterial))
 		SharedUtils:Print('info.collisionSpeed: '..tostring(info.collisionSpeed))
 		SharedUtils:Print('info.stamina: '..tostring(info.stamina))
+		SharedUtils:Print('info.boneIndex: '..tostring(info.boneIndex))
 		SharedUtils:Print('info.isDemolitionDamage: '..tostring(info.isDemolitionDamage))
 		SharedUtils:Print('info.isExplosionDamage: '..tostring(info.isExplosionDamage))
 		SharedUtils:Print('info.isBulletDamage: '..tostring(info.isBulletDamage))
@@ -129,7 +150,7 @@ Hooks:Install('Soldier:Damage', 1987, function(hook, soldier, info, giverInfo)
 	end
 
 	if debugDamage then
-		SharedUtils:Print('-----------------------------------------------')
+		SharedUtils:Print('['..ident..']============================================')
 	end
 
   	-- no collision damage or 'Count' damage
@@ -139,4 +160,32 @@ Hooks:Install('Soldier:Damage', 1987, function(hook, soldier, info, giverInfo)
   	end
 
   	hook:Pass(soldier, info, giverInfo)
+end
+-- negate damage from hitting stuff because 2FAST
+--Hooks:Install('Soldier:Damage', 1987, 'A', debugDamageHook)
+Hooks:Install('Soldier:Damage', 1, 'B', debugDamageHook)
+
+materialGrid = nil
+materialContainer = nil
+
+function getMaterialName(materialId)
+	if (materialId == nil) then
+		return '[nil]: nil'
+	end
+	local mapIndex = MaterialContainerPair(materialId).physicsPropertyIndex
+	if mapIndex < 0 then
+		mapIndex = 256 + mapIndex
+	end
+
+	return '['..tostring(mapIndex+1) ..']: '..tostring(materialContainer.materialNames[mapIndex+1])
+end
+
+Events:Subscribe('Level:Loaded', function(levelName, gameMode, round, roundsPerMap)
+	materialGrid = MaterialGridData(ResourceManager:SearchForDataContainer(SharedUtils:GetLevelName() .. "/MaterialGrid_Win32/Grid"))
+	materialContainer = MaterialContainerAsset(ResourceManager:SearchForDataContainer("Materials/MaterialContainer"))
+end)
+
+Events:Subscribe('Level:Destroy', function()
+	materialContainer = nil
+	materialGrid = nil
 end)
