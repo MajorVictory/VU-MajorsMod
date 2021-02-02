@@ -11,6 +11,10 @@ function MMResources:__init()
 	self.MMResources["ammobag"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
 	self.MMResources["ammobag"]["Instance"] = '4AE515CE-846D-6070-5F56-1285B7E8E187'
 
+	self.MMResources["ammobag_physics"] = {}
+	self.MMResources["ammobag_physics"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
+	self.MMResources["ammobag_physics"]["Instance"] = '8C130459-96F3-481D-95D7-38A9565BABAE'
+
 	self.MMResources["magnum44"] = {}
 	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
 	self.MMResources["magnum44"]["Instance"] = 'EAB58F8A-382F-529F-B8AA-D73E90BA15D0'

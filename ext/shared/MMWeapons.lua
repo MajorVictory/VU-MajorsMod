@@ -16,12 +16,24 @@ function MMWeapons:Write(instance)
 		supplySphereData.supplyData.healing.supplyPointsCapacity = 1
 
 		supplySphereData.supplyData.ammo.radius = 9000
-		supplySphereData.supplyData.ammo.supplyIncSpeed = 1
+		supplySphereData.supplyData.ammo.supplyIncSpeed = 69
 		supplySphereData.supplyData.ammo.infiniteCapacity = true
 		supplySphereData.supplyData.ammo.supplyPointsRefillSpeed = 1
 		supplySphereData.supplyData.ammo.supplyPointsCapacity = 1
 
 		dprint('Changed Ammobag...')
+	end
+
+	if (mmResources:IsLoaded('ammobag_physics')) then
+		mmResources:SetLoaded('ammobag_physics', false)
+
+		local physicsData = PhysicsEntityData(mmResources:GetInstance('ammobag_physics'))
+		physicsData:MakeWritable()
+		physicsData.mass = 25
+		physicsData.friction = 0.5
+		physicsData.restitution = 0.2
+
+		dprint('Changed Ammobag Physics...')
 	end
 
 	if (mmResources:IsLoaded('grenade')) then
@@ -1201,6 +1213,41 @@ Events:Subscribe('Level:Loaded', function()
 	if (mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('sniperbullet', false)
 	end
+
+	local balanceGameModes = {
+		'SquadDeathMatch0',
+		'TeamDeathMatch0',
+		'TeamDeathMatchC0',
+		'GunMaster0',
+		'Scavenger0',
+		'CaptureTheFlag0'
+	}
+	local gm = SharedUtils:GetCurrentGameMode()
+
+	if (table.has(balanceGameModes, gm)) then
+		local supplySphereData = SupplySphereEntityData(mmResources:GetInstance('ammobag'))
+		if (supplySphereData ~= nil) then
+			supplySphereData:MakeWritable()
+			supplySphereData.receivesExplosionDamage = true
+
+			supplySphereData.supplyData.teamSpecific = false
+			supplySphereData.supplyData.healing.radius = 9000
+			supplySphereData.supplyData.healing.supplyIncSpeed = 25
+			supplySphereData.supplyData.healing.infiniteCapacity = true
+			supplySphereData.supplyData.healing.supplyPointsRefillSpeed = 2
+			supplySphereData.supplyData.healing.supplyPointsCapacity = 2
+			dprint('Changed Ammobag ('..gm..')...')
+		end
+	else 
+		local supplySphereData = SupplySphereEntityData(mmResources:GetInstance('ammobag'))
+		if (supplySphereData ~= nil) then
+			supplySphereData:MakeWritable()
+			supplySphereData.receivesExplosionDamage = false
+			supplySphereData.supplyData.teamSpecific = false
+			dprint('Changed Ammobag ('..gm..')...')
+		end
+	end
+
 end)
 
 
