@@ -1,6 +1,7 @@
 class "MMResources"
 
 function MMResources:__init()
+	self.LoadHandlers = {}
 	self.MMResources = {}
 
 	self.MMResources["chat"] = {}
@@ -53,6 +54,10 @@ function MMResources:__init()
 	self.MMResources["gm_p90"]["Partition"] = 'C7D08BC3-04B6-440C-BF99-0E6D6A41D890'
 	self.MMResources["gm_p90"]["Instance"] = '4C7904EB-0121-4BE4-B50B-D15E4505BC7E'
 
+	self.MMResources["p90_silenced"] = {}
+	self.MMResources["p90_silenced"]["Partition"] = 'C75DBA86-F326-11DF-ABE6-A89858BEBE43'
+	self.MMResources["p90_silenced"]["Instance"] = 'C1CB32CD-43BF-48C8-936F-C9B904B062AF'
+
 	self.MMResources["12gfrag"] = {}
 	self.MMResources["12gfrag"]["Partition"] = '2A6FCD72-5842-41B4-AC48-56BAACA506A3'
 	self.MMResources["12gfrag"]["Instance"] = 'EF265029-3291-4544-8081-ABFFA09D3D96'
@@ -93,9 +98,21 @@ function MMResources:__init()
 	self.MMResources["aek971"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
 	self.MMResources["aek971"]["Instance"] = 'CE3372DA-991B-41C1-95BC-19B5D26AAE5B'
 
+	self.MMResources["aek971_heavy"] = {}
+	self.MMResources["aek971_heavy"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
+	self.MMResources["aek971_heavy"]["Instance"] = '5F2C908F-56EA-42EF-A0C8-C800A38C32E4'
+
+	self.MMResources["aek971_silenced"] = {}
+	self.MMResources["aek971_silenced"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
+	self.MMResources["aek971_silenced"]["Instance"] = 'D87F08AD-D44F-4C77-92F6-D67C161F8233'
+
 	self.MMResources["rpgprojectile"] = {}
 	self.MMResources["rpgprojectile"]["Partition"] = '6C857FD9-6FB3-11DE-B35E-864CF572E1C4'
 	self.MMResources["rpgprojectile"]["Instance"] = 'CDD3A384-8243-A258-E23D-239CC0D52698'
+
+	self.MMResources["towenginefx"] = {}
+	self.MMResources["towenginefx"]["Partition"] = '25C535CD-2535-46B5-BF72-4E1961AFCC75'
+	self.MMResources["towenginefx"]["Instance"] = '08D225DA-28C7-4E27-9A81-719FDE099893'
 
 	self.MMResources["jackhammer"] = {}
 	self.MMResources["jackhammer"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
@@ -550,10 +567,6 @@ function MMResources:__init()
 		["GUNSHIP"] = true,
 	}
 
-	for resourceName, resourceData in pairs(self.MMResources) do
-		self.MMResources[resourceName].Loaded = false
-	end
-
 	-- level resources can specify what to mount and what order
 	self.MMResources["Levels/MP_007/MP_007"] = {
 		["Partition"] = 'CC4B754F-DC2D-11DF-B4FF-DE2D36FBFBF4',
@@ -605,6 +618,10 @@ function MMResources:__init()
 		}
 	}
 
+	for resourceName, resourceData in pairs(self.MMResources) do
+		self.MMResources[resourceName].Loaded = false
+	end
+
 	-- only insert supported maps
 	-- quick guid to name lookup table
 	self.MapLookup = {
@@ -623,6 +640,35 @@ function MMResources:__init()
 	}
 end
 
+function MMResources:RegisterInstanceLoadHandlers()
+	for resourceName, resourceData in pairs(self.MMResources) do
+		if (resourceData.Partition and resourceData.Instance) then
+			ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
+				self:SetLoaded(resourceName, true)
+				self:CallLoadHandlers()
+			end)
+		end
+	end
+end
+
+function MMResources:Register(resourceName, partition, guid)
+	self.MMResources[resourceName] = {
+		Partition = partition,
+		Instance = guid,
+		Loaded = false
+	}
+end
+
+function MMResources:AddLoadHandler(context, callback)
+	table.insert(self.LoadHandlers, { Context = context, Callback = callback })
+end
+
+function MMResources:CallLoadHandlers()
+	for i=1, #self.LoadHandlers do
+		self.LoadHandlers[i].Callback(self.LoadHandlers[i].Context, self)
+	end
+end
+
 
 function MMResources:IsLoaded(resourceName)
 	if not self.MMResources[resourceName] then
@@ -637,6 +683,9 @@ function MMResources:SetLoaded(resourceName, value)
 	if not self.MMResources[resourceName] then
 		print("Tried to set unregistered resource: "..tostring(resourceName))
 	else
+		if (value) then
+			dprint("Resource Loaded: "..tostring(resourceName))
+		end
 		self.MMResources[resourceName].Loaded = value
 	end
 end

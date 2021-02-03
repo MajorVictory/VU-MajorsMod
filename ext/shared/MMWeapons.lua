@@ -42,14 +42,14 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(mmResources:GetInstance('grenade'))
 		fireData:MakeWritable()
 		
-		fireData.weaponDispersion.standDispersion.minAngle = 3.5
-		fireData.weaponDispersion.standDispersion.maxAngle = 5
+		fireData.weaponDispersion.standDispersion.minAngle = 5
+		fireData.weaponDispersion.standDispersion.maxAngle = 7
 		fireData.weaponDispersion.standDispersion.increasePerShot = 0.8
-		fireData.weaponDispersion.crouchDispersion.minAngle = 3.5
-		fireData.weaponDispersion.crouchDispersion.maxAngle = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 7
 		fireData.weaponDispersion.crouchDispersion.increasePerShot = 0.8
-		fireData.weaponDispersion.proneDispersion.minAngle = 3.5
-		fireData.weaponDispersion.proneDispersion.maxAngle = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 7
 		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
 
 		fireData.shot.initialSpeed.z = 15
@@ -57,7 +57,7 @@ function MMWeapons:Write(instance)
 		fireData.shot.numberOfBulletsPerShot = 10
 
 		fireData.ammo.magazineCapacity = 1
-		fireData.ammo.numberOfMagazines = 10
+		fireData.ammo.numberOfMagazines = 5
 		fireData.ammo.ammoBagPickupDelayMultiplier = 10
 		dprint('Changed M67 Grenade...')
 	end
@@ -148,6 +148,15 @@ function MMWeapons:Write(instance)
 		dprint('Changed P90...')
 	end
 
+	if (mmResources:IsLoaded('p90_silenced') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('p90_silenced', false)
+
+		local projectileMod = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('p90_silenced'))
+		projectileMod.projectileData:MakeWritable()
+		projectileMod.projectileData = ProjectileEntityData(mmResources:GetInstance('12gfrag'))
+		dprint('Changed P90 Silenced...')
+	end
+
 	if (mmResources:IsLoaded('m60') and mmResources:IsLoaded('crossbolt_he') and mmResources:IsLoaded('crossboltsound')) then
 		mmResources:SetLoaded('m60', false)
 		mmResources:SetLoaded('crossbolt_he', false)
@@ -182,7 +191,7 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(mmResources:GetInstance('m98'))
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 9001
-		dprint('Changed M98 FireData...')
+		dprint('Changed M98...')
 	end
 
 	if (mmResources:IsLoaded('bullet338')) then
@@ -198,7 +207,7 @@ function MMWeapons:Write(instance)
 		dprint('Changed M98 Bullet...')
 	end
 
-	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('aek971')) then
+	if (mmResources:IsLoaded('aek971') and mmResources:IsLoaded('rpgprojectile')) then
 		mmResources:SetLoaded('aek971', false)
 		-- swap aek bullet for rpg rocket
 		local fireData = FiringFunctionData(mmResources:GetInstance('aek971'))
@@ -206,7 +215,38 @@ function MMWeapons:Write(instance)
 		fireData.ammo.numberOfMagazines = 20
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
-		dprint('Changed AEK Projectile...')
+		dprint('Changed AEK...')
+	end
+
+	if (mmResources:IsLoaded('aek971_heavy') and mmResources:IsLoaded('RPG7Projectile_Heavy') and mmResources:IsLoaded('towenginefx')) then
+		mmResources:SetLoaded('aek971_heavy', false)
+		mmResources:SetLoaded('RPG7Projectile_Heavy', false)
+		mmResources:SetLoaded('towenginefx', false)
+
+		-- MissileEntityData
+		local missileData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('RPG7Projectile_Heavy'), 'Object')
+		missileData.engineEffect = EffectBlueprint(mmResources:GetInstance('towenginefx'))
+		dprint('Changed RPG7Projectile_Heavy...')
+
+		local projectileMod = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('aek971_heavy'))
+		projectileMod.projectileData:MakeWritable()
+		projectileMod.projectileData = ProjectileEntityData(missileData)
+		dprint('Changed AEK Heavy Barrel...')
+	end
+
+	if (mmResources:IsLoaded('aek971_silenced') and mmResources:IsLoaded('RPG7Projectile_Cold')) then
+		mmResources:SetLoaded('aek971_silenced', false)
+		mmResources:SetLoaded('RPG7Projectile_Cold', false)
+
+		-- MissileEntityData
+		local missileData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('RPG7Projectile_Cold'), 'Object')
+		missileData.engineEffect = nil
+		dprint('Changed RPG7Projectile_Cold...')
+
+		local projectileMod = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('aek971_silenced'))
+		projectileMod.projectileData:MakeWritable()
+		projectileMod.projectileData = ProjectileEntityData(missileData)
+		dprint('Changed AEK Silenced...')
 	end
 
 	if (mmResources:IsLoaded('c4')) then
@@ -413,9 +453,9 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
-		fireData.shot.numberOfBulletsPerBurst = 5
+		fireData.shot.numberOfBulletsPerBurst = 10
 		fireData.fireLogic.rateOfFire = 900
-		fireData.ammo.magazineCapacity = 5
+		fireData.ammo.magazineCapacity = 10
 		fireData.ammo.numberOfMagazines = -1
 		
 		local bulletData = BulletEntityData(mmResources:GetInstance('m93rbullet'))
@@ -439,9 +479,9 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
-		fireData.shot.numberOfBulletsPerBurst = 5
+		fireData.shot.numberOfBulletsPerBurst = 10
 		fireData.fireLogic.rateOfFire = 900
-		fireData.ammo.magazineCapacity = 5
+		fireData.ammo.magazineCapacity = 10
 		fireData.ammo.numberOfMagazines = -1
 		
 		local bulletData = BulletEntityData(mmResources:GetInstance('m93rbullet'))
@@ -460,6 +500,10 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(mmResources:GetInstance('smaw'))
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 250
+		fireData.fireLogic.rateOfFire = 500
+		fireData.fireLogic.reloadTime = 0
+		fireData.ammo.magazineCapacity = -1
+		fireData.ammo.numberOfMagazines = -1
 		dprint('Changed SMAW...')
 	end
 
@@ -1116,9 +1160,9 @@ function MMWeapons:Write(instance)
 		mmResources:SetLoaded('eod', false)
 		local fireData = FiringFunctionData(mmResources:GetInstance('eod'))
 		fireData:MakeWritable()
-		fireData.ammo.ammoBagPickupDelayMultiplier = 100
+		fireData.ammo.ammoBagPickupDelayMultiplier = 690
 		fireData.fireLogic.rateOfFire = 100
-		fireData.fireLogic.reloadTime = 5
+		fireData.fireLogic.reloadTime = 690
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
 		dprint('Changed EOD Projectile...')
@@ -1172,8 +1216,8 @@ function MMWeapons:Write(instance)
 		mmResources:SetLoaded('mav_pda', false)
 		local fireData = FiringFunctionData(mmResources:GetInstance('mav_pda'))
 		fireData:MakeWritable()
-		fireData.fireLogic.reloadTime = 5
-		fireData.ammo.ammoBagPickupDelayMultiplier = 100
+		fireData.fireLogic.reloadTime = 690
+		fireData.ammo.ammoBagPickupDelayMultiplier = 690
 		dprint('Changed MAV PDA...')
 	end
 
@@ -1183,7 +1227,7 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(mmResources:GetInstance('repairtool'))
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 10
-		fireData.shot.numberOfBulletsPerShot = 5
+		fireData.shot.numberOfBulletsPerShot = 10
 		fireData.overHeat.heatPerBullet = 0
 		dprint('Changed Repair Tool...')
 	end
@@ -1230,13 +1274,23 @@ Events:Subscribe('Level:Loaded', function()
 			supplySphereData:MakeWritable()
 			supplySphereData.receivesExplosionDamage = true
 
-			supplySphereData.supplyData.teamSpecific = false
+			supplySphereData.supplyData.teamSpecific = true
 			supplySphereData.supplyData.healing.radius = 9000
 			supplySphereData.supplyData.healing.supplyIncSpeed = 25
 			supplySphereData.supplyData.healing.infiniteCapacity = true
 			supplySphereData.supplyData.healing.supplyPointsRefillSpeed = 2
 			supplySphereData.supplyData.healing.supplyPointsCapacity = 2
 			dprint('Changed Ammobag ('..gm..')...')
+		end
+
+		local knoife = mmResources:GetInstance('knoife')
+		if (knoife ~= nil) then
+			local meleeData = MeleeEntityCommonData(knoife)
+			meleeData:MakeWritable()
+			meleeData.meleeAttackDistance = 2
+			meleeData.maxAttackHeightDifference = 2
+			meleeData.invalidMeleeAttackZone = 5
+			dprint('Changed Knoife (Knife) ('..gm..')...')
 		end
 	else 
 		local supplySphereData = SupplySphereEntityData(mmResources:GetInstance('ammobag'))
@@ -1292,7 +1346,7 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 
 	gmPreset_Normal[1].killsNeeded = 1 	-- GM_MP443
 	gmPreset_Normal[2].killsNeeded = 2 	-- GM_M93
-	gmPreset_Normal[3].killsNeeded = 3 	-- GM_T44
+	gmPreset_Normal[3].killsNeeded = 2 	-- GM_T44
 	gmPreset_Normal[4].killsNeeded = 2 	-- GM_PP
 	gmPreset_Normal[5].killsNeeded = 2 	-- GM_P90
 	gmPreset_Normal[6].killsNeeded = 4 	-- GM_SPAS
@@ -1320,7 +1374,7 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	gmPreset_NormalReversed[10].killsNeeded = 4	-- GM_SPAS
 	gmPreset_NormalReversed[11].killsNeeded = 2	-- GM_P90
 	gmPreset_NormalReversed[12].killsNeeded = 2	-- GM_PP
-	gmPreset_NormalReversed[13].killsNeeded = 3	-- GM_T44
+	gmPreset_NormalReversed[13].killsNeeded = 2	-- GM_T44
 	gmPreset_NormalReversed[14].killsNeeded = 2	-- GM_M93
 	gmPreset_NormalReversed[15].killsNeeded = 1	-- GM_MP443
 	gmPreset_NormalReversed[16].killsNeeded = 2	-- GM_M320

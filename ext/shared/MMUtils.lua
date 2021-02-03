@@ -15,6 +15,19 @@ function dump(o)
      end
 end
 
+function hashBit(size)
+     local vars = {"A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"}
+     local returnBit = ''
+     for i=1, size do
+          returnBit = returnBit .. vars[math.floor(MathUtils:GetRandomInt(1,16))]..vars[math.floor(MathUtils:GetRandomInt(1,16))]
+     end
+     return returnBit
+end
+
+function GenerateCustomGuid(customPrefix)
+     return Guid(customPrefix.."-"..hashBit(2).."-"..hashBit(2).."-"..hashBit(2).."-"..hashBit(6), "D")
+end
+
 function getModuleState()
      if (SharedUtils:IsClientModule() and SharedUtils:IsServerModule()) then
           return 'Shared'

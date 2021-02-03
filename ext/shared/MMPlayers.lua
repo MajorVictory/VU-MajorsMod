@@ -142,16 +142,6 @@ function MMPlayers:onLevelLoaded(levelName, gameMode)
 			poseChute.velocity = 40
 			dprint('Changed Player Parachute Pose ('..gm..')...')
 		end
-
-		local knoife = mmResources:GetInstance('knoife')
-		if (knoife ~= nil) then
-			local meleeData = MeleeEntityCommonData(knoife)
-			meleeData:MakeWritable()
-			meleeData.meleeAttackDistance = 2
-			meleeData.maxAttackHeightDifference = 2
-			meleeData.invalidMeleeAttackZone = 5
-			dprint('Changed Knoife (Knife) ('..gm..')...')
-		end
 	end
 
 	local kitSetups = {

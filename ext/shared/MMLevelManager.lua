@@ -9,7 +9,7 @@ function MMLevelManager:__init()
 
     Events:Subscribe('Level:LoadResources', self, self.OnLoadResources)
     Hooks:Install('ResourceManager:LoadBundles', 100, self, self.onLoadBundles)
-    Events:Subscribe('Partition:Loaded', self, self.OnPartitionLoaded)
+    --Events:Subscribe('Partition:Loaded', self, self.OnPartitionLoaded)
     Events:Subscribe('Level:RegisterEntityResources', self.onRegisterEntityResources)
 
 end
@@ -29,7 +29,7 @@ function MMLevelManager:OnLoadResources( levelName, gameMode, isDedicated )
     if (mapData ~= nil and mapData.SuperBundles) then
         print("Mounting Super Bundles: "..dump(mapData.SuperBundles))
 
-        for i = 1, #mapData.SuperBundles do
+        for i=1, #mapData.SuperBundles do
             ResourceManager:MountSuperBundle(mapData.SuperBundles[i])
         end
         self.superBundlesDone = true
@@ -46,7 +46,7 @@ function MMLevelManager:onLoadBundles(hook, bundles, compartment)
 
             local newBundles = {};
 
-            for i = 1, #mapData.Bundles do
+            for i=1, #mapData.Bundles do
                 if (mapData.Bundles[i] == 'CURRENTLEVEL') then
                     newBundles[#newBundles+1] = bundles[1]
                 else
@@ -72,7 +72,7 @@ function MMLevelManager:OnPartitionLoaded(partition)
     if (mapData ~= nill and mapData.Vehicles) then
         print('Loading partitions for level: '..mapName)
 
-        for i = 1, #mapData.Vehicles do
+        for i=1, #mapData.Vehicles do
             mmResources:AddToPartition(mapData.Vehicles[i], partition)
         end
         self.partitionsDone = true

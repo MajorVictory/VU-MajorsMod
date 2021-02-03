@@ -4,6 +4,8 @@ require('__shared/MMUtils')
 
 -- load resource list
 mmResources = require('__shared/MMResources')
+mmCustomResources = require('__shared/MMCustomResources')
+mmCustomResources:RegisterResources(mmResources)
 
 -- modules
 mmPlayers = require('__shared/MMPlayers')
@@ -11,19 +13,12 @@ mmWeapons = require('__shared/MMWeapons')
 mmVehicles = require('__shared/MMVehicles')
 --mmLevelManager = require('__shared/MMLevelManager')
 
--- loop registered resources to listen for
-for resourceName, resourceData in pairs(mmResources:Get()) do
-	if (resourceData.Partition and resourceData.Instance) then
-		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
-			mmResources:SetLoaded(resourceName, true)
-			dprint("Resource Loaded: "..tostring(resourceName))
-			--mmLevelManager:Write(mmResources)
-			mmPlayers:Write(mmResources)
-			mmWeapons:Write(mmResources)
-			mmVehicles:Write(mmResources)
-		end)
-	end
-end
+mmResources:AddLoadHandler(mmCustomResources, mmCustomResources.Write)
+mmResources:AddLoadHandler(mmPlayers, mmPlayers.Write)
+mmResources:AddLoadHandler(mmWeapons, mmWeapons.Write)
+mmResources:AddLoadHandler(mmVehicles, mmVehicles.Write)
+mmResources:RegisterInstanceLoadHandlers()
+
 
 Events:Subscribe('Partition:Loaded', function(partition)
 
@@ -188,4 +183,28 @@ end)
 Events:Subscribe('Level:Destroy', function()
 	materialContainer = nil
 	materialGrid = nil
+end)
+
+
+-- load bundles to get the TOW smoke trails
+Events:Subscribe('Level:LoadResources', function()
+	ResourceManager:MountSuperBundle('levels/mp_007/mp_007')
+end)
+
+Hooks:Install('ResourceManager:LoadBundles', 100, function(hook, bundles, compartment)
+	if #bundles == 1 and bundles[1] == SharedUtils:GetLevelName() then
+		print('Injecting bundles.')
+
+		bundles = {
+			'levels/mp_007/mp_007',
+			bundles[1],
+		}
+
+		hook:Pass(bundles, compartment)
+	end
+end)
+
+Events:Subscribe('Level:RegisterEntityResources', function(levelData)
+	local registry = RegistryContainer(ResourceManager:SearchForInstanceByGuid(Guid('958A27B8-F6B4-AE8C-4AE8-1FC8E2AB60BF')))
+	ResourceManager:AddRegistry(registry, ResourceCompartment.ResourceCompartment_Game)
 end)
