@@ -56,7 +56,7 @@ end
 function MMCustomResources:CreateCustomGUID()
 	local newGuid = GenerateCustomGuid('11181987')
 	while table.has(self.CustomGuids, newGuid) do
-		newGuid = MathUtils:RandomGuid()
+		newGuid = GenerateCustomGuid('11181987')
 	end
 	table.insert(self.CustomGuids, newGuid)
 	return newGuid
@@ -94,8 +94,8 @@ function MMCustomResources:onRegisterEntityResources()
 	end
 
 	if (addRegistry) then
-		ResourceManager:AddRegistry(registry, ResourceCompartment.ResourceCompartment_Game)
-		
+		print('ResourceManager:AddRegistry')
+		ResourceManager:AddRegistry(registry, ResourceCompartment.ResourceCompartment_Dynamic_Begin_)
 	end
 end
 
@@ -127,11 +127,20 @@ function MMCustomResources:CloneBlueprint(resourceName)
 	resourceData.Blueprints = { customBlueprint }
 
 	if (resourceName == 'RPG7Projectile_Cold' or resourceName == 'RPG7Projectile_Heavy') then
-		--customBlueprint.object = MissileEntityData(originalBlueprint.object:Clone(self:CreateCustomGUID()))
+		--local clone = self:CloneInstance(originalBlueprint.object)
+		--customBlueprint.object = clone
 		--resourceData.Entities = { customBlueprint.object }
 	end
 
 	return customBlueprint
+end
+
+function MMCustomResources:CloneInstance(originalInstance)
+	local newGuid = Guid(self:CreateCustomGUID())
+	print('CloneInstance [A]: '..tostring(originalInstance.typeInfo.name)..' ['..tostring(originalInstance.instanceGuid)..']')
+	local cloneInstance = _G[originalInstance.typeInfo.name](originalInstance:Clone(newGuid))
+	print('CloneInstance [B]: '..tostring(cloneInstance.typeInfo.name)..' ['..tostring(cloneInstance.instanceGuid)..']')
+	return cloneInstance
 end
 
 

@@ -10,30 +10,78 @@ function MMWeapons:Write(instance)
 		supplySphereData.receivesExplosionDamage = false
 
 		supplySphereData.supplyData.healing.radius = 9000
-		supplySphereData.supplyData.healing.supplyIncSpeed = 69
+		supplySphereData.supplyData.healing.supplyIncSpeed = 24
 		supplySphereData.supplyData.healing.infiniteCapacity = true
-		supplySphereData.supplyData.healing.supplyPointsRefillSpeed = 1
+		supplySphereData.supplyData.healing.supplyPointsRefillSpeed = 0
 		supplySphereData.supplyData.healing.supplyPointsCapacity = 1
 
 		supplySphereData.supplyData.ammo.radius = 9000
-		supplySphereData.supplyData.ammo.supplyIncSpeed = 69
-		supplySphereData.supplyData.ammo.infiniteCapacity = true
-		supplySphereData.supplyData.ammo.supplyPointsRefillSpeed = 1
-		supplySphereData.supplyData.ammo.supplyPointsCapacity = 1
 
 		dprint('Changed Ammobag...')
 	end
 
-	if (mmResources:IsLoaded('ammobag_physics')) then
-		mmResources:SetLoaded('ammobag_physics', false)
+	if (mmResources:IsLoaded('medicbag')) then
+		mmResources:SetLoaded('medicbag', false)
 
-		local physicsData = PhysicsEntityData(mmResources:GetInstance('ammobag_physics'))
-		physicsData:MakeWritable()
-		physicsData.mass = 25
-		physicsData.friction = 0.5
-		physicsData.restitution = 0.2
+		local supplySphereData = SupplySphereEntityData(mmResources:GetInstance('medicbag'))
+		supplySphereData:MakeWritable()
+		supplySphereData.receivesExplosionDamage = false
 
-		dprint('Changed Ammobag Physics...')
+		supplySphereData.supplyData.healing.radius = 9000
+		supplySphereData.supplyData.healing.supplyIncSpeed = 24
+
+		supplySphereData.supplyData.ammo.radius = 9000
+		supplySphereData.supplyData.ammo.supplyIncSpeed = 1
+		supplySphereData.supplyData.ammo.infiniteCapacity = true
+		supplySphereData.supplyData.ammo.supplyPointsRefillSpeed = 0
+		supplySphereData.supplyData.ammo.supplyPointsCapacity = 7
+
+		dprint('Changed Medicbag...')
+	end
+
+	if (mmResources:IsLoaded('m1911')) then
+		mmResources:SetLoaded('m1911', false)
+
+		local fireData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('m1911'), 'object.WeaponFiring.PrimaryFire')
+		fireData.ammo.magazineCapacity = -1
+		fireData.fireLogic.rateOfFire = 900
+
+		local fireDataGM = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('m1911'), 'object.WeaponModifierData.3.Modifiers.2')
+		fireDataGM.magazineCapacity = -1
+
+		dprint('Changed M1911...')
+	end
+
+	if (mmResources:IsLoaded('m9')) then
+		mmResources:SetLoaded('m9', false)
+
+		local fireData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('m9'), 'object.WeaponFiring.PrimaryFire')
+		fireData.ammo.magazineCapacity = -1
+		fireData.fireLogic.rateOfFire = 900
+
+		local fireDataGM = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('m9'), 'object.WeaponModifierData.4.Modifiers.2')
+		fireDataGM.magazineCapacity = -1
+		dprint('Changed M9...')
+	end
+
+	if (mmResources:IsLoaded('mp412rex') and mmResources:IsLoaded('defibvolabel') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('mp412rex', false)
+		mmResources:SetLoaded('defibvolabel', false)
+
+		local voData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('mp412rex'), 'object.VoiceOverInfo')
+		voData.labels:clear()
+		voData.labels:add(ebxEditUtils:GetWritableInstance(mmResources:GetInstance('defibvolabel')))
+
+		local fireData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('mp412rex'), 'object.WeaponFiring.PrimaryFire')
+		fireData.ammo.magazineCapacity = -1
+		fireData.fireLogic.rateOfFire = 900
+
+		fireData.shot.projectileData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('12gfrag'))
+
+		local fireDataGM = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('mp412rex'), 'object.WeaponModifierData.1.Modifiers.2')
+		fireDataGM.magazineCapacity = -1
+
+		dprint('Changed MP412 Rex...')
 	end
 
 	if (mmResources:IsLoaded('grenade')) then
@@ -160,7 +208,6 @@ function MMWeapons:Write(instance)
 	if (mmResources:IsLoaded('m60') and mmResources:IsLoaded('crossbolt_he') and mmResources:IsLoaded('crossboltsound')) then
 		mmResources:SetLoaded('m60', false)
 		mmResources:SetLoaded('crossbolt_he', false)
-		mmResources:SetLoaded('crossboltsound', false)
 		-- swap m60 for crossbolt_he bullets
 		local fireData = FiringFunctionData(mmResources:GetInstance('m60'))
 		local bulletData = BulletEntityData(mmResources:GetInstance('crossbolt_he'))
@@ -240,7 +287,7 @@ function MMWeapons:Write(instance)
 
 		-- MissileEntityData
 		local missileData = ebxEditUtils:GetWritableContainer(mmResources:GetInstance('RPG7Projectile_Cold'), 'Object')
-		missileData.engineEffect = nil
+		--missileData.engineEffect = nil
 		dprint('Changed RPG7Projectile_Cold...')
 
 		local projectileMod = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('aek971_silenced'))
@@ -1135,61 +1182,6 @@ function MMWeapons:Write(instance)
 		dprint('Changed M240 Gun Sway...')
 	end
 
-	if (mmResources:IsLoaded('tugs_vehicle')) then
-		mmResources:SetLoaded('tugs_vehicle', false)
-
-		local radarSweep = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('tugs_vehicle'))
-		radarSweep.controllableSweepInterval = 0.8
-		radarSweep.mineSweepInterval = 0.8
-		dprint('Changed T-UGS Vehicle...')
-	end
-
-	if (mmResources:IsLoaded('tugs_chassis')) then
-		mmResources:SetLoaded('tugs_chassis', false)
-
-		local chassisData = ChassisComponentData(mmResources:GetInstance('tugs_chassis'))
-		chassisData:MakeWritable()
-		chassisData.transform.left.x = 4
-		chassisData.transform.up.y = 4
-		chassisData.transform.forward.z = 4
-
-		print('Changed T-UGS Chassis...')
-	end
-
-	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('eod')) then
-		mmResources:SetLoaded('eod', false)
-		local fireData = FiringFunctionData(mmResources:GetInstance('eod'))
-		fireData:MakeWritable()
-		fireData.ammo.ammoBagPickupDelayMultiplier = 690
-		fireData.fireLogic.rateOfFire = 100
-		fireData.fireLogic.reloadTime = 690
-		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
-		dprint('Changed EOD Projectile...')
-	end
-
-	if (mmResources:IsLoaded('eod_chassis')) then
-		mmResources:SetLoaded('eod_chassis', false)
-
-		local chassisData = ChassisComponentData(mmResources:GetInstance('eod_chassis'))
-		chassisData:MakeWritable()
-		chassisData.transform.left.x = 3
-		chassisData.transform.up.y = 3
-		chassisData.transform.forward.z = 3
-		print('Changed EOD Chassis...')
-	end
-
-	if (mmResources:IsLoaded('radiobeacon_chassis')) then
-		mmResources:SetLoaded('radiobeacon_chassis', false)
-
-		local chassisData = ChassisComponentData(mmResources:GetInstance('radiobeacon_chassis'))
-		chassisData:MakeWritable()
-		chassisData.transform.left.x = 0.25
-		chassisData.transform.up.y = 0.25
-		chassisData.transform.forward.z = 0.25
-		print('Changed Radio Beacon Chassis...')
-	end
-
 	if (mmResources:IsLoaded('us_stinger')) then
 		mmResources:SetLoaded('us_stinger', false)
 
@@ -1211,25 +1203,152 @@ function MMWeapons:Write(instance)
 		print('Changed FIM92A Stinger...')
 	end
 
-	-- slow down regen rate to allow enetering vehicle before ammo refills
-	if (mmResources:IsLoaded('mav_pda')) then
-		mmResources:SetLoaded('mav_pda', false)
-		local fireData = FiringFunctionData(mmResources:GetInstance('mav_pda'))
-		fireData:MakeWritable()
-		fireData.fireLogic.reloadTime = 690
-		fireData.ammo.ammoBagPickupDelayMultiplier = 690
-		dprint('Changed MAV PDA...')
-	end
-
-	-- slow down regen rate to allow enetering vehicle before ammo refills
 	if (mmResources:IsLoaded('repairtool')) then
 		mmResources:SetLoaded('repairtool', false)
 		local fireData = FiringFunctionData(mmResources:GetInstance('repairtool'))
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 10
-		fireData.shot.numberOfBulletsPerShot = 10
+		fireData.shot.numberOfBulletsPerShell = 10
 		fireData.overHeat.heatPerBullet = 0
 		dprint('Changed Repair Tool...')
+	end
+
+	if (mmResources:IsLoaded('tugs_vehicle')) then
+		mmResources:SetLoaded('tugs_vehicle', false)
+
+		local radarSweep = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('tugs_vehicle'))
+		radarSweep.controllableSweepInterval = 0.8
+		radarSweep.mineSweepInterval = 0.8
+		dprint('Changed T-UGS Vehicle...')
+	end
+
+	if (mmResources:IsLoaded('tugs_chassis')) then
+		mmResources:SetLoaded('tugs_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('tugs_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 4
+		chassisData.transform.up.y = 4
+		chassisData.transform.forward.z = 4
+		print('Changed T-UGS Chassis...')
+	end
+
+	if (mmResources:IsLoaded('radiobeacon_chassis')) then
+		mmResources:SetLoaded('radiobeacon_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('radiobeacon_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 0.25
+		chassisData.transform.up.y = 0.25
+		chassisData.transform.forward.z = 0.25
+		print('Changed Radio Beacon Chassis...')
+	end
+
+	-- slow down regen rate to allow enetering vehicle before ammo refills
+	if (mmResources:IsLoaded('eod_pda')) then
+		mmResources:SetLoaded('eod_pda', false)
+		local fireData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('eod_pda'))
+		fireData.ammo.ammoBagPickupDelayMultiplier = 30
+		dprint('Changed EOD PDA...')
+	end
+
+	if (mmResources:IsLoaded('rpgprojectile') and mmResources:IsLoaded('eod')) then
+		mmResources:SetLoaded('eod', false)
+		local fireData = FiringFunctionData(mmResources:GetInstance('eod'))
+		fireData:MakeWritable()
+		fireData.fireLogic.rateOfFire = 250
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('rpgprojectile'))
+		fireData.shot.initialSpeed.z = 90
+		dprint('Changed EOD Projectile...')
+	end
+
+	if (mmResources:IsLoaded('eod_chassis')) then
+		mmResources:SetLoaded('eod_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('eod_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 3
+		chassisData.transform.up.y = 3
+		chassisData.transform.forward.z = 3
+		print('Changed EOD Chassis...')
+	end
+
+	-- slow down regen rate to allow enetering vehicle before ammo refills
+	if (mmResources:IsLoaded('mav_pda')) then
+		mmResources:SetLoaded('mav_pda', false)
+		local fireData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('mav_pda'))
+		fireData.ammo.ammoBagPickupDelayMultiplier = 30
+		dprint('Changed MAV PDA...')
+	end
+
+	if (mmResources:IsLoaded('mav_chassis')) then
+		mmResources:SetLoaded('mav_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('mav_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 4
+		chassisData.transform.up.y = 1
+		chassisData.transform.forward.z = 1
+		print('Changed MAV Chassis...')
+	end
+
+	if (mmResources:IsLoaded('mav_weapon') and mmResources:IsLoaded('crossbolt') and mmResources:IsLoaded('crossboltsound')) then
+		mmResources:SetLoaded('mav_weapon', false)
+		mmResources:SetLoaded('crossbolt', false)
+
+		local boltBP = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('crossbolt'))
+
+		local fireData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('mav_weapon'))
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('crossboltsound'))
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(boltBP.data)
+		fireData.shot.projectile:MakeWritable()
+		fireData.shot.projectile = nil
+		fireData.shot.initialSpeed.z = 60
+		fireData.shot.numberOfBulletsPerShell = 5
+		fireData.fireLogic.rateOfFire = 900
+		fireData.ammo.magazineCapacity = -1
+
+		fireData.dispersion[1].minAngle = 1
+		fireData.dispersion[1].maxAngle = 3
+		fireData.dispersion[1].increasePerShot = 0
+		print('Changed MAV Weapon...')
+	end
+
+	if (mmResources:IsLoaded('mav_camera')) then
+		mmResources:SetLoaded('mav_camera', false)
+
+		local rotationData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('mav_camera'))
+		rotationData.useAngularConstraint = false
+		print('Changed MAV Camera...')
+	end
+
+	if (mmResources:IsLoaded('mav_camera2')) then
+		mmResources:SetLoaded('mav_camera2', false)
+
+		local cameraData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('mav_camera2'))
+		cameraData.inputSuppression.suppressVehicleInput[1].suppressingValue = 0.9
+		print('Changed MAV Camera...')
+	end
+
+	-- slow down regen rate to allow enetering vehicle before ammo refills
+	if (mmResources:IsLoaded('soflam_pda')) then
+		mmResources:SetLoaded('soflam_pda', false)
+		local fireData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('soflam_pda'))
+		fireData.ammo.ammoBagPickupDelayMultiplier = 30
+		dprint('Changed SOFLAM PDA...')
+	end
+
+	if (mmResources:IsLoaded('soflam_chassis')) then
+		mmResources:SetLoaded('soflam_chassis', false)
+
+		local chassisData = ChassisComponentData(mmResources:GetInstance('soflam_chassis'))
+		chassisData:MakeWritable()
+		chassisData.transform.left.x = 6
+		chassisData.transform.up.y = 6
+		chassisData.transform.forward.z = 6
+		print('Changed SOFLAM Chassis...')
 	end
 end
 
@@ -1256,6 +1375,16 @@ Events:Subscribe('Level:Loaded', function()
 	end
 	if (mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('sniperbullet', false)
+	end
+	if (mmResources:IsLoaded('crossboltsound')) then
+		mmResources:SetLoaded('crossboltsound', false)
+	end
+
+	for resourceName, resourceData in pairs(mmResources:Get()) do
+		if (mmResources:IsLoaded(resourceName)) then
+			print('WARNING - Possible Unused Resource: '..tostring(resourceName))
+			mmResources:SetLoaded(resourceName, false)
+		end
 	end
 
 	local balanceGameModes = {

@@ -19,10 +19,68 @@ mmResources:AddLoadHandler(mmWeapons, mmWeapons.Write)
 mmResources:AddLoadHandler(mmVehicles, mmVehicles.Write)
 mmResources:RegisterInstanceLoadHandlers()
 
+--[[
+local TheBigWeaponList = {}
+local TheBigWeaponUnlocksList = {}
+
+Events:Subscribe('Level:Loaded', self, function()
+	for _, instance in pairs(TheBigWeaponList) do
+		local weaponData = ebxEditUtils:GetWritableInstance(instance, 'object')
+		local customizeTables = ebxEditUtils:GetWritableContainer(instance, 'object.Customization.Customization')
+		local unlockTables = {}
+
+		if (customizeTables ~= nil and customizeTables.unlockParts ~= nil) then
+			if (TheBigWeaponUnlocksList[weaponData.name] == nil) then
+				TheBigWeaponUnlocksList[weaponData.name] = {
+					Optics = {},
+					Primary = {},
+					Secondary = {},
+					Camo = {},
+					Unkown = {},
+				}
+			end
+
+			for i=1, #customizeTables.unlockParts do
+				if (i == 1) then
+					unlockTables["Optics"] = customizeTables.unlockParts[i]
+				elseif (i == 2) then
+					unlockTables["Primary"] = customizeTables.unlockParts[i]
+				elseif (i == 3) then
+					unlockTables["Secondary"] = customizeTables.unlockParts[i]
+				elseif (i == 4) then
+					unlockTables["Camo"] = customizeTables.unlockParts[i]
+				else
+					unlockTables["Unkown"] = customizeTables.unlockParts[i]
+				end
+			end
+
+			for key,value in pairs(unlockTables) do
+				for i=1, #value.selectableUnlocks do
+					local unlockData = ebxEditUtils:GetWritableInstance(value.selectableUnlocks[i])
+					table.insert(TheBigWeaponUnlocksList[weaponData.name][key], {unlockData.name, tostring(unlockData.instanceGuid)}) 
+				end
+			end
+		end
+	end
+
+	print('Weapon Name	Unlock Category	Unlock Name	Unlock Guid')
+	for weaponName, weaponUnlocks in pairs(TheBigWeaponUnlocksList) do
+		for category, unlocks in pairs(weaponUnlocks) do
+			for _,unlock in pairs(unlocks) do
+				print(weaponName.."	"..category.."	"..unlock[1].."	"..unlock[2])
+			end
+		end
+	end
+end)
+]]
 
 Events:Subscribe('Partition:Loaded', function(partition)
 
 	for _, instance in pairs(partition.instances) do
+
+		--if (instance:Is('SoldierWeaponBlueprint')) then
+		--	table.insert(TheBigWeaponList, instance)
+		--end
 
 		-- global vehicle "Sturdification"
 		if (instance:Is('VehicleEntityData') and not mmResources:IsSturdifyBlacklisted(instance)) then
@@ -185,7 +243,7 @@ Events:Subscribe('Level:Destroy', function()
 	materialGrid = nil
 end)
 
-
+--[[
 -- load bundles to get the TOW smoke trails
 Events:Subscribe('Level:LoadResources', function()
 	ResourceManager:MountSuperBundle('levels/mp_007/mp_007')
@@ -208,3 +266,4 @@ Events:Subscribe('Level:RegisterEntityResources', function(levelData)
 	local registry = RegistryContainer(ResourceManager:SearchForInstanceByGuid(Guid('958A27B8-F6B4-AE8C-4AE8-1FC8E2AB60BF')))
 	ResourceManager:AddRegistry(registry, ResourceCompartment.ResourceCompartment_Game)
 end)
+]]

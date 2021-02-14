@@ -12,9 +12,29 @@ function MMResources:__init()
 	self.MMResources["ammobag"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
 	self.MMResources["ammobag"]["Instance"] = '4AE515CE-846D-6070-5F56-1285B7E8E187'
 
-	self.MMResources["ammobag_physics"] = {}
-	self.MMResources["ammobag_physics"]["Partition"] = '04CD683B-1F1B-11E0-BBD1-F7235575FD24'
-	self.MMResources["ammobag_physics"]["Instance"] = '8C130459-96F3-481D-95D7-38A9565BABAE'
+	self.MMResources["medicbag"] = {}
+	self.MMResources["medicbag"]["Partition"] = '1D6061B2-2234-11E0-92F5-C9B649EF6972'
+	self.MMResources["medicbag"]["Instance"] = 'A867A678-615B-3FA6-7AF5-0DEE6ED69EA0'
+
+	self.MMResources["m1911"] = {}
+	self.MMResources["m1911"]["Partition"] = '944B9E9B-279F-11E0-BCCD-BF5F79C336AA'
+	self.MMResources["m1911"]["Instance"] = '46557D84-5C38-6642-E71A-E2430DE0C41B'
+
+	self.MMResources["m9"] = {}
+	self.MMResources["m9"]["Partition"] = '94D0FEE8-E685-11DF-805B-F4FA4757ED08'
+	self.MMResources["m9"]["Instance"] = 'A21D7964-7F3B-5D82-A414-2ABDE6644BFC'
+
+	self.MMResources["m9ny"] = {}
+	self.MMResources["m9ny"]["Partition"] = '94D0FEE8-E685-11DF-805B-F4FA4757ED08'
+	self.MMResources["m9ny"]["Instance"] = '82356FE8-4061-0359-3D5B-114F424962B6'
+
+	self.MMResources["mp412rex"] = {}
+	self.MMResources["mp412rex"]["Partition"] = '2EB76B74-1F16-11E0-BE14-C6BC4F4ED27B'
+	self.MMResources["mp412rex"]["Instance"] = '32CEB0E2-7D7E-7205-3DD4-BFC4AC041A92'
+
+	self.MMResources["defibvolabel"] = {}
+	self.MMResources["defibvolabel"]["Partition"] = '2C4E5C83-B1BD-11DE-96E2-89FC67A5C271'
+	self.MMResources["defibvolabel"]["Instance"] = '50999073-C1D2-4240-B50F-6EC1FC45BCE8'
 
 	self.MMResources["magnum44"] = {}
 	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
@@ -128,7 +148,7 @@ function MMResources:__init()
 
 	self.MMResources["crossbolt"] = {}
 	self.MMResources["crossbolt"]["Partition"] = '26076E01-A015-44A8-BFBF-695187E25FFB'
-	self.MMResources["crossbolt"]["Instance"] = '391BB7D5-C4AE-4952-B103-189DC1700030'
+	self.MMResources["crossbolt"]["Instance"] = '81F4A9B1-0918-48EE-B097-63AA0B75F622'
 
 	self.MMResources["crossboltsound"] = {}
 	self.MMResources["crossboltsound"]["Partition"] = '591449E1-A47A-4768-A7A8-29DE293517E8'
@@ -296,6 +316,18 @@ function MMResources:__init()
 	self.MMResources["m240_swag"]["Partition"] = '5D6FD6B8-E5BC-11DF-A152-D82BD29AC2ED'
 	self.MMResources["m240_swag"]["Instance"] = '08D8BE73-EABA-4E16-A19A-20FE567945F2'
 
+	self.MMResources["us_stinger"] = {}
+	self.MMResources["us_stinger"]["Partition"] = '28C2561D-EC16-11DF-BA9E-F3DCE5C70CB9'
+	self.MMResources["us_stinger"]["Instance"] = 'AC50A504-5962-4F7F-84F8-640BCC36F73B'
+
+	self.MMResources["repairtool"] = {}
+	self.MMResources["repairtool"]["Partition"] = '9D6458CD-2955-11E0-864C-EDEE51946146'
+	self.MMResources["repairtool"]["Instance"] = '4D509E54-0572-4D7D-BF49-3D83AFCFD73D'
+
+	self.MMResources["radiobeacon_chassis"] = {}
+	self.MMResources["radiobeacon_chassis"]["Partition"] = '8887C2AE-27C6-11E0-9123-987FBA709E0E'
+	self.MMResources["radiobeacon_chassis"]["Instance"] = '7748BE51-BBA1-E5C1-F911-4D417F47A31C'
+
 	self.MMResources["tugs_vehicle"] = {}
 	self.MMResources["tugs_vehicle"]["Partition"] = 'C6AC3720-4E44-11E0-B74F-973632ECCDB7'
 	self.MMResources["tugs_vehicle"]["Instance"] = '6AD11C63-B795-4233-B943-C6DE347E26A7'
@@ -303,6 +335,10 @@ function MMResources:__init()
 	self.MMResources["tugs_chassis"] = {}
 	self.MMResources["tugs_chassis"]["Partition"] = 'C6AC3720-4E44-11E0-B74F-973632ECCDB7'
 	self.MMResources["tugs_chassis"]["Instance"] = 'F9706033-B085-A573-1CF8-235C43B2FCAE'
+
+	self.MMResources["eod_pda"] = {}
+	self.MMResources["eod_pda"]["Partition"] = '88BAEC68-03CE-4024-A951-20DB8CB2069C'
+	self.MMResources["eod_pda"]["Instance"] = '9C831110-C62C-4484-8643-359F9DFD8D05'
 
 	self.MMResources["eod"] = {}
 	self.MMResources["eod"]["Partition"] = '269BB4A2-0DC3-11E0-B817-B1885439A6BF'
@@ -312,21 +348,33 @@ function MMResources:__init()
 	self.MMResources["eod_chassis"]["Partition"] = '269BB4A2-0DC3-11E0-B817-B1885439A6BF'
 	self.MMResources["eod_chassis"]["Instance"] = '9FF66CD4-2AF1-11CE-78ED-6EC576D7F93D'
 
-	self.MMResources["us_stinger"] = {}
-	self.MMResources["us_stinger"]["Partition"] = '28C2561D-EC16-11DF-BA9E-F3DCE5C70CB9'
-	self.MMResources["us_stinger"]["Instance"] = 'AC50A504-5962-4F7F-84F8-640BCC36F73B'
-
 	self.MMResources["mav_pda"] = {}
 	self.MMResources["mav_pda"]["Partition"] = '1271F1BE-49D5-4599-AAD2-0D3BBAFB1EF7'
 	self.MMResources["mav_pda"]["Instance"] = '0A6952EC-1EF1-4B3C-80DC-DEC527096066'
 
-	self.MMResources["repairtool"] = {}
-	self.MMResources["repairtool"]["Partition"] = '9D6458CD-2955-11E0-864C-EDEE51946146'
-	self.MMResources["repairtool"]["Instance"] = '4D509E54-0572-4D7D-BF49-3D83AFCFD73D'
+	self.MMResources["mav_chassis"] = {}
+	self.MMResources["mav_chassis"]["Partition"] = 'FDE06FAE-1D63-11E0-8A6F-FC9481BB4D51'
+	self.MMResources["mav_chassis"]["Instance"] = '53758EA5-4337-15BF-0987-2670ACE8CF01'
 
-	self.MMResources["radiobeacon_chassis"] = {}
-	self.MMResources["radiobeacon_chassis"]["Partition"] = '8887C2AE-27C6-11E0-9123-987FBA709E0E'
-	self.MMResources["radiobeacon_chassis"]["Instance"] = '7748BE51-BBA1-E5C1-F911-4D417F47A31C'
+	self.MMResources["mav_weapon"] = {}
+	self.MMResources["mav_weapon"]["Partition"] = 'CAFE2963-3F07-4254-A778-164F6772CA1E'
+	self.MMResources["mav_weapon"]["Instance"] = '5938891C-0CEC-4D08-8F34-0ACBB79D4693'
+
+	self.MMResources["mav_camera"] = {}
+	self.MMResources["mav_camera"]["Partition"] = 'FDE06FAE-1D63-11E0-8A6F-FC9481BB4D51'
+	self.MMResources["mav_camera"]["Instance"] = '27BE6159-8AA4-4E38-9DE8-4D1F9EE31C28'
+
+	self.MMResources["mav_camera2"] = {}
+	self.MMResources["mav_camera2"]["Partition"] = 'FDE06FAE-1D63-11E0-8A6F-FC9481BB4D51'
+	self.MMResources["mav_camera2"]["Instance"] = '2965A1A1-FF5A-44ED-86DC-88F7E23E652E'
+
+	self.MMResources["soflam_pda"] = {}
+	self.MMResources["soflam_pda"]["Partition"] = '54715D36-2C3C-49A6-9F60-90FA372068C5'
+	self.MMResources["soflam_pda"]["Instance"] = '69592FE0-38B2-42D2-988C-813E5185F4C3'
+
+	self.MMResources["soflam_chassis"] = {}
+	self.MMResources["soflam_chassis"]["Partition"] = '7432AA7D-1802-11E0-8BA5-9B1E2E41035E'
+	self.MMResources["soflam_chassis"]["Instance"] = 'F45BD7C0-8C8F-124E-DEBA-05F1D59F908F'
 
 
 

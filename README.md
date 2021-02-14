@@ -45,13 +45,17 @@ Make things go boom and zoom.
 
 ### Pistols
 - **MP443** fires 5 bullets like a shotgun as fast as you can click
-- **M93R** burst fires only 5 rounds, but incredibly high damage
+- **M93R** burst fires only 10 rounds, but incredibly high damage
 - **.44 Magnum** (scoped and regular) shoots SMAW rockets
 - **.44 Magnum** (scoped) has 20x zoom
+- **M1911** Infinite bullets and fires as fast as you can click
+- **M9** Infinite bullets and fires as fast as you can click
+- **MP412 Rex** pack more punch with explosive rounds and fires as fast as you can click
 
 ### Gadgets
-- **Ammobag** heals and has a radius of 9,001 Meters
 - The **knife** is now a **Knoife** and has a 10 Meter range outside of TDM types and 2 meter range during
+- **Ammobag** heals and has a radius of 9,001 Meters
+- **Medicbag** gives ammo and has a bigger radius too
 - **C4** does no damage, boosts vehicles (max raised to 25)
 - **M15 Mines** do no damage, has a massive blast force (max raised to 4)
 - **Claymore** now explodes if enemy is in range, no longer directional, explosion buffed (max raised to 25)
@@ -60,9 +64,12 @@ Make things go boom and zoom.
 - **RPG-7** Slower projectile, but unlimited rockets, no reload necessary
 - **M320 LVG** fires a high velocity grenade-nuke (aka 30 grenades stuck together)
 - **T-UGS** Beeps faster, increased visibility
-- **EOD Bot** wished upon a fallnig star and became an **EDO BOI**. Also shoots slow RPGs
-- **Repair Tool** No longer overheats, range extended (\~10 meters)
+- **EOD BOT** wished upon a falling star and became an **EDO BOI**. Also shoots RPGs
+- **MAV** Had a meeting with putin and is now **W.I.D.E.** (Wide In Dimensions Eyyyyy), also shoots a slew of crosbow bolts
+- **Repair Tool** No longer overheats, butane levels increased, range extended (\~10 meters)
 - **Radio Beacon** phones just keep getting smaller, decreased visiblity
+- **FIM92a Stinger** you can just shoot it whenever now, no lock-on required
+- **SOFLAM** increased visibility
 
 ## Vehicles
 - **Helicopters** have had their motion dmaping removed, allowing you to do flips and barrel rolls
