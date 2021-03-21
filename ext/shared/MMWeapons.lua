@@ -205,33 +205,6 @@ function MMWeapons:Write(instance)
 		dprint('Changed P90 Silenced...')
 	end
 
-	if (mmResources:IsLoaded('m60') and mmResources:IsLoaded('crossbolt_he') and mmResources:IsLoaded('crossboltsound')) then
-		mmResources:SetLoaded('m60', false)
-		mmResources:SetLoaded('crossbolt_he', false)
-		-- swap m60 for crossbolt_he bullets
-		local fireData = FiringFunctionData(mmResources:GetInstance('m60'))
-		local bulletData = BulletEntityData(mmResources:GetInstance('crossbolt_he'))
-
-		bulletData:MakeWritable()
-		bulletData.gravity = -4.5
-		bulletData.startDamage = 100
-		bulletData.endDamage = 9001
-		bulletData.damageFalloffStartDistance = 25
-		bulletData.damageFalloffEndDistance = 500
-		bulletData.timeToLive = 15
-		bulletData.impactImpulse = -50000
-		dprint('Changed Crossbow Bolt HE Projectile...')
-
-		fireData:MakeWritable()
-		fireData.sound = SoundPatchAsset(mmResources:GetInstance('crossboltsound'))
-		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(bulletData)
-		fireData.shot.initialSpeed.z = 45
-		fireData.ammo.magazineCapacity = 20
-		fireData.fireLogic.reloadTime = 3.7
-		dprint('Changed M60...')
-	end
-
 	if (mmResources:IsLoaded('m98')) then
 		mmResources:SetLoaded('m98', false)
 
@@ -873,7 +846,6 @@ function MMWeapons:Write(instance)
 
 	if (mmResources:IsLoaded('scarl') and mmResources:IsLoaded('claymore') and mmResources:IsLoaded('40mmlvgsound')) then
 		mmResources:SetLoaded('scarl', false)
-		mmResources:SetLoaded('claymore', false)
 
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('scarl'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
@@ -961,7 +933,7 @@ function MMWeapons:Write(instance)
 
 		fireData.sound = SoundPatchAsset(mmResources:GetInstance('40mmlvgsound'))
 
-		fireData.ammo.magazineCapacity = 20
+		fireData.ammo.magazineCapacity = 35
 		fireData.ammo.numberOfMagazines = -1
 
 		fireData.shot.projectileData:MakeWritable()
@@ -1036,7 +1008,7 @@ function MMWeapons:Write(instance)
 		dprint('Changed M417...')
 	end
 
-	if (mmResources:IsLoaded('jng90') and mmResources:IsLoaded('mortar')) then
+	if (mmResources:IsLoaded('jng90') and mmResources:IsLoaded('mortar') and mmResources:IsLoaded('mortarsound')) then
 		mmResources:SetLoaded('jng90', false)
 		mmResources:SetLoaded('mortar', false)
 
@@ -1058,6 +1030,9 @@ function MMWeapons:Write(instance)
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
 		fireData.ammo.magazineCapacity = 20
+
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('mortarsound'))
+
 		dprint('Changed JNG-90...')
 	end
 
@@ -1110,6 +1085,121 @@ function MMWeapons:Write(instance)
 		fireData.shot.numberOfBulletsPerShell = 30
 		fireData.ammo.magazineCapacity = 1
 		dprint('Changed 40MM LVG Launcher...')
+	end
+
+	if (mmResources:IsLoaded('m27iar') and mmResources:IsLoaded('40mmsmk_grenade') and mmResources:IsLoaded('40mmlvgsound')) then
+		mmResources:SetLoaded('m27iar', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('m27iar'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 20)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('40mmsmk_grenade'))
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('40mmlvgsound'))
+
+		fireData.ammo.magazineCapacity = 90
+		fireData.ammo.numberOfMagazines = 5
+
+		fireData.shot.initialSpeed.z = 60
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+
+		dprint('Changed M27 IAR...')
+	end
+
+	if (mmResources:IsLoaded('m249')) then
+		mmResources:SetLoaded('m249', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('m249'))
+		fireData:MakeWritable()
+		
+		fireData.weaponDispersion.standDispersion.minAngle = 5
+		fireData.weaponDispersion.standDispersion.maxAngle = 7
+		fireData.weaponDispersion.standDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.crouchDispersion.minAngle = 5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 7
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.proneDispersion.minAngle = 5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 7
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
+
+		fireData.fireLogic.rateOfFire = 900
+		fireData.shot.initialSpeed.z = 30
+		fireData.shot.numberOfBulletsPerShell = 10
+
+		fireData.ammo.magazineCapacity = 400
+		fireData.ammo.numberOfMagazines = 5
+		dprint('Changed M249...')
+	end
+
+	if (mmResources:IsLoaded('pkp')) then
+		mmResources:SetLoaded('pkp', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('pkp'))
+		fireData:MakeWritable()
+		
+		fireData.weaponDispersion.standDispersion.minAngle = 2
+		fireData.weaponDispersion.standDispersion.maxAngle = 90
+		fireData.weaponDispersion.standDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.crouchDispersion.minAngle = 0
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 1
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.proneDispersion.minAngle = 0
+		fireData.weaponDispersion.proneDispersion.maxAngle = 0
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
+
+		fireData.fireLogic.rateOfFire = 900
+		fireData.shot.numberOfBulletsPerShell = 10
+
+		fireData.ammo.magazineCapacity = 400
+		fireData.ammo.numberOfMagazines = 5
+		dprint('Changed PKP Pecheneg...')
+	end
+
+	if (mmResources:IsLoaded('type88') and mmResources:IsLoaded('claymore') and mmResources:IsLoaded('40mmlvgsound')) then
+		mmResources:SetLoaded('type88', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('type88'))
+		local claymoreData = ExplosionPackEntityData(mmResources:GetInstance('claymore'))
+		fireData:MakeWritable()
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('40mmlvgsound'))
+		fireData.fireLogic.rateOfFire = 350
+		fireData.ammo.magazineCapacity = 400
+		fireData.ammo.numberOfMagazines = 5
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = claymoreData
+		dprint('Changed Type 88...')
+	end
+
+	if (mmResources:IsLoaded('m60') and mmResources:IsLoaded('crossbolt_he') and mmResources:IsLoaded('crossboltsound')) then
+		mmResources:SetLoaded('m60', false)
+		mmResources:SetLoaded('crossbolt_he', false)
+		-- swap m60 for crossbolt_he bullets
+		local fireData = FiringFunctionData(mmResources:GetInstance('m60'))
+		local bulletData = BulletEntityData(mmResources:GetInstance('crossbolt_he'))
+
+		bulletData:MakeWritable()
+		bulletData.gravity = -4.5
+		bulletData.startDamage = 100
+		bulletData.endDamage = 9001
+		bulletData.damageFalloffStartDistance = 25
+		bulletData.damageFalloffEndDistance = 500
+		bulletData.timeToLive = 15
+		bulletData.impactImpulse = -50000
+		dprint('Changed Crossbow Bolt HE Projectile...')
+
+		fireData:MakeWritable()
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('crossboltsound'))
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+		fireData.shot.initialSpeed.z = 45
+		fireData.ammo.magazineCapacity = 20
+		fireData.fireLogic.reloadTime = 3.7
+		dprint('Changed M60...')
 	end
 
 	if (mmResources:IsLoaded('m240')) then
@@ -1349,6 +1439,38 @@ function MMWeapons:Write(instance)
 		chassisData.transform.up.y = 6
 		chassisData.transform.forward.z = 6
 		print('Changed SOFLAM Chassis...')
+	end
+
+	if (mmResources:IsLoaded('40mm_smokeburst_size') and mmResources:IsLoaded('40mm_smokeburst_color')
+		and mmResources:IsLoaded('40mm_smokeburst_age') and mmResources:IsLoaded('40mm_smokeburst_area')) then
+		mmResources:SetLoaded('40mm_smokeburst_size', false)
+		mmResources:SetLoaded('40mm_smokeburst_color', false)
+		mmResources:SetLoaded('40mm_smokeburst_age', false)
+		mmResources:SetLoaded('40mm_smokeburst_area', false)
+
+		local areaData = SphereEvaluatorData(mmResources:GetInstance('40mm_smokeburst_area'))
+		areaData:MakeWritable()
+		areaData.radius = 1
+
+		local sizeData = SpawnSizeData(mmResources:GetInstance('40mm_smokeburst_size'))
+		sizeData:MakeWritable()
+		sizeData.size = 1
+
+		local colorData = PolynomialColorInterpData(mmResources:GetInstance('40mm_smokeburst_color'))
+		colorData:MakeWritable()
+		colorData.color0.x = 0.18
+		colorData.color0.y = 0.4
+		colorData.color0.z = 0.73
+
+		colorData.color1.x = 0
+		colorData.color1.y = 0
+		colorData.color1.z = 1
+
+		local ageData = UpdateAgeData(mmResources:GetInstance('40mm_smokeburst_age'))
+		ageData:MakeWritable()
+		ageData.lifetime = 1.5
+
+		print('Changed 40mm Smoke...')
 	end
 end
 

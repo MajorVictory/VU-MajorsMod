@@ -37,11 +37,15 @@ Make things go boom and zoom.
 - **M-TAR** shoots bushels of grenades
 - **Steyr Aug** lowered rate of fire, massive damage boost, heavy kickback
 - **SCAR-L** shoots bushels of claymores
-- **LSAT** the box mag now accomodates 20 LVG Grenades fired at medium velocity
+- **LSAT** the box mag now accomodates 35 LVG Grenades fired at medium velocity
 - **L86** increased rate of fire, magazine size, and bullet damage is inverted, get further to do more damage, calliber increased to 762 sniper
 - **HK-417 (M417)** bullet damage is inverted, fires as fast as you can click
 - **JNG-90** fires a mortar round, high damage on direct hit 
 - **L96** Bigger magazine, fires faster
+- **M27 IAR** Fires new proprietary Major's Smoke Grenades™. Now with Blue #40!
+- **M249** Crowd control has been enabled, high spread, low speed means everything in front of you should run.
+- **PKP Pecheneg** Shotgun-like dispersion, better when crouched, laser when prone.
+- **Type 88** Fire claymores with precision accuracy
 
 ### Pistols
 - **MP443** fires 5 bullets like a shotgun as fast as you can click

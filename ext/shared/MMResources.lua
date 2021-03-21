@@ -276,6 +276,10 @@ function MMResources:__init()
 	self.MMResources["mortar"]["Partition"] = '5350B268-18C9-11E0-B820-CD6C272E4FCC'
 	self.MMResources["mortar"]["Instance"] = '145C4108-7660-1329-4599-4402DA4801A0'
 
+	self.MMResources["mortarsound"] = {}
+	self.MMResources["mortarsound"]["Partition"] = 'B49E7523-8A83-4463-828F-21938E974E4E'
+	self.MMResources["mortarsound"]["Instance"] = '4612880D-428E-40DB-B1FA-C6B92CDD2CA0'
+
 	self.MMResources["mortarexp"] = {}
 	self.MMResources["mortarexp"]["Partition"] = '5350B268-18C9-11E0-B820-CD6C272E4FCC'
 	self.MMResources["mortarexp"]["Instance"] = '4827959A-8A3B-4C9F-994E-E54150AA565F'
@@ -303,6 +307,30 @@ function MMResources:__init()
 	self.MMResources["40mmlvg_grenadeexp"] = {}
 	self.MMResources["40mmlvg_grenadeexp"]["Partition"] = 'FD79A08F-F108-4751-B2C0-6C47397133B5'
 	self.MMResources["40mmlvg_grenadeexp"]["Instance"] = '5FE2082D-F901-43F2-A822-969CC6857134'
+
+	self.MMResources["40mmhe_grenade"] = {}
+	self.MMResources["40mmhe_grenade"]["Partition"] = 'D37476C2-3A86-11E0-BC25-D51252D5A427'
+	self.MMResources["40mmhe_grenade"]["Instance"] = 'CEC6D381-72DE-B7D4-E998-0D566E0575C6'
+
+	self.MMResources["40mmsmk_grenade"] = {}
+	self.MMResources["40mmsmk_grenade"]["Partition"] = 'A3E3C07B-2E9C-42D2-B540-7E70594293EC'
+	self.MMResources["40mmsmk_grenade"]["Instance"] = '30AD5145-04AD-4C97-8D1B-B4FE0E1AD6F5'
+
+	self.MMResources["m27iar"] = {}
+	self.MMResources["m27iar"]["Partition"] = 'FB9A13FB-5D10-48C7-8BD4-A97B712E2C20'
+	self.MMResources["m27iar"]["Instance"] = 'D2026831-177B-404E-80F8-534C0CF9524D'
+
+	self.MMResources["m249"] = {}
+	self.MMResources["m249"]["Partition"] = 'F37DBC84-F61B-11DF-829C-95F94E7154E3'
+	self.MMResources["m249"]["Instance"] = '7FCFC3D7-49C2-477E-8952-664FDA86B41E'
+
+	self.MMResources["pkp"] = {}
+	self.MMResources["pkp"]["Partition"] = 'D1DC5650-EBFE-11DF-8ACD-A1D8961E5550'
+	self.MMResources["pkp"]["Instance"] = '9893EBD7-95B1-43E7-8405-86803312D998'
+
+	self.MMResources["type88"] = {}
+	self.MMResources["type88"]["Partition"] = '97F4741B-2AFA-11E0-9848-9E9BC51DCED8'
+	self.MMResources["type88"]["Instance"] = '81DAF3F8-D054-4B05-8DFA-5F0F0E722A94'
 
 	self.MMResources["m240"] = {}
 	self.MMResources["m240"]["Partition"] = '5D6FD6B8-E5BC-11DF-A152-D82BD29AC2ED'
@@ -375,6 +403,24 @@ function MMResources:__init()
 	self.MMResources["soflam_chassis"] = {}
 	self.MMResources["soflam_chassis"]["Partition"] = '7432AA7D-1802-11E0-8BA5-9B1E2E41035E'
 	self.MMResources["soflam_chassis"]["Instance"] = 'F45BD7C0-8C8F-124E-DEBA-05F1D59F908F'
+
+
+
+	self.MMResources["40mm_smokeburst_area"] = {}
+	self.MMResources["40mm_smokeburst_area"]["Partition"] = '5591B9C8-EB29-4412-BB28-DC07C351D650'
+	self.MMResources["40mm_smokeburst_area"]["Instance"] = 'DA00A6AA-E396-4FDB-807D-62AC0767B6B1'
+
+	self.MMResources["40mm_smokeburst_size"] = {}
+	self.MMResources["40mm_smokeburst_size"]["Partition"] = '5591B9C8-EB29-4412-BB28-DC07C351D650'
+	self.MMResources["40mm_smokeburst_size"]["Instance"] = '2CBD7863-1176-4DEF-AE04-9490E60AA876'
+
+	self.MMResources["40mm_smokeburst_color"] = {}
+	self.MMResources["40mm_smokeburst_color"]["Partition"] = '5591B9C8-EB29-4412-BB28-DC07C351D650'
+	self.MMResources["40mm_smokeburst_color"]["Instance"] = '9A11CA65-907D-45F0-AFD6-00B15E22E916'
+
+	self.MMResources["40mm_smokeburst_age"] = {}
+	self.MMResources["40mm_smokeburst_age"]["Partition"] = '5591B9C8-EB29-4412-BB28-DC07C351D650'
+	self.MMResources["40mm_smokeburst_age"]["Instance"] = '3FD2579E-2394-4BE4-BD6A-C69DF3696F68'
 
 
 
