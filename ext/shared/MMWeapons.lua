@@ -1127,9 +1127,8 @@ function MMWeapons:Write(instance)
 		fireData.weaponDispersion.proneDispersion.maxAngle = 7
 		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
 
-		fireData.fireLogic.rateOfFire = 900
 		fireData.shot.initialSpeed.z = 30
-		fireData.shot.numberOfBulletsPerShell = 10
+		fireData.shot.numberOfBulletsPerShell = 5
 
 		fireData.ammo.magazineCapacity = 400
 		fireData.ammo.numberOfMagazines = 5
@@ -1152,8 +1151,7 @@ function MMWeapons:Write(instance)
 		fireData.weaponDispersion.proneDispersion.maxAngle = 0
 		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
 
-		fireData.fireLogic.rateOfFire = 900
-		fireData.shot.numberOfBulletsPerShell = 10
+		fireData.shot.numberOfBulletsPerShell = 5
 
 		fireData.ammo.magazineCapacity = 400
 		fireData.ammo.numberOfMagazines = 5
@@ -1186,8 +1184,8 @@ function MMWeapons:Write(instance)
 		bulletData.gravity = -4.5
 		bulletData.startDamage = 100
 		bulletData.endDamage = 9001
-		bulletData.damageFalloffStartDistance = 25
-		bulletData.damageFalloffEndDistance = 500
+		bulletData.damageFalloffStartDistance = 1
+		bulletData.damageFalloffEndDistance = 30
 		bulletData.timeToLive = 15
 		bulletData.impactImpulse = -50000
 		dprint('Changed Crossbow Bolt HE Projectile...')
@@ -1196,7 +1194,7 @@ function MMWeapons:Write(instance)
 		fireData.sound = SoundPatchAsset(mmResources:GetInstance('crossboltsound'))
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
-		fireData.shot.initialSpeed.z = 45
+		fireData.shot.initialSpeed.z = 50
 		fireData.ammo.magazineCapacity = 20
 		fireData.fireLogic.reloadTime = 3.7
 		dprint('Changed M60...')
