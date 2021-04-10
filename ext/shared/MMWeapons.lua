@@ -570,8 +570,8 @@ function MMWeapons:Write(instance)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
 		fireData.shot.numberOfBulletsPerBurst = 1000
-		fireData.fireLogic.rateOfFire = 600
-		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.rateOfFire = 900
+		fireData.fireLogic.rateOfFireForBurst = 900
 		fireData.ammo.magazineCapacity = 1000
 		fireData.ammo.numberOfMagazines = -1
 		
@@ -597,8 +597,8 @@ function MMWeapons:Write(instance)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
 		fireData.shot.numberOfBulletsPerBurst = 1000
-		fireData.fireLogic.rateOfFire = 600
-		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.rateOfFire = 900
+		fireData.fireLogic.rateOfFireForBurst = 900
 		fireData.ammo.magazineCapacity = 1000
 		fireData.ammo.numberOfMagazines = -1
 		
