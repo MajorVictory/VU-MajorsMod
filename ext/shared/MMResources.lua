@@ -110,10 +110,6 @@ function MMResources:__init()
 	self.MMResources["bullet338"]["Partition"] = '2056BCC7-3769-458C-8C0E-BB6280DF360C'
 	self.MMResources["bullet338"]["Instance"] = '1BF6EA67-2EFE-4B93-9558-0B3B38862E1F'
 
-	self.MMResources["m98"] = {}
-	self.MMResources["m98"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
-	self.MMResources["m98"]["Instance"] = '7805C312-2B2B-49C6-B1A9-F6A99863BA3E'
-
 	self.MMResources["aek971"] = {}
 	self.MMResources["aek971"]["Partition"] = '64DB81AD-1F08-11E0-BE14-C6BC4F4ED27B'
 	self.MMResources["aek971"]["Instance"] = 'CE3372DA-991B-41C1-95BC-19B5D26AAE5B'
@@ -169,6 +165,34 @@ function MMResources:__init()
 	self.MMResources["l96"] = {}
 	self.MMResources["l96"]["Partition"] = '30710090-22F9-11E0-9B3A-DBCC579DBD38'
 	self.MMResources["l96"]["Instance"] = '4A933C70-2E94-4FD7-B736-50A7ADD25CE5'
+
+	self.MMResources["l96sway"] = {}
+	self.MMResources["l96sway"]["Partition"] = '30710090-22F9-11E0-9B3A-DBCC579DBD38'
+	self.MMResources["l96sway"]["Instance"] = '5B5B22C8-A9A4-4F1F-871D-5D6ECF438867'
+
+	self.MMResources["sv98"] = {}
+	self.MMResources["sv98"]["Partition"] = '0B551663-E80F-11DF-9138-C690837A65DF'
+	self.MMResources["sv98"]["Instance"] = '3CC3FF85-FB0C-4686-8B55-949FD31A09CE'
+
+	self.MMResources["sv98sway"] = {}
+	self.MMResources["sv98sway"]["Partition"] = '0B551663-E80F-11DF-9138-C690837A65DF'
+	self.MMResources["sv98sway"]["Instance"] = 'C5521CEF-6A2B-40E7-BC93-D21E8AFE7DD8'
+
+	self.MMResources["m40a5"] = {}
+	self.MMResources["m40a5"]["Partition"] = '65B7D9D8-256F-11E0-96DC-FF63A5537869'
+	self.MMResources["m40a5"]["Instance"] = '4DD1F6F8-01D8-49C4-8D2B-A88BB12B52EE'
+
+	self.MMResources["m40a5sway"] = {}
+	self.MMResources["m40a5sway"]["Partition"] = '65B7D9D8-256F-11E0-96DC-FF63A5537869'
+	self.MMResources["m40a5sway"]["Instance"] = '13E7EBE3-5F4E-4F99-B58E-388C87B1E857'
+	
+	self.MMResources["m98"] = {}
+	self.MMResources["m98"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
+	self.MMResources["m98"]["Instance"] = '7805C312-2B2B-49C6-B1A9-F6A99863BA3E'
+	
+	self.MMResources["m98sway"] = {}
+	self.MMResources["m98sway"]["Partition"] = '84BA0CE7-1755-11E0-B7E4-E4E608316920'
+	self.MMResources["m98sway"]["Instance"] = '790C78DF-7B37-4B69-85C1-C4C932FFE324'
 
 	self.MMResources["grenade"] = {}
 	self.MMResources["grenade"]["Partition"] = 'FFF5DB09-E74B-11DF-9B5E-86394B544891'

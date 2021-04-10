@@ -205,15 +205,6 @@ function MMWeapons:Write(instance)
 		dprint('Changed P90 Silenced...')
 	end
 
-	if (mmResources:IsLoaded('m98')) then
-		mmResources:SetLoaded('m98', false)
-
-		local fireData = FiringFunctionData(mmResources:GetInstance('m98'))
-		fireData:MakeWritable()
-		fireData.shot.initialSpeed.z = 9001
-		dprint('Changed M98...')
-	end
-
 	if (mmResources:IsLoaded('bullet338')) then
 		mmResources:SetLoaded('bullet338', false)
 
@@ -375,25 +366,130 @@ function MMWeapons:Write(instance)
 		dprint('Changed Famas...')
 	end
 
-	if (mmResources:IsLoaded('l96')) then
+	if (mmResources:IsLoaded('l96') and mmResources:IsLoaded('l96sway')) then
 		mmResources:SetLoaded('l96', false)
+		mmResources:SetLoaded('l96sway', false)
 
 		local fireData = FiringFunctionData(mmResources:GetInstance('l96'))
+
+		self:ResetSwayData(ebxEditUtils:GetWritableInstance(mmResources:GetInstance('l96sway')))
+
 		fireData:MakeWritable()
-		fireData.fireLogic.boltAction.boltActionTime = 0.48
+		fireData.fireLogic.boltAction.boltActionTime = 0.01
 		fireData.fireLogic.boltAction.holdBoltActionUntilFireRelease = false
 		fireData.fireLogic.boltAction.holdBoltActionUntilZoomRelease = false
 		fireData.fireLogic.boltAction.unZoomOnBoltAction = false
 
-		fireData.fireLogic.rateOfFire = 600
+		fireData.fireLogic.rateOfFire = 800
 		fireData.fireLogic.rateOfFireForBurst = 600
 		fireData.fireLogic.holdOffReloadUntilFireRelease = false
 		fireData.fireLogic.holdOffReloadUntilZoomRelease = false
 		fireData.fireLogic.forceReloadActionOnFireTrigger = false
 
 		fireData.ammo.magazineCapacity = 87
+		fireData.ammo.numberOfMagazines = -1
 
 		dprint('Changed L96...')
+	end
+
+	if (mmResources:IsLoaded('sv98') and mmResources:IsLoaded('sv98sway') and mmResources:IsLoaded('40mmsmk_grenade')) then
+		mmResources:SetLoaded('sv98', false)
+		mmResources:SetLoaded('sv98sway', false)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('40mmsmk_grenade'))
+		local fireData = FiringFunctionData(mmResources:GetInstance('sv98'))
+
+		self:ResetSwayData(ebxEditUtils:GetWritableInstance(mmResources:GetInstance('sv98sway')))
+
+		fireData:MakeWritable()
+		fireData.fireLogic.boltAction.boltActionTime = 0.01
+		fireData.fireLogic.boltAction.holdBoltActionUntilFireRelease = false
+		fireData.fireLogic.boltAction.holdBoltActionUntilZoomRelease = false
+		fireData.fireLogic.boltAction.unZoomOnBoltAction = false
+
+		fireData.fireLogic.rateOfFire = 800
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.holdOffReloadUntilFireRelease = false
+		fireData.fireLogic.holdOffReloadUntilZoomRelease = false
+		fireData.fireLogic.forceReloadActionOnFireTrigger = false
+
+		fireData.ammo.magazineCapacity = 87
+		fireData.ammo.numberOfMagazines = -1
+		fireData.shot.initialSpeed.z = 450
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+
+		dprint('Changed SV98...')
+	end
+
+	if (mmResources:IsLoaded('m40a5') and mmResources:IsLoaded('m40a5sway') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('m40a5', false)
+		mmResources:SetLoaded('m40a5sway', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('m40a5'))
+
+		self:ResetSwayData(ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m40a5sway')))
+
+		fireData:MakeWritable()
+		fireData.weaponDispersion.standDispersion.minAngle = 0
+		fireData.weaponDispersion.standDispersion.maxAngle = 2
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 0
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 1.5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 0
+		fireData.weaponDispersion.proneDispersion.maxAngle = 0
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.fireLogic.boltAction.boltActionTime = 0.01
+		fireData.fireLogic.boltAction.holdBoltActionUntilFireRelease = false
+		fireData.fireLogic.boltAction.holdBoltActionUntilZoomRelease = false
+		fireData.fireLogic.boltAction.unZoomOnBoltAction = false
+
+		fireData.fireLogic.rateOfFire = 800
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.holdOffReloadUntilFireRelease = false
+		fireData.fireLogic.holdOffReloadUntilZoomRelease = false
+		fireData.fireLogic.forceReloadActionOnFireTrigger = false
+
+		fireData.ammo.magazineCapacity = 87
+		fireData.ammo.numberOfMagazines = -1
+		fireData.shot.initialSpeed.z = 450
+		fireData.shot.numberOfBulletsPerShell = 5
+
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('12gfrag'))
+
+		dprint('Changed M40A5...')
+	end
+
+	if (mmResources:IsLoaded('m98') and mmResources:IsLoaded('m98sway') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('m98', false)
+		mmResources:SetLoaded('m98sway', false)
+
+		local fireData = FiringFunctionData(mmResources:GetInstance('m98'))
+
+		self:ResetSwayData(ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m98sway')))
+
+		fireData:MakeWritable()
+		fireData.fireLogic.boltAction.boltActionTime = 0.01
+		fireData.fireLogic.boltAction.holdBoltActionUntilFireRelease = false
+		fireData.fireLogic.boltAction.holdBoltActionUntilZoomRelease = false
+		fireData.fireLogic.boltAction.unZoomOnBoltAction = false
+
+		fireData.fireLogic.rateOfFire = 800
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.holdOffReloadUntilFireRelease = false
+		fireData.fireLogic.holdOffReloadUntilZoomRelease = false
+		fireData.fireLogic.forceReloadActionOnFireTrigger = false
+
+		fireData.shot.initialSpeed.z = 9001
+		fireData.ammo.magazineCapacity = 87
+		fireData.ammo.numberOfMagazines = -1
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('12gfrag'))
+
+		dprint('Changed M98...')
 	end
 
 	if (mmResources:IsLoaded('mp443')) then
@@ -473,9 +569,10 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
-		fireData.shot.numberOfBulletsPerBurst = 10
-		fireData.fireLogic.rateOfFire = 900
-		fireData.ammo.magazineCapacity = 10
+		fireData.shot.numberOfBulletsPerBurst = 1000
+		fireData.fireLogic.rateOfFire = 600
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.ammo.magazineCapacity = 1000
 		fireData.ammo.numberOfMagazines = -1
 		
 		local bulletData = BulletEntityData(mmResources:GetInstance('m93rbullet'))
@@ -499,9 +596,10 @@ function MMWeapons:Write(instance)
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
-		fireData.shot.numberOfBulletsPerBurst = 10
-		fireData.fireLogic.rateOfFire = 900
-		fireData.ammo.magazineCapacity = 10
+		fireData.shot.numberOfBulletsPerBurst = 1000
+		fireData.fireLogic.rateOfFire = 600
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.ammo.magazineCapacity = 1000
 		fireData.ammo.numberOfMagazines = -1
 		
 		local bulletData = BulletEntityData(mmResources:GetInstance('m93rbullet'))
@@ -547,7 +645,7 @@ function MMWeapons:Write(instance)
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44_GM')
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 1)
+		self:OverrideGMMagSize(weaponData, 4)
 
 		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
 		missileData:MakeWritable()
@@ -559,7 +657,8 @@ function MMWeapons:Write(instance)
 		-- swap magnum for smaw rocket
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
-		fireData.ammo.magazineCapacity = 1
+		fireData.fireLogic.rateOfFire = 800
+		fireData.ammo.magazineCapacity = -1
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(missileData)
 		dprint('Changed Magnum .44 (GM)...')
@@ -571,7 +670,7 @@ function MMWeapons:Write(instance)
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 1)
+		self:OverrideGMMagSize(weaponData, 4)
 
 		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
 		missileData:MakeWritable()
@@ -583,7 +682,8 @@ function MMWeapons:Write(instance)
 		-- swap magnum for smaw rocket
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
-		fireData.ammo.magazineCapacity = 1
+		fireData.fireLogic.rateOfFire = 800
+		fireData.ammo.magazineCapacity = -1
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(missileData)
 		dprint('Changed Magnum .44...')
@@ -629,8 +729,8 @@ function MMWeapons:Write(instance)
 		bulletData.gravity = -9.8
 		bulletData.startDamage = 220
 		bulletData.endDamage = 600
-		bulletData.damageFalloffStartDistance = 25
-		bulletData.damageFalloffEndDistance = 500
+		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffEndDistance = 25
 		dprint('Changed PP-19 Bizon...')
 	end
 
@@ -701,16 +801,31 @@ function MMWeapons:Write(instance)
 	        fireData[i].fireLogic.recoil.minRecoilAngleY = 25
 	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 0
 	        fireData[i].fireLogic.recoil.minRecoilAngleZ = 0
-			fireData[i].fireLogic.rateOfFire = 600
+			fireData[i].fireLogic.rateOfFire = 500
 
-			fireData[i].ammo.magazineCapacity = 87
-			fireData[i].ammo.numberOfMagazines = 8
+			fireData[i].ammo.magazineCapacity = -1
 		end
 
-		fireData[1].shot.numberOfBulletsPerShell = 60 -- pellets
-		fireData[2].shot.numberOfBulletsPerShell = 60 -- flechets
-		fireData[3].shot.numberOfBulletsPerShell = 10 -- frags
-		fireData[4].shot.numberOfBulletsPerShell = 10 -- slugs
+		fireData[1].shot.numberOfBulletsPerShell = 25 -- pellets
+		fireData[2].shot.numberOfBulletsPerShell = 25 -- flechets
+		fireData[3].shot.numberOfBulletsPerShell = 8 -- frags
+		fireData[4].shot.numberOfBulletsPerShell = 8 -- slugs
+
+		local bulletDataPellets = BulletEntityData(fireData[1].shot.projectileData)
+		bulletDataPellets:MakeWritable()
+		bulletDataPellets.gravity = -9.8
+		bulletDataPellets.startDamage = 100
+		bulletDataPellets.endDamage = 500
+		bulletDataPellets.damageFalloffStartDistance = 0
+		bulletDataPellets.damageFalloffEndDistance = 50
+
+		local bulletDataFlechet = BulletEntityData(fireData[2].shot.projectileData)
+		bulletDataFlechet:MakeWritable()
+		bulletDataFlechet.gravity = -9.8
+		bulletDataFlechet.startDamage = 100
+		bulletDataFlechet.endDamage = 500
+		bulletDataFlechet.damageFalloffStartDistance = 0
+		bulletDataFlechet.damageFalloffEndDistance = 50
 
 		dprint('Changed Jackhammer...')
 	end
@@ -1220,53 +1335,8 @@ function MMWeapons:Write(instance)
 	if (mmResources:IsLoaded('m240_swag')) then
 		mmResources:SetLoaded('m240_swag', false)
 
-		local swagData = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m240_swag'))
-		local stances = {'stand', 'crouch', 'prone'}
-		local zoomlevels = {'noZoom', 'zoom'}
-		local poses = {'baseValue', 'moving', 'jumping', 'sprinting', 'vaultingSmallObject', 'vaultingMediumObject'}
-		local transitions = {
-			'proneToCrouch', 'proneToStand',
-			'crouchToProne', 'crouchToStand',
-			'standToProne', 'standToCrouch',
-		}
-		local suppressionZooms = {'Unzoomed', 'Zoomed'}
+		self:ResetSwayData(ebxEditUtils:GetWritableInstance(mmResources:GetInstance('m240_swag')))
 
-		for _,stance in pairs(stances) do
-			for _,zoomlevel in pairs(zoomlevels) do
-
-				for _,pose in pairs(poses) do
-
-					if (stance == 'stand' or (stance ~= 'stand' and (pose == 'baseValue' or pose == 'moving'))) then
-						swagData[stance][zoomlevel][pose].minAngle = 0
-						swagData[stance][zoomlevel][pose].maxAngle = 0
-						swagData[stance][zoomlevel][pose].increasePerShot = 0
-					end
-				end
-
-				swagData[stance][zoomlevel].recoil.recoilAmplitudeMax = 0
-				swagData[stance][zoomlevel].recoil.recoilAmplitudeIncPerShot = 0
-				swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMin = 0
-				swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMax = 0
-				swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeMax = 0
-				swagData[stance][zoomlevel].recoil.recoilAmplitudeDecreaseFactor = 24
-			end
-		end
-
-		for _,transition in pairs(transitions) do
-			swagData[transition].maxPenaltyValue.minAngle = 0
-			swagData[transition].maxPenaltyValue.maxAngle = 0
-			swagData[transition].maxPenaltyValue.increasePerShot = 0
-			swagData[transition].coolDown = 0
-		end
-
-		for _,zoom in pairs(suppressionZooms) do
-			swagData['suppressionModifier'..zoom].dispersionMod.minAngleModifier = 0
-			swagData['suppressionModifier'..zoom].dispersionMod.maxAngleModifier = 0
-			swagData['suppressionModifier'..zoom].dispersionMod.increasePerShotModifier = 0
-			swagData['suppressionModifier'..zoom].recoilAngleMod = 0
-		end
-
-		swagData.firstShotRecoilMultiplier = 0
 		dprint('Changed M240 Gun Sway...')
 	end
 
@@ -1552,6 +1622,56 @@ Events:Subscribe('Level:Loaded', function()
 	end
 
 end)
+
+function MMWeapons:ResetSwayData(swagData)
+
+	local stances = {'stand', 'crouch', 'prone'}
+	local zoomlevels = {'noZoom', 'zoom'}
+	local poses = {'baseValue', 'moving', 'jumping', 'sprinting', 'vaultingSmallObject', 'vaultingMediumObject'}
+	local transitions = {
+		'proneToCrouch', 'proneToStand',
+		'crouchToProne', 'crouchToStand',
+		'standToProne', 'standToCrouch',
+	}
+	local suppressionZooms = {'Unzoomed', 'Zoomed'}
+
+	for _,stance in pairs(stances) do
+		for _,zoomlevel in pairs(zoomlevels) do
+
+			for _,pose in pairs(poses) do
+
+				if (stance == 'stand' or (stance ~= 'stand' and (pose == 'baseValue' or pose == 'moving'))) then
+					swagData[stance][zoomlevel][pose].minAngle = 0
+					swagData[stance][zoomlevel][pose].maxAngle = 0
+					swagData[stance][zoomlevel][pose].increasePerShot = 0
+				end
+			end
+
+			swagData[stance][zoomlevel].recoil.recoilAmplitudeMax = 0
+			swagData[stance][zoomlevel].recoil.recoilAmplitudeIncPerShot = 0
+			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMin = 0
+			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMax = 0
+			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeMax = 0
+			swagData[stance][zoomlevel].recoil.recoilAmplitudeDecreaseFactor = 24
+		end
+	end
+
+	for _,transition in pairs(transitions) do
+		swagData[transition].maxPenaltyValue.minAngle = 0
+		swagData[transition].maxPenaltyValue.maxAngle = 0
+		swagData[transition].maxPenaltyValue.increasePerShot = 0
+		swagData[transition].coolDown = 0
+	end
+
+	for _,zoom in pairs(suppressionZooms) do
+		swagData['suppressionModifier'..zoom].dispersionMod.minAngleModifier = 0
+		swagData['suppressionModifier'..zoom].dispersionMod.maxAngleModifier = 0
+		swagData['suppressionModifier'..zoom].dispersionMod.increasePerShotModifier = 0
+		swagData['suppressionModifier'..zoom].recoilAngleMod = 0
+	end
+
+	swagData.firstShotRecoilMultiplier = 0
+end
 
 
 function MMWeapons:OverrideGMMagSize(weaponData, newMagSize)

@@ -23,33 +23,46 @@ Make things go boom and zoom.
 
 ## Weapons
 
-### Primary Guns
+### PDWs
 - **P90 (standard barrel)** fires 12g Frag rounds
-- **M98 (standard barrel)** is near-hitscan and can reach across the map and does 966,969 damage
+- **PP-19 Bizon (Silenced)** increased rate of fire, magazine size, and bullet damage
+
+### Assault Rifles
 - **AEK** is now a knockoff UltraAEK and shoots RPG-7 rockets
-- **MK3A1 Jackhammer**. Stop. Jackhammer Time. (has a little extra recoil)
-- **M60 (standard barrel)** fires explosive crossbow bolts and has faster reload
-- **M240B** Larger mag size, laser-like precision at all times. (Extended mag doubles capacity)
 - **Famas** shoots faster
-- **PP-19 Bizon** increased rate of fire, magazine size, and bullet damage
-- **SPAS-12** fires 250 pellets per shot and has a bit of a kick
 - **ACW-R** increased rate of fire, magazine size, and bullet damage is inverted, get further to do more damage
 - **M-TAR** shoots bushels of grenades
 - **Steyr Aug** lowered rate of fire, massive damage boost, heavy kickback
 - **SCAR-L** shoots bushels of claymores
+- **M27 IAR** Fires new proprietary Major's Smoke Rounds™. Now with Blue #40!
+
+### Shotguns
+- **MK3A1 Jackhammer**. Stop. Jackhammer Time. (has a little extra recoil)
+- **SPAS-12** fires 250 pellets per shot and has a bit of a kick
+
+### LMGs
+- **M60 (standard barrel)** fires explosive crossbow bolts and has faster reload
+- **M240B** Larger mag size, laser-like precision at all times. (Extended mag doubles capacity)
 - **LSAT** the box mag now accomodates 35 LVG Grenades fired at medium velocity
 - **L86** increased rate of fire, magazine size, and bullet damage is inverted, get further to do more damage, calliber increased to 762 sniper
-- **HK-417 (M417)** bullet damage is inverted, fires as fast as you can click
-- **JNG-90** fires a mortar round, high damage on direct hit 
-- **L96** Bigger magazine, fires faster
-- **M27 IAR** Fires new proprietary Major's Smoke Grenades™. Now with Blue #40!
 - **M249** Crowd control has been enabled, high spread, low speed means everything in front of you should run.
 - **PKP Pecheneg** Shotgun-like dispersion, better when crouched, laser when prone.
 - **Type 88** Fire claymores with precision accuracy
 
+### Bolt Actions (Standard Barrels Only)
+- All bullet deviation removed, increased firing rate
+- **M98** is near-hitscan, and fires explosive frag rounds
+- **JNG-90** fires a mortar round
+- **L96** regular bullets
+- **SV98** fires Major's Smoke Rounds™ at high velocity
+- **M40A5** fires 5 pellets similar to Mp443, but with tighter groupings
+
+### DMRs
+- **HK-417 (M417)** bullet damage is inverted, fires as fast as you can click
+
 ### Pistols
 - **MP443** fires 5 bullets like a shotgun as fast as you can click
-- **M93R** burst fires only 10 rounds, but incredibly high damage
+- **M93R** burst fire improved, high damage
 - **.44 Magnum** (scoped and regular) shoots SMAW rockets
 - **.44 Magnum** (scoped) has 20x zoom
 - **M1911** Infinite bullets and fires as fast as you can click
