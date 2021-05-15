@@ -71,6 +71,7 @@ Make things go boom and zoom.
 
 ### Gadgets
 - The **knife** is now a **Knoife** and has a 10 Meter range outside of TDM types and 2 meter range during
+- **Defibs** have an extended range and produce blue smoke
 - **Ammobag** heals and has a radius of 9,001 Meters
 - **Medicbag** gives ammo and has a bigger radius too
 - **C4** does no damage, boosts vehicles (max raised to 25)
@@ -87,6 +88,7 @@ Make things go boom and zoom.
 - **Radio Beacon** phones just keep getting smaller, decreased visiblity
 - **FIM92a Stinger** you can just shoot it whenever now, no lock-on required
 - **SOFLAM** increased visibility
+- **M224 Mortar** Went to a few yoga classes and is now way more flexible (remember you can drop smokes by pressing 2 to switch projectiles)
 
 ## Vehicles
 - **Helicopters** have had their motion dmaping removed, allowing you to do flips and barrel rolls

@@ -300,6 +300,34 @@ function MMResources:__init()
 	self.MMResources["mortar"]["Partition"] = '5350B268-18C9-11E0-B820-CD6C272E4FCC'
 	self.MMResources["mortar"]["Instance"] = '145C4108-7660-1329-4599-4402DA4801A0'
 
+	self.MMResources["mortarbase"] = {}
+	self.MMResources["mortarbase"]["Partition"] = 'E8CBD57D-18D5-11E0-B820-CD6C272E4FCC'
+	self.MMResources["mortarbase"]["Instance"] = '58F57454-DBBF-5D32-DFDB-ED79642011A9'
+
+	self.MMResources["mortardeployed"] = {}
+	self.MMResources["mortardeployed"]["Partition"] = 'A381F7C8-18DD-11E0-9A44-B310CA9F1EC8'
+	self.MMResources["mortardeployed"]["Instance"] = 'E5F87C27-8CEA-9FAD-060B-982ECDC78AB3'
+
+	self.MMResources["mortardeployedff1"] = {}
+	self.MMResources["mortardeployedff1"]["Partition"] = 'A381F7C8-18DD-11E0-9A44-B310CA9F1EC8'
+	self.MMResources["mortardeployedff1"]["Instance"] = '060D79AA-4FFB-4087-9D29-1D7015945B8A'
+
+	self.MMResources["mortardeployedff2"] = {}
+	self.MMResources["mortardeployedff2"]["Partition"] = 'A381F7C8-18DD-11E0-9A44-B310CA9F1EC8'
+	self.MMResources["mortardeployedff2"]["Instance"] = '19EAD11D-13BA-481A-9F5D-8B11D530AB55'
+
+	self.MMResources["mortardeployedrot1"] = {}
+	self.MMResources["mortardeployedrot1"]["Partition"] = 'A381F7C8-18DD-11E0-9A44-B310CA9F1EC8'
+	self.MMResources["mortardeployedrot1"]["Instance"] = '047678CD-F731-4B09-A4F1-DBFE526CB6E6'
+
+	self.MMResources["mortardeployedrot2"] = {}
+	self.MMResources["mortardeployedrot2"]["Partition"] = 'A381F7C8-18DD-11E0-9A44-B310CA9F1EC8'
+	self.MMResources["mortardeployedrot2"]["Instance"] = 'D0E48E36-0DEC-46CB-8981-BA3C281DDD9A'
+
+	self.MMResources["mortardeployedrot3"] = {}
+	self.MMResources["mortardeployedrot3"]["Partition"] = 'A381F7C8-18DD-11E0-9A44-B310CA9F1EC8'
+	self.MMResources["mortardeployedrot3"]["Instance"] = 'B4D5D0FF-9A9A-4205-8FD1-1F9188F62F45'
+
 	self.MMResources["mortarsound"] = {}
 	self.MMResources["mortarsound"]["Partition"] = 'B49E7523-8A83-4463-828F-21938E974E4E'
 	self.MMResources["mortarsound"]["Instance"] = '4612880D-428E-40DB-B1FA-C6B92CDD2CA0'
@@ -311,6 +339,10 @@ function MMResources:__init()
 	self.MMResources["mortarexp2"] = {}
 	self.MMResources["mortarexp2"]["Partition"] = '5350B268-18C9-11E0-B820-CD6C272E4FCC'
 	self.MMResources["mortarexp2"]["Instance"] = 'BF5478A3-77E5-4F87-BAC7-91936CAD1C81'
+
+	self.MMResources["mortarsmk"] = {}
+	self.MMResources["mortarsmk"]["Partition"] = '7C592ADA-6915-4969-BFF2-A875027A9962'
+	self.MMResources["mortarsmk"]["Instance"] = 'A420BDD8-F89F-49E3-B6DB-E8327253A589'
 
 	self.MMResources["40mmlvg"] = {}
 	self.MMResources["40mmlvg"]["Partition"] = 'A2BD3F80-0474-11E0-8A24-DDC0A9242026'
@@ -428,6 +460,17 @@ function MMResources:__init()
 	self.MMResources["soflam_chassis"]["Partition"] = '7432AA7D-1802-11E0-8BA5-9B1E2E41035E'
 	self.MMResources["soflam_chassis"]["Instance"] = 'F45BD7C0-8C8F-124E-DEBA-05F1D59F908F'
 
+	self.MMResources["defibs"] = {}
+	self.MMResources["defibs"]["Partition"] = '1B81A779-135F-11E0-B4A8-98C3FD926350'
+	self.MMResources["defibs"]["Instance"] = 'ECFCD019-F32C-4CBD-94CC-A69B3DF99AB2'
+
+	self.MMResources["defib_projectile"] = {}
+	self.MMResources["defib_projectile"]["Partition"] = '1B81A779-135F-11E0-B4A8-98C3FD926350'
+	self.MMResources["defib_projectile"]["Instance"] = '1861554A-8C81-4944-96D1-7347494F7688'
+
+	self.MMResources["40mm_smokeburst_effect"] = {}
+	self.MMResources["40mm_smokeburst_effect"]["Partition"] = 'A3E3C07B-2E9C-42D2-B540-7E70594293EC'
+	self.MMResources["40mm_smokeburst_effect"]["Instance"] = '48BBE181-231E-4E7F-A959-10ECA1BCAF57'
 
 
 	self.MMResources["40mm_smokeburst_area"] = {}
@@ -802,7 +845,7 @@ function MMResources:SetLoaded(resourceName, value)
 		print("Tried to set unregistered resource: "..tostring(resourceName))
 	else
 		if (value) then
-			dprint("Resource Loaded: "..tostring(resourceName))
+			--dprint("Resource Loaded: "..tostring(resourceName))
 		end
 		self.MMResources[resourceName].Loaded = value
 	end
