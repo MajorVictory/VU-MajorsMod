@@ -1082,7 +1082,7 @@ function MMWeapons:Write(instance)
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 
-		fireData.fireLogic.rateOfFire = 2500
+		fireData.fireLogic.rateOfFire = 900
 
 		fireData.weaponDispersion.standDispersion.minAngle = 0
 		fireData.weaponDispersion.standDispersion.maxAngle = 0
@@ -1102,6 +1102,118 @@ function MMWeapons:Write(instance)
 		dprint('Changed L86...')
 	end
 
+	if (mmResources:IsLoaded('mk11') and mmResources:IsLoaded('40mmsmk_grenade')) then
+		mmResources:SetLoaded('mk11', false)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('40mmsmk_grenade'))
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mk11'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:ResetSwayData(ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.weaponSway'))
+
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+		fireData.fireLogic.rateOfFire = 900
+		fireData.fireLogic.rateOfFireForBurst = 1800
+		fireData.fireLogic.fireLogicType = FireLogicType.fltBurstFire
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltSingleFire)
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltAutomaticFire)
+
+		fireData.ammo.magazineCapacity = 40
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+		fireData.shot.numberOfBulletsPerBurst = 4
+
+		dprint('Changed MK11...')
+	end
+
+	if (mmResources:IsLoaded('svd') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('svd', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('svd'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:ResetSwayData(ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.weaponSway'),
+			0.2,	-- minAngleMod
+			0.2,	-- maxAngleMod
+			0.2,	-- perShotMod
+			0.2,	-- recoilMod
+			0.2,	-- recoilHMod
+			0.2,	-- recoilIncMod
+			10		-- recoilDecMod
+		)
+
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+		fireData.fireLogic.rateOfFire = 350
+		fireData.fireLogic.rateOfFireForBurst = 700
+		fireData.fireLogic.fireLogicType = FireLogicType.fltBurstFire
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltSingleFire)
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltAutomaticFire)
+
+		fireData.ammo.magazineCapacity = 69
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(mmResources:GetInstance('12gfrag'))
+		fireData.shot.numberOfBulletsPerBurst = 3
+
+		dprint('Changed SVD...')
+	end
+
+	if (mmResources:IsLoaded('sks') and mmResources:IsLoaded('40mmlvg_grenade') and mmResources:IsLoaded('40mmlvgsound')) then
+		mmResources:SetLoaded('sks', false)
+
+		local grenadeData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('sks'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+		fireData.fireLogic.rateOfFire = 300
+		fireData.fireLogic.rateOfFireForBurst = 600
+		fireData.fireLogic.fireLogicType = FireLogicType.fltBurstFire
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltSingleFire)
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltAutomaticFire)
+
+		fireData.ammo.magazineCapacity = 35
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(grenadeData)
+		fireData.shot.initialSpeed.z = 55
+		fireData.shot.numberOfBulletsPerShell = 1
+		fireData.shot.numberOfBulletsPerBurst = 5
+
+		fireData.sound = SoundPatchAsset(mmResources:GetInstance('40mmlvgsound'))
+
+		dprint('Changed SKS...')
+	end
+
+	if (mmResources:IsLoaded('m39ebr') and mmResources:IsLoaded('crossbolt')) then
+		mmResources:SetLoaded('m39ebr', false)
+
+		local boltBP = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('crossbolt'))
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('m39ebr'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+		fireData.fireLogic.rateOfFire = 400
+		fireData.fireLogic.rateOfFireForBurst = 800
+		fireData.fireLogic.fireLogicType = FireLogicType.fltBurstFire
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltSingleFire)
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltAutomaticFire)
+
+		fireData.ammo.magazineCapacity = 42
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(boltBP.data)
+		fireData.shot.initialSpeed.z = 60
+		fireData.shot.numberOfBulletsPerBurst = 3
+
+		dprint('Changed M39EBR...')
+	end
+
 	if (mmResources:IsLoaded('hk417') and mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('hk417', false)
 
@@ -1109,18 +1221,62 @@ function MMWeapons:Write(instance)
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 6969)
+		self:ResetSwayData(ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.weaponSway'),
+			0.25,	-- minAngleMod
+			0.25,	-- maxAngleMod
+			5,	-- perShotMod
+			1,		-- recoilMod
+			15,		-- recoilHMod
+			10,		-- recoilIncMod
+			10		-- recoilDecMod
+		)
 
-		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
-		fireData:MakeWritable()
-
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
 		fireData.fireLogic.rateOfFire = 900
+		fireData.fireLogic.rateOfFireForBurst = 1800
+		fireData.fireLogic.fireLogicType = FireLogicType.fltBurstFire
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltSingleFire)
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltAutomaticFire)
+
 		fireData.ammo.magazineCapacity = 6969
 		fireData.ammo.numberOfMagazines = -1
 
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(BulletEntityData(mmResources:GetInstance('sniperbullet')))
+		fireData.shot.numberOfBulletsPerBurst = 10
 
 		dprint('Changed M417...')
+	end
+
+	if (mmResources:IsLoaded('qbu88')) then
+		mmResources:SetLoaded('qbu88', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('qbu88'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:ResetSwayData(ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.weaponSway'),
+			0.2,	-- minAngleMod
+			0.2,	-- maxAngleMod
+			0.2,	-- perShotMod
+			0.2,	-- recoilMod
+			0.2,	-- recoilHMod
+			0.2,	-- recoilIncMod
+			10		-- recoilDecMod
+		)
+
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+		fireData.fireLogic.rateOfFire = 900
+		fireData.fireLogic.rateOfFireForBurst = 900
+		fireData.fireLogic.fireLogicType = FireLogicType.fltBurstFire
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltSingleFire)
+		fireData.fireLogic.fireLogicTypeArray:add(FireLogicType.fltAutomaticFire)
+
+		fireData.ammo.magazineCapacity = 120
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.numberOfBulletsPerBurst = 3
+
+		dprint('Changed QBU-88...')
 	end
 
 	if (mmResources:IsLoaded('jng90') and mmResources:IsLoaded('mortar') and mmResources:IsLoaded('mortarsound')) then
@@ -1520,7 +1676,6 @@ function MMWeapons:Write(instance)
 
 	if (mmResources:IsLoaded('mav_weapon') and mmResources:IsLoaded('crossbolt') and mmResources:IsLoaded('crossboltsound')) then
 		mmResources:SetLoaded('mav_weapon', false)
-		mmResources:SetLoaded('crossbolt', false)
 
 		local boltBP = ebxEditUtils:GetWritableInstance(mmResources:GetInstance('crossbolt'))
 
@@ -1649,6 +1804,9 @@ Events:Subscribe('Level:Loaded', function()
 	if (mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('sniperbullet', false)
 	end
+	if (mmResources:IsLoaded('crossbolt')) then
+		mmResources:SetLoaded('crossbolt', false)
+	end
 	if (mmResources:IsLoaded('crossboltsound')) then
 		mmResources:SetLoaded('crossboltsound', false)
 	end
@@ -1706,7 +1864,7 @@ Events:Subscribe('Level:Loaded', function()
 
 end)
 
-function MMWeapons:ResetSwayData(swagData)
+function MMWeapons:ResetSwayData(swagData, minAngleMod, maxAngleMod, perShotMod, recoilMod, recoilHMod, recoilIncMod, recoilDecMod)
 
 	local stances = {'stand', 'crouch', 'prone'}
 	local zoomlevels = {'noZoom', 'zoom'}
@@ -1717,6 +1875,15 @@ function MMWeapons:ResetSwayData(swagData)
 		'standToProne', 'standToCrouch',
 	}
 	local suppressionZooms = {'Unzoomed', 'Zoomed'}
+	if (type(minAngleMod) ~= 'number') then minAngleMod = 0 end
+	if (type(maxAngleMod) ~= 'number') then maxAngleMod = 0 end
+	if (type(perShotMod) ~= 'number') then perShotMod = 0 end
+	if (type(recoilMod) ~= 'number') then recoilMod = 0 end
+	if (type(recoilHMod) ~= 'number') then recoilHMod = 0 end
+	if (type(recoilIncMod) ~= 'number') then recoilIncMod = 0 end
+	if (type(recoilDecMod) ~= 'number') then recoilDecMod = 10 end
+
+	dprint('minAngleMod: '..tostring( minAngleMod ))
 
 	for _,stance in pairs(stances) do
 		for _,zoomlevel in pairs(zoomlevels) do
@@ -1724,18 +1891,18 @@ function MMWeapons:ResetSwayData(swagData)
 			for _,pose in pairs(poses) do
 
 				if (stance == 'stand' or (stance ~= 'stand' and (pose == 'baseValue' or pose == 'moving'))) then
-					swagData[stance][zoomlevel][pose].minAngle = 0
-					swagData[stance][zoomlevel][pose].maxAngle = 0
-					swagData[stance][zoomlevel][pose].increasePerShot = 0
+					swagData[stance][zoomlevel][pose].minAngle = swagData[stance][zoomlevel][pose].minAngle * minAngleMod
+					swagData[stance][zoomlevel][pose].maxAngle = swagData[stance][zoomlevel][pose].maxAngle * maxAngleMod
+					swagData[stance][zoomlevel][pose].increasePerShot = swagData[stance][zoomlevel][pose].increasePerShot * perShotMod
 				end
 			end
 
-			swagData[stance][zoomlevel].recoil.recoilAmplitudeMax = 0
-			swagData[stance][zoomlevel].recoil.recoilAmplitudeIncPerShot = 0
-			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMin = 0
-			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMax = 0
-			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeMax = 0
-			swagData[stance][zoomlevel].recoil.recoilAmplitudeDecreaseFactor = 24
+			swagData[stance][zoomlevel].recoil.recoilAmplitudeMax = swagData[stance][zoomlevel].recoil.recoilAmplitudeMax * recoilMod
+			swagData[stance][zoomlevel].recoil.recoilAmplitudeIncPerShot = swagData[stance][zoomlevel].recoil.recoilAmplitudeIncPerShot * recoilIncMod
+			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMin = swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMin * recoilIncMod
+			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMax = swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeIncPerShotMax * recoilIncMod
+			swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeMax = swagData[stance][zoomlevel].recoil.horizontalRecoilAmplitudeMax * recoilHMod
+			swagData[stance][zoomlevel].recoil.recoilAmplitudeDecreaseFactor = swagData[stance][zoomlevel].recoil.recoilAmplitudeDecreaseFactor * recoilDecMod
 		end
 	end
 

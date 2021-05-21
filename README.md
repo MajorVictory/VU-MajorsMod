@@ -58,7 +58,13 @@ Make things go boom and zoom.
 - **M40A5** fires 5 pellets similar to Mp443, but with tighter groupings
 
 ### DMRs
-- **HK-417 (M417)** bullet damage is inverted, fires as fast as you can click
+- ALL DMR's have been given automatic, and burst fire
+- **MK-11 Mod 0** best rate of fire, fires Major's Smoke Rounds™ at high velocity
+- **SVD** reduced gun sway and spread, fires 12G Frag rounds
+- **SKS** fires LVG grenades
+- **M39 EBR** Barrel accomodates crossbow bolts
+- **HK-417 (M417)** bullet damage is inverted, fires as fast as you can click, recoil de-improved
+- **QBU-88** reduced gun sway and spread, moar bullets, moar click speed
 
 ### Pistols
 - **MP443** fires 5 bullets like a shotgun as fast as you can click

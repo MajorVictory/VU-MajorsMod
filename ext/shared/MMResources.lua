@@ -288,9 +288,29 @@ function MMResources:__init()
 	self.MMResources["sniperbullet"]["Partition"] = '808A49CA-F23B-711E-D6F7-214B81DE272B'
 	self.MMResources["sniperbullet"]["Instance"] = '82356FE8-4061-0359-3D5B-114F424962B6'
 
+	self.MMResources["mk11"] = {}
+	self.MMResources["mk11"]["Partition"] = '0B82D738-09DF-11E0-9907-B7A8F369505D'
+	self.MMResources["mk11"]["Instance"] = '62434DC8-4768-76D1-A6AB-71536E3310F5'
+
+	self.MMResources["svd"] = {}
+	self.MMResources["svd"]["Partition"] = 'C1A5290C-ED78-11DF-8D94-C4EBBBD642E1'
+	self.MMResources["svd"]["Instance"] = 'A4443C30-20BF-DFD7-4071-6334B845331C'
+
+	self.MMResources["sks"] = {}
+	self.MMResources["sks"]["Partition"] = '409062B8-2AEF-11E0-9848-9E9BC51DCED8'
+	self.MMResources["sks"]["Instance"] = '800540EA-0271-64A1-3199-91DBCCD09418'
+
+	self.MMResources["m39ebr"] = {}
+	self.MMResources["m39ebr"]["Partition"] = '351A4849-F3F3-11DF-B48C-9F474D51EF2A'
+	self.MMResources["m39ebr"]["Instance"] = '21312C58-0A52-F576-F13C-DC19735935F2'
+
 	self.MMResources["hk417"] = {}
 	self.MMResources["hk417"]["Partition"] = 'E9658C2B-DE00-413D-B63B-BC3504652373'
 	self.MMResources["hk417"]["Instance"] = '77986281-3AE9-4DE1-89F4-E128CF510199'
+
+	self.MMResources["qbu88"] = {}
+	self.MMResources["qbu88"]["Partition"] = '62FBED30-927B-11E0-A920-988860D1D68B'
+	self.MMResources["qbu88"]["Instance"] = '257D0FC4-B23F-4B4C-D9DC-7FC49769AE19'
 
 	self.MMResources["jng90"] = {}
 	self.MMResources["jng90"]["Partition"] = '8C663DDE-525E-4A4D-8D88-7CA1970E59D7'
