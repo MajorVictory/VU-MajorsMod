@@ -14,6 +14,17 @@ function MMPlayers:Write(mmResources)
 		MessageInfo(chat.chatMessageInfo).messageQueueSize = 20
 	end
 
+	if (mmResources:IsLoaded('mpsoldierhpmodule')) then
+		mmResources:SetLoaded('mpsoldierhpmodule', false)
+
+		local playerHP = VeniceSoldierHealthModuleData(mmResources:GetInstance('mpsoldierhpmodule'))
+		playerHP:MakeWritable()
+		playerHP.timeForCorpse = 1
+		playerHP.immortalTimeAfterSpawn = 0
+
+		print('Changed Corpses...')
+	end
+
 	if (mmResources:IsLoaded('playerphys')) then
 		mmResources:SetLoaded('playerphys', false)
 

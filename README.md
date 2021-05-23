@@ -15,17 +15,25 @@ Make things go boom and zoom.
 - Gun Master only works on the maps that support it by default
 
 ## Players
-- Gun Master guns are balanced for players having 6,969 HP (nice) (use `vars.soldierHealth 6969` in your Startup.txt)
-- Movement speeds while walking, running, swimming, climbing, and falling without a chute are set to 42% as fast as Sonic the Hedghog
+- Lowered corpse timer
+- Removed spawn protection immunity
 - You can Yump. Yumping is better than jumping
+- Movement speeds while walking, running, swimming, climbing, and falling without a chute are set to 42% as fast as Sonic the Hedghog
 - Players don't take damage from falling or running into things because 2FAST
+- Gun Master guns are balanced for players having 6,969 HP (nice) (use `vars.soldierHealth 6969` in your Startup.txt)
 - Stinger/Igla and Smaw/RPG are now available to both teams
 
 ## Weapons
 
 ### PDWs
 - **P90 (standard barrel)** fires 12g Frag rounds
-- **PP-19 Bizon (Silenced)** increased rate of fire, magazine size, and bullet damage
+- **PP-19 Bizon** increased mag size, fire rate, and bullet damage
+- **PP-2000** shotgun dispersion, increased mag size and fire rate
+- **UMP-45** shotgun dispersion, fires Major's Smoke Rounds™, increased mag size and fire rate
+- **PDW-R** shotgun dispersion, increased mag size and fire rate
+- **MP7** fires LVG grenades, increased mag size
+- **AS-VAL** laser accuracy, no recoil, increased mag size and fire rate
+- **MP5K** larger shotgun dispersion, increased mag size, slower rate of fire
 
 ### Assault Rifles
 - **AEK** is now a knockoff UltraAEK and shoots RPG-7 rockets

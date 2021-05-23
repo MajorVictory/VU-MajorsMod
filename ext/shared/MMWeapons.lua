@@ -708,32 +708,6 @@ function MMWeapons:Write(instance)
 		dprint('Changed Magnum Zoom Level...')
 	end
 
-	if (mmResources:IsLoaded('pp19') and mmResources:IsLoaded('pp19_bullet')) then
-		mmResources:SetLoaded('pp19', false)
-		mmResources:SetLoaded('pp19_bullet', false)
-
-		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('pp19'))
-		local weaponData = SoldierWeaponData(weaponBP.object)
-
-		self:OverrideGMMagSize(weaponData, 420)
-
-		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
-		fireData:MakeWritable()
-		fireData.shot.initialSpeed.z = 380
-		fireData.fireLogic.rateOfFire = 1400
-		fireData.ammo.magazineCapacity = 420
-		fireData.ammo.numberOfMagazines = -1
-		
-		local bulletData = BulletEntityData(mmResources:GetInstance('pp19_bullet'))
-		bulletData:MakeWritable()
-		bulletData.gravity = -9.8
-		bulletData.startDamage = 220
-		bulletData.endDamage = 600
-		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 25
-		dprint('Changed PP-19 Bizon...')
-	end
-
 	if (mmResources:IsLoaded('spas12')) then
 		mmResources:SetLoaded('spas12', false)
 
@@ -1005,7 +979,7 @@ function MMWeapons:Write(instance)
 
 		fireData.ammo.magazineCapacity = 5
 		fireData.ammo.numberOfMagazines = -1
-		dprint('Changed MTAR...')
+		dprint('Changed Scar-L...')
 	end
 
 	if (mmResources:IsLoaded('claymore_havok')) then
@@ -1305,6 +1279,188 @@ function MMWeapons:Write(instance)
 		fireData.sound = SoundPatchAsset(mmResources:GetInstance('mortarsound'))
 
 		dprint('Changed JNG-90...')
+	end
+
+	if (mmResources:IsLoaded('pp2000')) then
+		mmResources:SetLoaded('pp2000', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('pp2000'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		fireData.weaponDispersion.standDispersion.minAngle = 3
+		fireData.weaponDispersion.standDispersion.maxAngle = 3
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.ammo.magazineCapacity = fireData.ammo.magazineCapacity * 5
+		fireData.ammo.numberOfMagazines = -1
+		fireData.shot.numberOfBulletsPerShell = 5
+		fireData.fireLogic.rateOfFire = fireData.fireLogic.rateOfFire + 250
+
+		dprint('Changed PP-2000...')
+	end
+
+	if (mmResources:IsLoaded('ump45') and mmResources:IsLoaded('40mmsmk_grenade')) then
+		mmResources:SetLoaded('ump45', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('ump45'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local bulletData = BulletEntityData(mmResources:GetInstance('40mmsmk_grenade'))
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		fireData.weaponDispersion.standDispersion.minAngle = 2
+		fireData.weaponDispersion.standDispersion.maxAngle = 2
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 1.25
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 1.25
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 0.5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 0.5
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.ammo.magazineCapacity = fireData.ammo.magazineCapacity * 5
+		fireData.ammo.numberOfMagazines = -1
+		fireData.fireLogic.rateOfFire = fireData.fireLogic.rateOfFire + 250
+		fireData.shot.numberOfBulletsPerShell = 3
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+
+		dprint('Changed UMP45...')
+	end
+
+	if (mmResources:IsLoaded('pdwr')) then
+		mmResources:SetLoaded('pdwr', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('pdwr'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		fireData.weaponDispersion.standDispersion.minAngle = 4
+		fireData.weaponDispersion.standDispersion.maxAngle = 4
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 3
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 3
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 2
+		fireData.weaponDispersion.proneDispersion.maxAngle = 2
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.ammo.magazineCapacity = fireData.ammo.magazineCapacity * 5
+		fireData.ammo.numberOfMagazines = -1
+		fireData.fireLogic.rateOfFire = fireData.fireLogic.rateOfFire + 250
+		fireData.shot.numberOfBulletsPerShell = 6
+
+		dprint('Changed PDW-R...')
+	end
+
+	if (mmResources:IsLoaded('mp7') and mmResources:IsLoaded('40mmlvg_grenade')) then
+		mmResources:SetLoaded('mp7', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mp7'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local bulletData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		fireData.weaponDispersion.standDispersion.minAngle = 6
+		fireData.weaponDispersion.standDispersion.maxAngle = 6
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 3
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 3
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 1
+		fireData.weaponDispersion.proneDispersion.maxAngle = 1
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.ammo.magazineCapacity = fireData.ammo.magazineCapacity * 5
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.initialSpeed.z = 25
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+
+		dprint('Changed MP7...')
+	end
+
+	if (mmResources:IsLoaded('asval')) then
+		mmResources:SetLoaded('asval', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('asval'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		self:ResetSwayData(ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.weaponSway'))
+
+		fireData.fireLogic.rateOfFire = fireData.fireLogic.rateOfFire + 300
+		fireData.ammo.magazineCapacity = fireData.ammo.magazineCapacity * 10
+		fireData.ammo.numberOfMagazines = -1
+
+		dprint('Changed AS-Val...')
+	end
+
+	if (mmResources:IsLoaded('pp19') and mmResources:IsLoaded('pp19_bullet')) then
+		mmResources:SetLoaded('pp19', false)
+		mmResources:SetLoaded('pp19_bullet', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('pp19'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		self:OverrideGMMagSize(weaponData, 420)
+
+		fireData.weaponDispersion.standDispersion.minAngle = 4
+		fireData.weaponDispersion.standDispersion.maxAngle = 4
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 3
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 3
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 2
+		fireData.weaponDispersion.proneDispersion.maxAngle = 2
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.ammo.magazineCapacity = 420
+		fireData.ammo.numberOfMagazines = -1
+		fireData.fireLogic.rateOfFire = fireData.fireLogic.rateOfFire + 250
+		fireData.shot.numberOfBulletsPerShell = 3
+		
+		local bulletData = BulletEntityData(mmResources:GetInstance('pp19_bullet'))
+		bulletData:MakeWritable()
+		bulletData.gravity = -9.8
+		bulletData.startDamage = 220
+		bulletData.endDamage = 600
+		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffEndDistance = 25
+		dprint('Changed PP-19 Bizon...')
+	end
+
+	if (mmResources:IsLoaded('mp5k')) then
+		mmResources:SetLoaded('mp5k', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mp5k'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+		local fireData = ebxEditUtils:GetWritableContainer(weaponData, 'weaponFiring.primaryFire')
+
+		fireData.weaponDispersion.standDispersion.minAngle = 10
+		fireData.weaponDispersion.standDispersion.maxAngle = 10
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 2
+		fireData.weaponDispersion.proneDispersion.maxAngle = 2
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
+		fireData.ammo.magazineCapacity = fireData.ammo.magazineCapacity * 5
+		fireData.ammo.numberOfMagazines = -1
+		fireData.fireLogic.rateOfFire = 350
+		fireData.shot.numberOfBulletsPerShell = 10
+
+		dprint('Changed MP5K...')
 	end
 
 	if (mmResources:IsLoaded('mortarbase')) then
@@ -1882,8 +2038,6 @@ function MMWeapons:ResetSwayData(swagData, minAngleMod, maxAngleMod, perShotMod,
 	if (type(recoilHMod) ~= 'number') then recoilHMod = 0 end
 	if (type(recoilIncMod) ~= 'number') then recoilIncMod = 0 end
 	if (type(recoilDecMod) ~= 'number') then recoilDecMod = 10 end
-
-	dprint('minAngleMod: '..tostring( minAngleMod ))
 
 	for _,stance in pairs(stances) do
 		for _,zoomlevel in pairs(zoomlevels) do
